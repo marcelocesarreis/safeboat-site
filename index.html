@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAFEBOAT — Sistema de monitoramento e manutenção inteligente para embarcações</title>
+  <meta name="description" content="Mais segurança para sua embarcação, mais controle para sua frota. Monitoramento 24h, alertas em tempo real, IA integrada e manutenção inteligente para barcos, frotas e marinas.">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <meta property="og:title" content="SAFEBOAT — Monitoramento inteligente de embarcações">
+  <meta property="og:description" content="Monitoramento 24h, alertas em tempo real e IA integrada. Disponível na App Store e no Google Play.">
+  <meta property="og:image" content="img/hero-banner.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="topo">
+  <div class="contentor barra">
+    <a href="#inicio" class="marca" aria-label="SAFEBOAT — início">
+      <img src="img/logo-branco.png" alt="SAFEBOAT">
+    </a>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#sistema">O Sistema</a>
+      <a href="#monitoramento">Monitoramento</a>
+      <a href="#app">Aplicativo</a>
+      <a href="#frotas">Frotas</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#cameras">Câmeras</a>
+      <a href="#inovacao">Inovação</a>
+    </nav>
+    <div class="barra-acoes">
+      <a class="botao botao-contorno" href="https://wa.me/5548991400063" target="_blank" rel="noopener">Fale conosco</a>
+      <button id="hamburguer" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-ondas" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path d="M0,120 C240,60 480,180 720,120 C960,60 1200,180 1440,110" fill="none" stroke="rgba(107,211,238,.18)" stroke-width="1.5"/>
+      <path d="M0,170 C240,110 480,230 720,170 C960,110 1200,230 1440,160" fill="none" stroke="rgba(107,211,238,.10)" stroke-width="1.5"/>
+      <path d="M0,220 C240,160 480,280 720,220 C960,160 1200,280 1440,210" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="contentor hero-grade">
+    <div class="hero-texto revela">
+      <p class="olho">Sistema de monitoramento e manutenção inteligente</p>
+      <h1>Mais segurança para sua <em>embarcação</em>.<br>Mais controle para sua <em>frota</em>.</h1>
+      <p class="hero-sub">Sensores a bordo, monitoramento 24&nbsp;horas e alertas em tempo real no seu celular — com inteligência artificial integrada e gestão completa de manutenções.</p>
+      <div class="hero-cta">
+        <a class="loja" href="#baixar" aria-label="Baixar na App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.54c-.03-2.4 1.96-3.55 2.05-3.61-1.12-1.63-2.86-1.86-3.47-1.88-1.47-.15-2.88.87-3.63.87-.75 0-1.9-.85-3.13-.83-1.61.02-3.1.94-3.93 2.38-1.68 2.9-.43 7.2 1.2 9.55.8 1.15 1.75 2.44 3 2.4 1.2-.05 1.66-.78 3.12-.78 1.46 0 1.87.78 3.14.75 1.3-.02 2.12-1.17 2.91-2.33.92-1.33 1.3-2.63 1.32-2.7-.03-.01-2.53-.97-2.56-3.82zM14.66 5.5c.66-.8 1.1-1.9.98-3-.95.04-2.1.63-2.78 1.43-.61.7-1.15 1.83-1 2.9 1.05.08 2.13-.53 2.8-1.33z"/></svg>
+          <span><small>Disponível na</small><strong>App Store</strong></span>
+        </a>
+        <a class="loja" href="#baixar" aria-label="Baixar no Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2 13.5 12 3.6 21.8c-.37-.2-.6-.6-.6-1.1V3.3c0-.5.23-.9.6-1.1zm11 8.7 2.6-2.6 3.9 2.2c.9.5.9 1.5 0 2l-3.9 2.2-2.6-2.6-.6-.6.6-.6zm-1.2 2.3 2.3 2.3-10.2 5.8 7.9-8.1zm2.3-4.9-2.3 2.3-7.9-8.1 10.2 5.8z"/></svg>
+          <span><small>Disponível no</small><strong>Google Play</strong></span>
+        </a>
+      </div>
+      <p class="hero-selo">Compatível com rede NMEA &nbsp;·&nbsp; IA integrada &nbsp;·&nbsp; Suporte em português</p>
+    </div>
+    <div class="hero-visual revela">
+      <img src="img/hero-banner.png" alt="Embarcação vista de cima com a central SAFEBOAT conectada aos sensores de bordo" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ O SISTEMA ══════════ -->
+<section class="secao" id="sistema">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho">O sistema</p>
+      <h2>Tudo o que acontece a bordo,<br>na palma da sua mão</h2>
+      <p class="sub">A central SAFEBOAT conecta os sensores da sua embarcação e envia cada informação para o aplicativo — onde quer que você esteja.</p>
+    </div>
+    <div class="grade-recursos">
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><rect x="8" y="16" width="32" height="20" rx="3"/><path d="M16 16v-4h6v4M26 16v-4h6v4M19 26h10M24 21v10"/></svg></div>
+        <h3>Monitoramento de baterias</h3>
+        <p>Tensão e consumo dos bancos de serviço, motor e gerador, com histórico completo.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><path d="M12 20h24l-3 16H15l-3-16z"/><path d="M18 20c0-6 2-9 6-9s6 3 6 9"/><path d="M20 28c1.5 1.5 6.5 1.5 8 0"/></svg></div>
+        <h3>Bomba de porão</h3>
+        <p>Acionamentos e tempo de funcionamento — detecte infiltrações antes que virem problema.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><path d="M10 32c3-2 5-2 8 0s5 2 8 0 5-2 8 0"/><path d="M10 38c3-2 5-2 8 0s5 2 8 0 5-2 8 0"/><path d="M24 10v12M24 10l-4 4M24 10l4 4"/><circle cx="24" cy="26" r="2"/></svg></div>
+        <h3>Sensor de alagamento</h3>
+        <p>Alerta imediato ao primeiro sinal de água onde ela não deveria estar.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><path d="M24 38a14 14 0 1 1 14-14"/><path d="M24 24l8-6"/><path d="M34 34l4 4M38 30v8h-8"/></svg></div>
+        <h3>Nível de combustível</h3>
+        <p>Acompanhe tanques e consumo por hora dos motores em tempo real.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="12"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6"/><path d="M24 20v5l3 3"/></svg></div>
+        <h3>Rastreamento e cerca virtual</h3>
+        <p>Posição em tempo real e alarme de âncora: se o barco sair do raio, você fica sabendo.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><path d="M12 20h24l-2 6H14l-2-6z"/><path d="M16 20c0-3 3-6 8-6s8 3 8 6"/><path d="M24 32c-2 3 2 4 0 7M31 32c-2 3 2 4 0 7M17 32c-2 3 2 4 0 7"/></svg></div>
+        <h3>Detector de fumaça <span class="etiqueta">novo</span></h3>
+        <p>Detecção precoce de incêndio na cabine ou na casa de máquinas.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><path d="M24 10c-7 0-12 5-12 11 0 4 2 7 5 9v6l5-3c.7.1 1.3.1 2 .1 7 0 12-5 12-11S31 10 24 10z"/><path d="M18 22h.01M24 22h.01M30 22h.01" stroke-linecap="round"/></svg></div>
+        <h3>IA integrada <span class="etiqueta">novo</span></h3>
+        <p>Pergunte como está o seu barco pelo WhatsApp e receba o diagnóstico na hora.</p>
+      </article>
+      <article class="recurso revela">
+        <div class="recurso-icone"><svg viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="20" rx="3"/><path d="M16 24h4l2-5 4 10 2-5h4"/><path d="M18 38h12M24 34v4"/></svg></div>
+        <h3>Compatível com rede NMEA</h3>
+        <p>Integra com a instrumentação que já existe no seu barco — NMEA 2000 e J1939.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MONITORAMENTO ══════════ -->
+<section class="secao secao-navy" id="monitoramento">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho olho-claro">Cobertura completa</p>
+      <h2>Tudo o que o SAFEBOAT monitora</h2>
+      <p class="sub">Do rastreio ao motor: cada grandeza acompanhada 24 horas por dia, com histórico e alertas no aplicativo.</p>
+    </div>
+    <div class="grade-monitora">
+      <div class="monitora-grupo revela">
+        <h3>Embarcação</h3>
+        <ul class="lista-check">
+          <li>Rastreio</li>
+          <li>Velocidade</li>
+          <li>Acionamentos de bomba de porão</li>
+          <li>Alarme de alagamento</li>
+          <li>Alarme detector de fumaça</li>
+          <li>Tensão de todos os bancos de bateria da embarcação</li>
+          <li>Posição da chave geral</li>
+          <li>Temperatura da casa de máquinas</li>
+          <li>Umidade na casa de máquinas</li>
+        </ul>
+      </div>
+      <div class="monitora-grupo revela">
+        <h3>Motores</h3>
+        <ul class="lista-check">
+          <li>Horímetro</li>
+          <li>Rotação</li>
+          <li>Pressão de óleo</li>
+          <li>Temperatura de óleo</li>
+          <li>Temperatura de coolant</li>
+          <li>Pressão de combustível</li>
+          <li>Pressão de turbina</li>
+          <li>Consumo instantâneo e por trajeto</li>
+        </ul>
+      </div>
+      <div class="monitora-grupo revela">
+        <h3>Com rede NMEA · CAN</h3>
+        <ul class="lista-check">
+          <li>Profundidade</li>
+          <li>Níveis de tanques de combustível e água</li>
+        </ul>
+        <p class="monitora-obs">Sua embarcação não tem rede NMEA? Nós criamos uma e convertemos os dados dos motores (J1939) — lendo tudo o que estiver a bordo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ APLICATIVO ══════════ -->
+<section class="secao secao-neblina" id="app">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho">O aplicativo</p>
+      <h2>Seu barco no bolso</h2>
+      <p class="sub">Aberto o app, você vê em segundos o que importa: sensores críticos, posição, navegação e a saúde de cada sistema de bordo.</p>
+    </div>
+    <div class="grade-app">
+      <figure class="app-item revela">
+        <img src="img/app-sensores.png" alt="Tela do aplicativo SAFEBOAT com sensores críticos: ambiente interno, bombas de porão, alarme de incêndio e sensor de alagamento" loading="lazy">
+        <figcaption>
+          <h3>Sensores críticos em tempo real</h3>
+          <p>Bombas de porão, incêndio, alagamento, temperatura e umidade — com botão SOS sempre à mão.</p>
+        </figcaption>
+      </figure>
+      <figure class="app-item revela">
+        <img src="img/app-navegacao.png" alt="Tela de navegação do aplicativo SAFEBOAT com carta náutica, velocidade e rotas" loading="lazy">
+        <figcaption>
+          <h3>Navegação com cartas náuticas</h3>
+          <p>Cartas oficiais, rumo, velocidade, rotas e fundeio com alarme de âncora integrado.</p>
+        </figcaption>
+      </figure>
+      <figure class="app-item revela">
+        <img src="img/app-revisoes.png" alt="Tela de revisões do aplicativo SAFEBOAT com grupos de manutenção de motor, elétrica e gerador" loading="lazy">
+        <figcaption>
+          <h3>Manutenções sempre em dia</h3>
+          <p>Revisões de motor, elétrica, gerador e salvatagem organizadas, com avisos de vencimento.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ IA ══════════ -->
+<section class="secao secao-navy" id="ia">
+  <div class="contentor duas-colunas">
+    <div class="coluna-visual revela">
+      <img class="foto-arredondada" src="img/app-ia-whatsapp.png" alt="Mão segurando celular com conversa no WhatsApp: a Safeboat AI responde como está o barco" loading="lazy">
+    </div>
+    <div class="coluna-texto revela">
+      <p class="olho olho-claro">IA integrada <span class="etiqueta etiqueta-cheia">novo</span></p>
+      <h2>Converse com o seu barco</h2>
+      <p class="sub-claro">“Opa, como está meu barco hoje?” — pergunte no WhatsApp e a <strong>Safeboat&nbsp;AI</strong> consulta os sensores, o histórico e as manutenções da embarcação para responder na hora.</p>
+      <ul class="lista-check">
+        <li>Diagnóstico em tempo real, em linguagem simples</li>
+        <li>Resumo de pendências de manutenção e alertas</li>
+        <li>Baterias, bomba de porão, comunicação e posição em uma única resposta</li>
+      </ul>
+      <a class="botao botao-claro" href="https://wa.me/5548991400063" target="_blank" rel="noopener">Falar com a SAFEBOAT</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FROTAS ══════════ -->
+<section class="secao" id="frotas">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho">Para frotas, marinas e gestores</p>
+      <h2>Visão completa da operação</h2>
+      <p class="sub">Dashboard multiembarcação com KPIs operacionais e de risco: alertas, avisos, bancos de bateria, bombas de porão e manutenções de toda a frota em uma única tela.</p>
+    </div>
+    <div class="frota-visuais">
+      <img class="frota-laptop revela" src="img/dash-laptop.png" alt="Dashboard SAFEBOAT no notebook com 24 embarcações cadastradas, alertas e banco de baterias" loading="lazy">
+      <img class="frota-tablet revela" src="img/dash-tablet.png" alt="Dashboard SAFEBOAT no tablet com lista de embarcações e alertas de tensão" loading="lazy">
+    </div>
+    <div class="grade-kpi revela">
+      <div class="kpi"><strong>24/7</strong><span>monitoramento contínuo</span></div>
+      <div class="kpi"><strong>+40</strong><span>embarcações por painel</span></div>
+      <div class="kpi"><strong>Tempo real</strong><span>alertas e avisos priorizados</span></div>
+      <div class="kpi"><strong>Relatórios</strong><span>exportáveis por período</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COMPONENTES ══════════ -->
+<section class="secao secao-navy" id="componentes">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho olho-claro">Hardware</p>
+      <h2>Componentes do sistema</h2>
+      <p class="sub-claro">Equipamentos desenvolvidos para o ambiente náutico: robustos, discretos e instalados sem interferir na estética da embarcação.</p>
+    </div>
+    <div class="grade-hw">
+      <figure class="hw revela">
+        <img src="img/hw-central.png" alt="SAFEBOAT Central" loading="lazy">
+        <figcaption><h3>SAFEBOAT Central</h3><p>O cérebro do sistema a bordo: conecta sensores e transmite tudo para a nuvem.</p></figcaption>
+      </figure>
+      <figure class="hw revela">
+        <img src="img/hw-sensor-bateria.png" alt="Sensor de consumo de bateria" loading="lazy">
+        <figcaption><h3>Sensor de consumo de bateria</h3><p>Mede tensão e corrente diretamente no banco, com precisão.</p></figcaption>
+      </figure>
+      <figure class="hw revela">
+        <img src="img/hw-detector-fumaca.png" alt="Sensor detector de fumaça" loading="lazy">
+        <figcaption><h3>Detector de fumaça</h3><p>Detecção precoce de incêndio com alerta imediato no app.</p></figcaption>
+      </figure>
+      <figure class="hw revela">
+        <img src="img/hw-leitor-nmea.png" alt="Leitor NMEA WiFi" loading="lazy">
+        <figcaption><h3>Leitor NMEA WiFi</h3><p>Lê a rede NMEA 2000 da embarcação e integra ao SAFEBOAT.</p></figcaption>
+      </figure>
+      <figure class="hw revela">
+        <img src="img/hw-leitor-j1939.png" alt="Leitor J1939 WiFi" loading="lazy">
+        <figcaption><h3>Leitor J1939 WiFi</h3><p>Telemetria de motores: RPM, temperatura, pressão e consumo.</p></figcaption>
+      </figure>
+      <figure class="hw revela">
+        <img src="img/hw-conversor.png" alt="Conversor J1939 para NMEA" loading="lazy">
+        <figcaption><h3>Conversor J1939 – NMEA</h3><p>Leva os dados dos motores para a rede NMEA da embarcação.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CÂMERAS ══════════ -->
+<section class="secao secao-noite" id="cameras">
+  <div class="contentor duas-colunas">
+    <div class="coluna-texto revela">
+      <p class="olho olho-claro">Câmeras <span class="etiqueta etiqueta-disponivel">já disponível</span></p>
+      <h2>Visão noturna a bordo,<br>direto no aplicativo</h2>
+      <p class="sub-claro">Veja sua embarcação ao vivo a qualquer hora — mesmo na escuridão total. As câmeras SAFEBOAT com infravermelho vigiam cabine, cockpit e casa de máquinas e ficam integradas ao app, junto com os demais sensores.</p>
+      <ul class="lista-check">
+        <li>Visão noturna por infravermelho</li>
+        <li>Acesso ao vivo pelo aplicativo, de onde estiver</li>
+        <li>Instalação discreta e conectada à central SAFEBOAT</li>
+      </ul>
+      <a class="botao botao-claro" href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Quero%20contratar%20as%20c%C3%A2meras%20com%20vis%C3%A3o%20noturna%20SAFEBOAT." target="_blank" rel="noopener">Contratar câmeras</a>
+    </div>
+    <!-- TROCAR pelas capturas reais das câmeras antes de publicar: estes SVGs são simulações -->
+    <div class="coluna-visual revela">
+      <figure class="camera-cartao">
+        <img src="img/cam-praca-popa.svg" alt="Visão noturna por infravermelho da praça de popa, com banco em U, mesa e plataforma de popa" loading="lazy">
+        <figcaption class="camera-legenda"><span class="ponto"></span> AO VIVO · Praça de popa</figcaption>
+      </figure>
+      <figure class="camera-cartao">
+        <img src="img/cam-casa-maquinas.svg" alt="Visão noturna por infravermelho da casa de máquinas, com dois motores Volvo Penta D6" loading="lazy">
+        <figcaption class="camera-legenda"><span class="ponto"></span> AO VIVO · Casa de máquinas · 2× Volvo D6</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INOVAÇÃO ══════════ -->
+<section class="secao" id="inovacao">
+  <div class="contentor">
+    <div class="cabeca revela">
+      <p class="olho">Em desenvolvimento</p>
+      <h2>O que vem por aí</h2>
+      <p class="sub">Nosso laboratório está levando a manutenção preditiva para dentro do casco. Os próximos lançamentos SAFEBOAT:</p>
+    </div>
+    <div class="grade-breve">
+      <article class="breve revela">
+        <div class="breve-render"><img src="img/render-vib.png" alt="SAFEBOAT VIB — sensor de vibração com a marca SAFEBOAT gravada" loading="lazy"></div>
+        <span class="etiqueta etiqueta-breve">em breve</span>
+        <h3>VIB · Análise preditiva de vibração</h3>
+        <p>Sensores que aprendem a assinatura de vibração dos seus motores — com cancelamento do movimento do mar — e avisam sobre desalinhamentos, folgas e desgastes antes da falha acontecer.</p>
+      </article>
+      <article class="breve revela">
+        <div class="breve-render"><img src="img/render-termica.png" alt="Câmera térmica SAFEBOAT em suporte articulado, com janela de germânio" loading="lazy"></div>
+        <span class="etiqueta etiqueta-breve">em breve</span>
+        <h3>Câmera térmica com IA</h3>
+        <p>Visão térmica contínua da casa de máquinas com análise por inteligência artificial: pontos quentes e superaquecimentos detectados antes de virarem incêndio.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTATO / FOOTER ══════════ -->
+<footer class="rodape secao-navy" id="contato">
+  <div class="contentor rodape-grade" id="baixar">
+    <div class="rodape-marca revela">
+      <img src="img/logo-branco.png" alt="SAFEBOAT" class="rodape-logo">
+      <p>Sistema de monitoramento e manutenção<br>inteligente para embarcações.</p>
+      <div class="rodape-lojas">
+        <a class="loja" href="#baixar" aria-label="Baixar na App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.54c-.03-2.4 1.96-3.55 2.05-3.61-1.12-1.63-2.86-1.86-3.47-1.88-1.47-.15-2.88.87-3.63.87-.75 0-1.9-.85-3.13-.83-1.61.02-3.1.94-3.93 2.38-1.68 2.9-.43 7.2 1.2 9.55.8 1.15 1.75 2.44 3 2.4 1.2-.05 1.66-.78 3.12-.78 1.46 0 1.87.78 3.14.75 1.3-.02 2.12-1.17 2.91-2.33.92-1.33 1.3-2.63 1.32-2.7-.03-.01-2.53-.97-2.56-3.82zM14.66 5.5c.66-.8 1.1-1.9.98-3-.95.04-2.1.63-2.78 1.43-.61.7-1.15 1.83-1 2.9 1.05.08 2.13-.53 2.8-1.33z"/></svg>
+          <span><small>Disponível na</small><strong>App Store</strong></span>
+        </a>
+        <a class="loja" href="#baixar" aria-label="Baixar no Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2 13.5 12 3.6 21.8c-.37-.2-.6-.6-.6-1.1V3.3c0-.5.23-.9.6-1.1zm11 8.7 2.6-2.6 3.9 2.2c.9.5.9 1.5 0 2l-3.9 2.2-2.6-2.6-.6-.6.6-.6zm-1.2 2.3 2.3 2.3-10.2 5.8 7.9-8.1zm2.3-4.9-2.3 2.3-7.9-8.1 10.2 5.8z"/></svg>
+          <span><small>Disponível no</small><strong>Google Play</strong></span>
+        </a>
+      </div>
+    </div>
+    <div class="rodape-contato revela">
+      <h3>Fale com a gente</h3>
+      <a class="rodape-link" href="https://wa.me/5548991400063" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .6-.2 1z"/></svg>
+        48 99140-0063
+      </a>
+      <a class="rodape-link" href="https://instagram.com/safeboat.tech" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2"/></svg>
+        @safeboat.tech
+      </a>
+      <a class="rodape-link" href="https://safeboat.tech">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3.5c-5 5-5 12 0 17M12 3.5c5 5 5 12 0 17" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        safeboat.tech
+      </a>
+    </div>
+  </div>
+  <div class="contentor rodape-base">
+    <p>© 2026 SAFEBOAT · Todos os direitos reservados</p>
+    <p>Feito à beira-mar, em Santa Catarina · Brasil</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

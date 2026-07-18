@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Simulação de visão noturna por infravermelho da casa de máquinas com dois motores Volvo Penta D6">
+  <defs>
+    <linearGradient id="casco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1a17"/>
+      <stop offset="100%" stop-color="#16302a"/>
+    </linearGradient>
+    <linearGradient id="bloco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5c8f7e"/>
+      <stop offset="55%" stop-color="#3d6a5c"/>
+      <stop offset="100%" stop-color="#274a41"/>
+    </linearGradient>
+    <linearGradient id="tampa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7fbda8"/>
+      <stop offset="100%" stop-color="#4e8272"/>
+    </linearGradient>
+    <radialGradient id="lampIR2" cx="50%" cy="14%" r="66%">
+      <stop offset="0%" stop-color="#bff5e4" stop-opacity=".26"/>
+      <stop offset="60%" stop-color="#7fd8bf" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vinheta2" cx="50%" cy="50%" r="72%">
+      <stop offset="58%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity=".75"/>
+    </radialGradient>
+    <filter id="grao2">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="r"/>
+      <feColorMatrix in="r" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".14"/></feComponentTransfer>
+    </filter>
+    <clipPath id="quadro2"><rect width="640" height="400" rx="4"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#quadro2)">
+    <rect width="640" height="400" fill="url(#casco)"/>
+
+    <!-- anteparas e cavernas do casco -->
+    <g stroke="#39685b" stroke-opacity=".5" stroke-width="2" fill="none">
+      <path d="M0 96h640M0 130h640"/>
+      <path d="M60 96v-96M180 96v-96M320 96v-96M460 96v-96M580 96v-96" stroke-opacity=".25"/>
+    </g>
+    <!-- costado em V -->
+    <path d="M0 130l84 260H0z" fill="#132824"/>
+    <path d="M640 130l-84 260h84z" fill="#132824"/>
+    <!-- pantoque / piso -->
+    <path d="M84 390h472v10H84z" fill="#0f211d"/>
+
+    <!-- ── MOTOR BOMBORDO ── -->
+    <g>
+      <!-- bloco -->
+      <path d="M96 214h192v130H96z" fill="url(#bloco)"/>
+      <!-- tampa de válvulas (inline-6) -->
+      <path d="M104 182h176v34H104z" fill="url(#tampa)"/>
+      <g fill="#2c5347" opacity=".8">
+        <circle cx="124" cy="199" r="4"/><circle cx="152" cy="199" r="4"/><circle cx="180" cy="199" r="4"/>
+        <circle cx="208" cy="199" r="4"/><circle cx="236" cy="199" r="4"/><circle cx="264" cy="199" r="4"/>
+      </g>
+      <!-- nervuras do bloco -->
+      <g stroke="#24473e" stroke-opacity=".7" stroke-width="2">
+        <path d="M124 216v128M156 216v128M188 216v128M220 216v128M252 216v128"/>
+      </g>
+      <!-- coletor / intercooler -->
+      <rect x="96" y="238" width="192" height="26" rx="6" fill="#48796a"/>
+      <!-- turbo (lado externo · bombordo) -->
+      <circle cx="98" cy="206" r="21" fill="#5f9585"/>
+      <circle cx="98" cy="206" r="11" fill="#2b5147"/>
+      <path d="M98 185c-14-8-26-2-30 10" stroke="#7fbda8" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <!-- mangueiras -->
+      <path d="M104 268c-22 12-30 30-24 52" stroke="#1c3a33" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M288 276c22 10 30 26 26 44" stroke="#1c3a33" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <!-- base / coxins -->
+      <path d="M92 344h200v16H92z" fill="#1e3d35"/>
+      <path d="M108 360h26v22h-26zM250 360h26v22h-26z" fill="#274a41"/>
+      <!-- etiqueta -->
+      <rect x="128" y="288" width="82" height="22" rx="3" fill="#0f231f" fill-opacity=".72"/>
+      <text x="169" y="304" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#c8f7e6" fill-opacity=".85">D6</text>
+    </g>
+
+    <!-- ── MOTOR BORESTE ── -->
+    <g>
+      <path d="M352 214h192v130H352z" fill="url(#bloco)"/>
+      <path d="M360 182h176v34H360z" fill="url(#tampa)"/>
+      <g fill="#2c5347" opacity=".8">
+        <circle cx="380" cy="199" r="4"/><circle cx="408" cy="199" r="4"/><circle cx="436" cy="199" r="4"/>
+        <circle cx="464" cy="199" r="4"/><circle cx="492" cy="199" r="4"/><circle cx="520" cy="199" r="4"/>
+      </g>
+      <g stroke="#24473e" stroke-opacity=".7" stroke-width="2">
+        <path d="M380 216v128M412 216v128M444 216v128M476 216v128M508 216v128"/>
+      </g>
+      <rect x="352" y="238" width="192" height="26" rx="6" fill="#48796a"/>
+      <circle cx="542" cy="206" r="21" fill="#5f9585"/>
+      <circle cx="542" cy="206" r="11" fill="#2b5147"/>
+      <path d="M542 185c14-8 26-2 30 10" stroke="#7fbda8" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M536 268c22 12 30 30 24 52" stroke="#1c3a33" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M352 276c-22 10-30 26-26 44" stroke="#1c3a33" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M348 344h200v16H348z" fill="#1e3d35"/>
+      <path d="M364 360h26v22h-26zM506 360h26v22h-26z" fill="#274a41"/>
+      <rect x="430" y="288" width="82" height="22" rx="3" fill="#0f231f" fill-opacity=".72"/>
+      <text x="471" y="304" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="12" fill="#c8f7e6" fill-opacity=".85">D6</text>
+    </g>
+
+    <!-- corredor central entre os motores -->
+    <path d="M292 344h56v46h-56z" fill="#16302a"/>
+
+    <!-- luminária / emissor IR no teto -->
+    <path d="M300 0h40v18h-40z" fill="#2c5347"/>
+    <circle cx="320" cy="22" r="7" fill="#bff5e4" fill-opacity=".55"/>
+
+    <rect width="640" height="400" fill="url(#lampIR2)"/>
+    <rect width="640" height="400" fill="url(#vinheta2)"/>
+    <rect width="640" height="400" filter="url(#grao2)" opacity=".5"/>
+
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" fill="#bff5e4" fill-opacity=".82" font-size="13">
+      <circle cx="24" cy="24" r="4" fill="#7dffcb"/>
+      <text x="36" y="29">CAM 02 · CASA DE MÁQUINAS</text>
+      <text x="616" y="29" text-anchor="end">IR ATIVO</text>
+      <text x="24" y="382" font-size="12" fill-opacity=".6">SIMULAÇÃO · 03:14</text>
+    </g>
+    <g stroke="#bff5e4" stroke-opacity=".5" stroke-width="2" fill="none">
+      <path d="M24 46v14M24 46h14M616 46v14M616 46h-14M24 356v-14M24 356h14M616 356v-14M616 356h-14"/>
+    </g>
+    <rect x="1" y="1" width="638" height="398" rx="4" fill="none" stroke="#bff5e4" stroke-opacity=".14"/>
+  </g>
+</svg>

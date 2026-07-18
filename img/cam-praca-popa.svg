@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Simulação de visão noturna por infravermelho da praça de popa de uma embarcação">
+  <defs>
+    <linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1512"/>
+      <stop offset="100%" stop-color="#12241f"/>
+    </linearGradient>
+    <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16302a"/>
+      <stop offset="100%" stop-color="#0c1a17"/>
+    </linearGradient>
+    <linearGradient id="conves" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d6a5c"/>
+      <stop offset="100%" stop-color="#6a9f8d"/>
+    </linearGradient>
+    <radialGradient id="lampIR" cx="50%" cy="62%" r="70%">
+      <stop offset="0%" stop-color="#d5fbee" stop-opacity=".34"/>
+      <stop offset="50%" stop-color="#7fd8bf" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vinheta" cx="50%" cy="52%" r="78%">
+      <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity=".55"/>
+    </radialGradient>
+    <filter id="grao">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="r"/>
+      <feColorMatrix in="r" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".14"/></feComponentTransfer>
+    </filter>
+    <clipPath id="quadro"><rect width="640" height="400" rx="4"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#quadro)">
+    <rect width="640" height="400" fill="url(#ceu)"/>
+    <!-- mar ao fundo -->
+    <rect y="96" width="640" height="104" fill="url(#mar)"/>
+    <g stroke="#5f9d8a" stroke-opacity=".22" stroke-width="1.4" stroke-linecap="round" fill="none">
+      <path d="M-10 120c40-7 70-7 110 0s70 7 110 0 70-7 110 0 70 7 110 0 70-7 120 0"/>
+      <path d="M-10 140c46-8 78-8 124 0s78 8 124 0 78-8 124 0 78 8 124 0"/>
+      <path d="M-10 162c52-9 88-9 140 0s88 9 140 0 88-9 140 0 88 9 140 0"/>
+      <path d="M-10 184c58-10 98-10 156 0s98 10 156 0 98-10 156 0"/>
+    </g>
+    <!-- reflexo do IR na água -->
+    <ellipse cx="320" cy="150" rx="150" ry="26" fill="#9fe6cf" opacity=".05"/>
+
+    <!-- plataforma de popa / espelho -->
+    <path d="M96 200h448l26 30H70z" fill="#22423a"/>
+    <path d="M70 230h500v14H70z" fill="#1a332d"/>
+
+    <!-- convés · praça de popa -->
+    <path d="M70 244h500v156H70z" fill="url(#conves)"/>
+    <g stroke="#20423a" stroke-opacity=".55" stroke-width="1.6">
+      <path d="M104 244v156M148 244v156M192 244v156M236 244v156M280 244v156M324 244v156M368 244v156M412 244v156M456 244v156M500 244v156M544 244v156"/>
+    </g>
+
+    <!-- banco em U (encosto ao fundo + braços laterais) -->
+    <path d="M120 262h400v10H120z" fill="#84b8a5"/>
+    <path d="M120 272h400v22H120z" fill="#5a8d7c"/>
+    <path d="M120 294h38v104h-38zM482 294h38v104h-38z" fill="#4e806f"/>
+    <path d="M120 288h38v8h-38zM482 288h38v8h-38z" fill="#84b8a5" opacity=".75"/>
+    <!-- assento do fundo -->
+    <path d="M158 294h324v26H158z" fill="#6a9f8d"/>
+    <!-- almofadas -->
+    <g fill="#43705f" stroke="#2b4b42" stroke-width="1.2">
+      <rect x="127" y="302" width="24" height="32" rx="3"/>
+      <rect x="127" y="338" width="24" height="32" rx="3"/>
+      <rect x="489" y="302" width="24" height="32" rx="3"/>
+      <rect x="489" y="338" width="24" height="32" rx="3"/>
+      <rect x="196" y="270" width="42" height="22" rx="3"/>
+      <rect x="298" y="270" width="42" height="22" rx="3"/>
+      <rect x="400" y="270" width="42" height="22" rx="3"/>
+    </g>
+
+    <!-- mesa central -->
+    <ellipse cx="320" cy="348" rx="92" ry="28" fill="#3c6759"/>
+    <ellipse cx="320" cy="341" rx="92" ry="28" fill="#78ad9a"/>
+    <ellipse cx="320" cy="341" rx="66" ry="18" fill="#8cc0ac" opacity=".45"/>
+    <path d="M311 366h18v26h-18z" fill="#33594e"/>
+
+    <!-- balaustrada / corrimão inox refletindo IR -->
+    <g stroke="#a8e8d3" stroke-opacity=".55" stroke-width="3" stroke-linecap="round" fill="none">
+      <path d="M96 200v-52M544 200v-52"/>
+      <path d="M96 148h448"/>
+      <path d="M96 174h448" stroke-opacity=".3" stroke-width="2"/>
+    </g>
+
+    <!-- cabo de amarração -->
+    <path d="M556 244c-18 10-26 22-22 36" stroke="#7cc2ab" stroke-opacity=".4" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- brilho do emissor IR + vinheta + grão -->
+    <rect width="640" height="400" fill="url(#lampIR)"/>
+    <rect width="640" height="400" fill="url(#vinheta)"/>
+    <rect width="640" height="400" filter="url(#grao)" opacity=".5"/>
+
+    <!-- overlay de interface -->
+    <g font-family="ui-monospace, Menlo, Consolas, monospace" fill="#bff5e4" fill-opacity=".82" font-size="13">
+      <circle cx="24" cy="24" r="4" fill="#7dffcb"/>
+      <text x="36" y="29">CAM 01 · PRAÇA DE POPA</text>
+      <text x="616" y="29" text-anchor="end">IR ATIVO</text>
+      <text x="24" y="382" font-size="12" fill-opacity=".6">SIMULAÇÃO · 03:14</text>
+    </g>
+    <g stroke="#bff5e4" stroke-opacity=".5" stroke-width="2" fill="none">
+      <path d="M24 46v14M24 46h14M616 46v14M616 46h-14M24 356v-14M24 356h14M616 356v-14M616 356h-14"/>
+    </g>
+    <rect x="1" y="1" width="638" height="398" rx="4" fill="none" stroke="#bff5e4" stroke-opacity=".14"/>
+  </g>
+</svg>
