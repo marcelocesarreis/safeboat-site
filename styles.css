@@ -80,10 +80,10 @@ header {
   transition: background 0.3s;
 }
 /* O cabeçalho é mais largo que o corpo do site para o menu caber inteiro */
-header .contentor { max-width: 1400px; }
+header .contentor { max-width: 1460px; }
 .barra { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
 .marca { flex-shrink: 0; display: flex; align-items: center; }
-.marca img { height: 24px; width: auto; flex-shrink: 0; }
+.marca img { height: 34px; width: auto; flex-shrink: 0; }
 
 nav { display: flex; gap: 24px; }
 nav a {
@@ -682,19 +682,19 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   .perfis-grade { grid-template-columns: 1fr; gap: 34px; }
 }
 
-/* Cabeçalho: 8 itens de menu pedem 1197px; com o botão, 1405px.
+/* Cabeçalho: com o logo em 34px, os 8 itens pedem 1237px; com o botão, 1445px.
    O botão sai primeiro, depois o menu aperta, e só então vira hamburguer. */
-@media (max-width: 1440px) {
+@media (max-width: 1460px) {
   .barra .botao-contorno { display: none; }
 }
 
-@media (max-width: 1160px) {
+@media (max-width: 1240px) {
   nav { gap: 18px; }
   nav a { font-size: 0.76rem; letter-spacing: 0.1em; }
 }
 
 /* Abaixo disso os 8 itens não cabem: vira menu hamburguer */
-@media (max-width: 1040px) {
+@media (max-width: 1090px) {
   nav {
     position: fixed;
     top: 76px;
