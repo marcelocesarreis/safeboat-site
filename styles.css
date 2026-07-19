@@ -1,6 +1,7 @@
 /* ═══════════ SAFEBOAT · identidade baseada na ID visual NAVALCARE ═══════════
    Azul institucional Pantone 654C  #23304A · Preto #231F20 · Branco #FFFFFF
-   Acento tecnológico (folder): ciano #6BD3EE — uso pontual                    */
+   Sem cor de acento: o destaque é feito por peso, contraste e espaço —
+   fiel à ID NAVALCARE, que usa apenas azul, preto e branco.                   */
 
 :root {
   --navy: #23304A;
@@ -11,7 +12,9 @@
   --neblina: #F4F6F9;
   --linha: rgba(35, 48, 74, 0.14);
   --linha-clara: rgba(255, 255, 255, 0.16);
-  --ciano: #6BD3EE;
+  --acento: #FFFFFF;
+  /* Sobre fundo claro o branco não contrasta: ali o acento é o próprio navy */
+  --acento-claro: #23304A;
   --cinza-texto: #55607A;
   --fonte-titulo: "Josefin Sans", sans-serif;
   --fonte-corpo: "Poppins", sans-serif;
@@ -47,7 +50,7 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 300; line-height: 1.
   opacity: 0.75;
   margin-bottom: 18px;
 }
-.olho-claro { color: var(--ciano); opacity: 1; }
+.olho-claro { color: var(--acento); opacity: 1; }
 
 .etiqueta {
   display: inline-block;
@@ -63,8 +66,8 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 300; line-height: 1.
   vertical-align: middle;
   margin-left: 8px;
 }
-.etiqueta-cheia { color: var(--navy-noite); background: var(--ciano); border-color: var(--ciano); }
-.etiqueta-disponivel { color: var(--navy-noite); background: var(--ciano); border-color: var(--ciano); }
+.etiqueta-cheia { color: var(--navy-noite); background: var(--acento); border-color: var(--acento); }
+.etiqueta-disponivel { color: var(--navy-noite); background: var(--acento); border-color: var(--acento); }
 .etiqueta-breve { color: var(--navy); margin: 0 0 22px; }
 
 /* ═══════════ HEADER ═══════════ */
@@ -96,7 +99,7 @@ nav a {
   border-bottom: 1px solid transparent;
   transition: color 0.25s, border-color 0.25s;
 }
-nav a:hover { color: var(--ciano); border-color: var(--ciano); }
+nav a:hover { color: var(--acento); border-color: var(--acento); }
 
 .barra-acoes { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 
@@ -115,7 +118,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
 .botao-contorno { color: var(--branco); border: 1px solid rgba(255, 255, 255, 0.55); }
 .botao-contorno:hover { background: var(--branco); color: var(--navy); border-color: var(--branco); }
 .botao-claro { background: var(--branco); color: var(--navy); margin-top: 34px; }
-.botao-claro:hover { background: var(--ciano); color: var(--navy-noite); }
+.botao-claro:hover { background: transparent; color: var(--branco); box-shadow: inset 0 0 0 1px var(--branco); }
 .botao-navy { background: var(--navy); color: var(--branco); }
 .botao-navy:hover { background: var(--navy-noite); }
 
@@ -157,9 +160,9 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   white-space: nowrap;
   margin-bottom: 26px;
 }
-.hero h1 em { font-style: normal; font-weight: 600; color: var(--ciano); }
+.hero h1 em { font-style: normal; font-weight: 600; color: var(--acento); }
 
-.hero .olho { color: var(--ciano); opacity: 1; }
+.hero .olho { color: var(--acento); opacity: 1; }
 
 .hero-sub {
   font-size: 1.06rem;
@@ -175,11 +178,11 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.72);
   padding: 12px 20px;
-  border: 1px solid rgba(107, 211, 238, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 99px;
   margin-bottom: 34px;
 }
-.hero-prova strong { color: var(--ciano); font-weight: 600; }
+.hero-prova strong { color: var(--acento); font-weight: 600; }
 .hero-prova span { color: rgba(255, 255, 255, 0.3); margin: 0 4px; }
 
 .hero-acoes {
@@ -201,7 +204,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   padding-bottom: 3px;
   transition: color 0.25s, border-color 0.25s;
 }
-.hero-frotas:hover { color: var(--ciano); border-color: var(--ciano); }
+.hero-frotas:hover { color: var(--acento); border-color: var(--acento); }
 .hero-frotas span { margin-left: 4px; }
 
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -321,7 +324,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   top: 3px;
   width: 18px;
   height: 18px;
-  border: 1px solid var(--ciano);
+  border: 1px solid var(--acento);
   border-radius: 50%;
 }
 .lista-check li::after {
@@ -331,8 +334,8 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   top: 8px;
   width: 8px;
   height: 5px;
-  border-left: 1.5px solid var(--ciano);
-  border-bottom: 1.5px solid var(--ciano);
+  border-left: 1.5px solid var(--acento);
+  border-bottom: 1.5px solid var(--acento);
   transform: rotate(-45deg);
 }
 
@@ -347,7 +350,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   font-weight: 400;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--ciano);
+  color: var(--acento);
   padding-bottom: 14px;
   border-bottom: 1px solid var(--linha-clara);
   margin-bottom: 22px;
@@ -535,8 +538,8 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   overflow: hidden;
   transition: transform 0.3s, border-color 0.3s;
 }
-.hw:hover { transform: translateY(-6px); border-color: rgba(107, 211, 238, 0.5); }
-.hw img { width: 100%; height: 250px; object-fit: contain; padding: 22px; background: radial-gradient(ellipse at center, rgba(107, 211, 238, 0.07) 0%, transparent 70%); }
+.hw:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, 0.45); }
+.hw img { width: 100%; height: 250px; object-fit: contain; padding: 22px; background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, transparent 70%); }
 .hw figcaption { padding: 24px 26px 28px; }
 .hw h3 { font-size: 1rem; font-weight: 400; letter-spacing: 0.06em; margin-bottom: 8px; }
 .hw p { font-size: 0.84rem; color: rgba(255, 255, 255, 0.65); }
@@ -551,7 +554,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   text-align: center;
   transition: border-color 0.3s;
 }
-.camera-cartao:hover { border-color: rgba(107, 211, 238, 0.45); }
+.camera-cartao:hover { border-color: rgba(255, 255, 255, 0.42); }
 .camera-cartao img {
   width: 100%;
   border-radius: 10px;
@@ -626,7 +629,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   font-weight: 400;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--ciano);
+  color: var(--acento);
   margin-bottom: 26px;
 }
 .rodape-link {
@@ -639,7 +642,7 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   margin-bottom: 18px;
   transition: color 0.25s;
 }
-.rodape-link:hover { color: var(--ciano); }
+.rodape-link:hover { color: var(--acento); }
 .rodape-link svg { width: 22px; height: 22px; fill: currentColor; }
 .rodape-link svg[fill="none"] { fill: none; }
 
