@@ -76,11 +76,13 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: background 0.3s;
 }
+/* O cabeçalho é mais largo que o corpo do site para o menu caber inteiro */
+header .contentor { max-width: 1400px; }
 .barra { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
 .marca { flex-shrink: 0; display: flex; align-items: center; }
 .marca img { height: 24px; width: auto; flex-shrink: 0; }
 
-nav { display: flex; gap: 30px; }
+nav { display: flex; gap: 24px; }
 nav a {
   font-family: var(--fonte-titulo);
   font-size: 0.82rem;
@@ -114,6 +116,8 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
 .botao-contorno:hover { background: var(--branco); color: var(--navy); border-color: var(--branco); }
 .botao-claro { background: var(--branco); color: var(--navy); margin-top: 34px; }
 .botao-claro:hover { background: var(--ciano); color: var(--navy-noite); }
+.botao-navy { background: var(--navy); color: var(--branco); }
+.botao-navy:hover { background: var(--navy-noite); }
 
 #hamburguer {
   display: none;
@@ -146,9 +150,11 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
   font-weight: 300;
   letter-spacing: 0.01em;
+  line-height: 1.1;
+  white-space: nowrap;
   margin-bottom: 26px;
 }
 .hero h1 em { font-style: normal; font-weight: 600; color: var(--ciano); }
@@ -156,11 +162,47 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
 .hero .olho { color: var(--ciano); opacity: 1; }
 
 .hero-sub {
-  font-size: 1.02rem;
+  font-size: 1.06rem;
   color: rgba(255, 255, 255, 0.82);
   max-width: 46ch;
-  margin-bottom: 38px;
+  margin-bottom: 26px;
 }
+
+/* Linha de prova: o dado real logo abaixo da promessa */
+.hero-prova {
+  display: inline-block;
+  font-size: 0.79rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+  padding: 12px 20px;
+  border: 1px solid rgba(107, 211, 238, 0.3);
+  border-radius: 99px;
+  margin-bottom: 34px;
+}
+.hero-prova strong { color: var(--ciano); font-weight: 600; }
+.hero-prova span { color: rgba(255, 255, 255, 0.3); margin: 0 4px; }
+
+.hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 30px;
+}
+.botao-hero { margin-top: 0; font-size: 0.84rem; padding: 15px 28px 13px; letter-spacing: 0.1em; }
+.hero-frotas {
+  font-family: var(--fonte-titulo);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 3px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.hero-frotas:hover { color: var(--ciano); border-color: var(--ciano); }
+.hero-frotas span { margin-left: 4px; }
 
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
@@ -321,6 +363,70 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* ─── Frotas: a conta do dia parado ─── */
+.conta-parada {
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 44px 40px;
+  margin-bottom: 60px;
+  background: var(--neblina);
+}
+.conta-linha {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+.conta-item { text-align: center; }
+.conta-item strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 2.1rem;
+  font-weight: 300;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.conta-item span {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--tinta);
+  margin-bottom: 8px;
+}
+.conta-item small {
+  display: block;
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+  opacity: 0.85;
+}
+.conta-destaque strong { color: #C0392B; }
+.conta-op {
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--cinza-texto);
+  opacity: 0.5;
+}
+
+.perfis-grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 70px;
+}
+.perfil {
+  border-top: 2px solid var(--navy);
+  padding-top: 24px;
+}
+.perfil h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.perfil p { font-size: 0.9rem; color: var(--cinza-texto); }
+
 /* ─── Frotas ─── */
 .frota-visuais {
   position: relative;
@@ -349,6 +455,72 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   margin-bottom: 6px;
 }
 .kpi span { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cinza-texto); }
+
+/* ─── Seguradoras ─── */
+.kpi-seguro { grid-template-columns: repeat(3, 1fr); margin-bottom: 72px; }
+.kpi-seguro .kpi { padding-bottom: 34px; }
+
+.seguro-grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.seguro-bloco {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 40px 40px 34px;
+}
+.seguro-bloco h3 {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--navy);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--linha);
+  margin-bottom: 22px;
+}
+.lista-marca { list-style: none; }
+.lista-marca li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 13px;
+  font-size: 0.92rem;
+  color: var(--cinza-texto);
+}
+.lista-marca li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 12px;
+  height: 1px;
+  background: var(--navy);
+  opacity: 0.5;
+}
+
+.seguro-convite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 46px;
+  padding: 38px 44px;
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+}
+.seguro-convite p { font-size: 1rem; color: var(--tinta); max-width: 640px; }
+.seguro-convite .botao { flex-shrink: 0; }
+
+.seguro-nota {
+  margin-top: 26px;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--cinza-texto);
+  opacity: 0.8;
+}
 
 /* ─── Componentes ─── */
 .grade-hw {
@@ -502,16 +674,24 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   .duas-colunas { grid-template-columns: 1fr; gap: 50px; }
   .grade-hw { grid-template-columns: repeat(2, 1fr); }
   .grade-monitora { grid-template-columns: 1fr; gap: 40px; }
+  .seguro-grade { grid-template-columns: 1fr; }
+  .seguro-convite { flex-direction: column; align-items: flex-start; gap: 26px; }
+  .perfis-grade { grid-template-columns: 1fr; gap: 34px; }
 }
 
-/* O botão de contato sai antes do menu, para o nav caber inteiro */
-@media (max-width: 1180px) {
+/* Cabeçalho: 8 itens de menu pedem 1197px; com o botão, 1405px.
+   O botão sai primeiro, depois o menu aperta, e só então vira hamburguer. */
+@media (max-width: 1440px) {
   .barra .botao-contorno { display: none; }
-  nav { gap: 24px; }
 }
 
-/* Abaixo disso os 7 itens não cabem: vira menu hamburguer */
-@media (max-width: 1000px) {
+@media (max-width: 1160px) {
+  nav { gap: 18px; }
+  nav a { font-size: 0.76rem; letter-spacing: 0.1em; }
+}
+
+/* Abaixo disso os 8 itens não cabem: vira menu hamburguer */
+@media (max-width: 1040px) {
   nav {
     position: fixed;
     top: 76px;
@@ -557,6 +737,13 @@ nav a:hover { color: var(--ciano); border-color: var(--ciano); }
   .breve-render img { max-height: 200px; }
   .grade-kpi { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
   .kpi:nth-child(3) { border-left: none; }
+  .kpi-seguro { grid-template-columns: 1fr; }
+  .conta-parada { padding: 32px 24px; }
+  .conta-linha { grid-template-columns: 1fr; gap: 16px; }
+  .conta-op { text-align: center; }
+  .kpi-seguro .kpi { border-left: none; padding: 26px 24px; }
+  .seguro-bloco { padding: 32px 28px 26px; }
+  .seguro-convite { padding: 32px 28px; }
   .frota-visuais { flex-direction: column; align-items: center; }
   .frota-laptop { max-width: 100%; }
   .frota-tablet { max-width: 70%; margin: -10% 0 0; }
