@@ -22,7 +22,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-behavior: smooth; scroll-padding-top: 102px; }
 
 body {
   font-family: var(--fonte-corpo);
@@ -80,10 +80,10 @@ header {
   transition: background 0.3s;
 }
 /* O cabeçalho é mais largo que o corpo do site para o menu caber inteiro */
-header .contentor { max-width: 1460px; }
-.barra { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+header .contentor { max-width: 1520px; }
+.barra { display: flex; align-items: center; justify-content: space-between; height: 90px; gap: 24px; }
 .marca { flex-shrink: 0; display: flex; align-items: center; }
-.marca img { height: 34px; width: auto; flex-shrink: 0; }
+.marca img { height: 46px; width: auto; flex-shrink: 0; }
 
 nav { display: flex; gap: 24px; }
 nav a {
@@ -138,7 +138,7 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   position: relative;
   background: linear-gradient(165deg, var(--navy-escuro) 0%, var(--navy) 55%, #2C3B5B 100%);
   color: var(--branco);
-  padding: 170px 0 60px;
+  padding: 184px 0 60px;
   overflow: hidden;
 }
 .hero-ondas { position: absolute; inset: 0 0 auto; opacity: 0.9; pointer-events: none; }
@@ -682,22 +682,22 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   .perfis-grade { grid-template-columns: 1fr; gap: 34px; }
 }
 
-/* Cabeçalho: com o logo em 34px, os 8 itens pedem 1237px; com o botão, 1445px.
+/* Cabeçalho: com o logo em 46px, os 8 itens pedem 1290px; com o botão, 1500px.
    O botão sai primeiro, depois o menu aperta, e só então vira hamburguer. */
-@media (max-width: 1460px) {
+@media (max-width: 1520px) {
   .barra .botao-contorno { display: none; }
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 1300px) {
   nav { gap: 18px; }
   nav a { font-size: 0.76rem; letter-spacing: 0.1em; }
 }
 
 /* Abaixo disso os 8 itens não cabem: vira menu hamburguer */
-@media (max-width: 1090px) {
+@media (max-width: 1150px) {
   nav {
     position: fixed;
-    top: 76px;
+    top: 90px;
     right: 0;
     left: 0;
     flex-direction: column;
@@ -717,7 +717,7 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   .secao { padding: 80px 0; }
   nav {
     position: fixed;
-    top: 76px;
+    top: 90px;
     right: 0;
     left: 0;
     flex-direction: column;
