@@ -153,13 +153,15 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 }
 
 .hero h1 {
-  font-size: clamp(1.95rem, 4vw, 3.5rem);
+  font-size: clamp(1.9rem, 3.5vw, 3.1rem);
   font-weight: 300;
   letter-spacing: 0.01em;
-  line-height: 1.1;
-  white-space: nowrap;
+  line-height: 1.12;
   margin-bottom: 26px;
 }
+/* Em tela larga a headline fica nas duas linhas do <br>; abaixo disso
+   a segunda linha é longa demais e precisa poder quebrar sozinha. */
+@media (min-width: 900px) { .hero h1 { white-space: nowrap; } }
 .hero h1 em { font-style: normal; font-weight: 600; color: var(--acento); }
 
 .hero .olho { color: var(--acento); opacity: 1; }
