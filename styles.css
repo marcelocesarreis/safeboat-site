@@ -122,14 +122,20 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 .botao-navy { background: var(--navy); color: var(--branco); }
 .botao-navy:hover { background: var(--navy-noite); }
 
+/* Alvo de toque de 44px: é o botão de navegação principal no celular */
 #hamburguer {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 0;
 }
 #hamburguer span { width: 22px; height: 1.5px; background: var(--branco); transition: 0.3s; }
 
@@ -196,17 +202,19 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 }
 .botao-hero { margin-top: 0; font-size: 0.84rem; padding: 15px 28px 13px; letter-spacing: 0.1em; }
 .hero-frotas {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--fonte-titulo);
   font-size: 0.82rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  padding-bottom: 3px;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
   transition: color 0.25s, border-color 0.25s;
 }
-.hero-frotas:hover { color: var(--acento); border-color: var(--acento); }
+.hero-frotas:hover { color: var(--acento); box-shadow: inset 0 -1px 0 var(--acento); }
 .hero-frotas span { margin-left: 4px; }
 
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -699,10 +707,11 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   display: flex;
   align-items: center;
   gap: 14px;
+  min-height: 44px;
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   font-size: 1rem;
-  margin-bottom: 18px;
+  margin-bottom: 8px;
   transition: color 0.25s;
 }
 .rodape-link:hover { color: var(--acento); }
@@ -780,6 +789,10 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 
 @media (max-width: 760px) {
   .secao { padding: 80px 0; }
+  /* No celular, textos auxiliares abaixo de 12px ficam ilegíveis */
+  .etiqueta { font-size: 0.72rem; padding: 3px 11px 2px; }
+  .hero-selo { font-size: 0.8rem; letter-spacing: 0.1em; }
+  .loja small { font-size: 0.7rem; }
   nav {
     position: fixed;
     top: 90px;
