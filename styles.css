@@ -258,8 +258,8 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 /* ─── Recursos (O Sistema) ─── */
 .grade-recursos {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 44px 36px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px 46px;
 }
 .recurso h3 { font-size: 1.02rem; font-weight: 400; letter-spacing: 0.04em; margin: 20px 0 10px; }
 .recurso p { font-size: 0.88rem; color: var(--cinza-texto); }
@@ -367,6 +367,66 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* ─── Manutenção: o ciclo registra · avisa · alimenta ─── */
+.ciclo-grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 70px;
+}
+.ciclo {
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 38px 36px 34px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.ciclo:hover { border-color: var(--navy); transform: translateY(-4px); }
+.ciclo-num {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--navy);
+  opacity: 0.35;
+  margin-bottom: 14px;
+}
+.ciclo h3 {
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.ciclo p { font-size: 0.9rem; color: var(--cinza-texto); }
+
+.historico-faixa {
+  background: var(--neblina);
+  border-radius: 18px;
+  padding: 40px 44px;
+}
+.historico-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 28px;
+}
+.historico-itens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.historico-itens strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.historico-itens span { font-size: 0.88rem; color: var(--cinza-texto); }
 
 /* ─── Frotas: a conta do dia parado ─── */
 .conta-parada {
@@ -683,6 +743,8 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   .seguro-grade { grid-template-columns: 1fr; }
   .seguro-convite { flex-direction: column; align-items: flex-start; gap: 26px; }
   .perfis-grade { grid-template-columns: 1fr; gap: 34px; }
+  .ciclo-grade { grid-template-columns: 1fr; }
+  .historico-itens { grid-template-columns: 1fr; gap: 24px; }
 }
 
 /* Cabeçalho: com o logo em 46px, os 8 itens pedem 1290px; com o botão, 1500px.
@@ -744,6 +806,8 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   .grade-kpi { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
   .kpi:nth-child(3) { border-left: none; }
   .kpi-seguro { grid-template-columns: 1fr; }
+  .ciclo { padding: 30px 26px 26px; }
+  .historico-faixa { padding: 30px 26px; }
   .conta-parada { padding: 32px 24px; }
   .conta-contraste { flex-direction: column; gap: 20px; }
   .conta-item strong { font-size: 2.4rem; }
