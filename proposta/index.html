@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2D324B">
+<meta name="robots" content="noindex">
+<title>Proposta Comercial · SAFEBOAT</title>
+<!-- Prévia do link (WhatsApp, Instagram, LinkedIn) — pré-venda do SAFEBOAT -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SAFEBOAT">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://safeboat.tech/proposta/">
+<meta property="og:title" content="Sua proposta SAFEBOAT — o barco protegido 24h">
+<meta property="og:description" content="Monitoramento preditivo a bordo: motores, alagamento, fumaça, baterias e rastreio em tempo real. Mais de 100 embarcações monitoradas e 3 naufrágios evitados. Abra e contrate em minutos.">
+<meta property="og:image" content="https://safeboat.tech/proposta/img/og-proposta.jpg">
+<meta property="og:image:secure_url" content="https://safeboat.tech/proposta/img/og-proposta.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SAFEBOAT — monitoramento inteligente para embarcações">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sua proposta SAFEBOAT — o barco protegido 24h">
+<meta name="twitter:description" content="Monitoramento preditivo a bordo: motores, alagamento, fumaça, baterias e rastreio em tempo real. Abra e contrate em minutos.">
+<meta name="twitter:image" content="https://safeboat.tech/proposta/img/og-proposta.jpg">
+<link rel="icon" type="image/png" href="img/logo-circulo.png">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { color-scheme: light; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #F0F1F5; color: #1A1F2B; line-height: 1.5; }
+  .hero { background: #2D324B; color: #fff; padding: 34px 20px 88px; }
+  .hero-in { max-width: 980px; margin: 0 auto; display: flex; gap: 30px; align-items: center; }
+  .hero .tx { flex: 1; }
+  .hero img.logo { height: 54px; display: block; margin-bottom: 22px; }
+  .hero .k { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.65); font-weight: 700; }
+  .hero h1 { font-size: 32px; font-weight: 800; margin: 6px 0 4px; }
+  .hero .sub { font-size: 15px; color: rgba(255,255,255,.8); }
+  .hero .chips { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .hero .chip { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 20px; padding: 4px 13px; font-size: 12.5px; font-weight: 600; }
+  .hero img.art { max-height: 260px; border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  main { max-width: 980px; margin: -56px auto 40px; padding: 0 16px; }
+  section { margin-bottom: 26px; }
+  h2 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #4E5666; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  h2:after { content: ""; flex: 1; height: 1px; background: #DDDFE6; }
+  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .feat { border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(26,31,43,.14); }
+  .feat img { width: 100%; aspect-ratio: 826 / 780; object-fit: cover; display: block; }
+  .eqgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .eqcard { background: #fff; border-radius: 14px; padding: 12px; text-align: center; box-shadow: 0 2px 10px rgba(26,31,43,.08); }
+  .eqcard img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; background: #2D324B; border: 1px solid #E3E5EB; }
+  .eqcard .icon { width: 100%; aspect-ratio: 1/1; border-radius: 10px; background: #2D324B; color: #fff; font-size: 44px; display: flex; align-items: center; justify-content: center; }
+  .eqcard b { display: block; margin-top: 10px; font-size: 12.5px; color: #2D324B; }
+  .eqcard img[src$="eq-camera.png"], .eqcard img[src$="eq-sirene.svg"] { background: #fff; object-fit: contain; padding: 8px; }
+  .cam-wrap { display: grid; grid-template-columns: 200px 1fr; gap: 20px; align-items: start; }
+  .cam-img { align-self: start; }
+  .cam-tx p { margin: 2px 0 12px; font-size: 14px; color: #3A3F4E; line-height: 1.6; }
+  .cam-req { background: #FFF6E6; border: 1px solid #F3D699; border-radius: 12px; padding: 12px 14px; font-size: 13px; color: #6B4E12; line-height: 1.6; }
+  .cam-preco { margin-top: 12px; display: grid; gap: 8px; }
+  .cam-preco > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; background: #F4F5F8; border-radius: 10px; padding: 10px 14px; }
+  .cam-preco span { font-size: 12.5px; text-transform: uppercase; letter-spacing: .5px; color: #8A8F9C; font-weight: 700; }
+  .cam-preco b { font-size: 14px; color: #2D324B; }
+  @media (max-width: 560px) { .cam-wrap { grid-template-columns: 1fr; } .cam-img { max-width: 200px; margin: 0 auto; } }
+  .mongrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .moncard { background: #fff; border-radius: 16px; padding: 22px; box-shadow: 0 2px 10px rgba(26,31,43,.08); }
+  .moncard > b { font-size: 14px; color: #2D324B; }
+  .moncard ul { list-style: none; margin-top: 12px; }
+  .moncard li { padding: 5px 0 5px 26px; position: relative; font-size: 13.5px; color: #3A3F4E; }
+  .moncard li:before { content: "✓"; position: absolute; left: 2px; color: #0B6B4D; font-weight: 800; }
+  .moncard .obs { margin-top: 12px; border-top: 1px dashed #E3E5EB; padding-top: 10px; font-size: 12px; color: #6B7080; line-height: 1.55; }
+  .invest-hint { font-size: 13px; color: #4E5666; margin: -4px 0 14px; }
+  .invest-hint b { color: #2D324B; }
+  .invest { display: flex; gap: 12px; align-items: stretch; }
+  .invest .card { flex: 1; background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 10px rgba(26,31,43,.08); position: relative; }
+  .card .t { font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: #8A8F9C; font-weight: 800; }
+  .card .v { font-size: 30px; font-weight: 800; color: #2D324B; margin: 8px 0 6px; }
+  .card .v small { font-size: 14px; color: #8A8F9C; font-weight: 600; }
+  .card .d { font-size: 12.5px; color: #4E5666; }
+  .card.plan { cursor: pointer; border: 2px solid transparent; transition: border .15s, transform .15s; }
+  .card.plan:hover { transform: translateY(-2px); }
+  .card.plan.sel { border-color: #2264BE; }
+  .card.plan .mark { position: absolute; top: 14px; right: 14px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #C9CDD8; }
+  .card.plan.sel .mark { border-color: #2264BE; background: #2264BE; }
+  .card.plan.sel .mark:after { content: "✓"; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; height: 100%; }
+  .card .badge { position: absolute; top: -11px; right: 14px; background: #0B6B4D; color: #fff; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 3px 11px; }
+  .plusmark { align-self: center; flex: none; width: 46px; height: 46px; border-radius: 50%; background: #2D324B; color: #fff; font-size: 28px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(26,31,43,.25); }
+  .oumark { align-self: center; flex: none; font-size: 12px; font-weight: 800; letter-spacing: 1px; color: #8A8F9C; }
+  .aceite { background: #fff; border-radius: 16px; padding: 26px; box-shadow: 0 2px 10px rgba(26,31,43,.08); }
+  .aceite .f { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #8A8F9C; margin: 16px 0 5px; }
+  .aceite input[type=text] { width: 100%; padding: 11px 13px; border: 1px solid #DDDFE6; border-radius: 10px; font: inherit; outline: none; }
+  .aceite input[type=text]:focus { border-color: #2264BE; box-shadow: 0 0 0 3px rgba(34,100,190,.13); }
+  .check { display: flex; gap: 10px; margin-top: 18px; font-size: 13.5px; color: #3A3F4E; align-items: flex-start; }
+  .check input { width: 18px; height: 18px; margin-top: 1px; flex: none; }
+  .check a { color: #2264BE; font-weight: 700; }
+  .pay-opts { display: flex; gap: 10px; margin-top: 18px; }
+  .pay-opt { flex: 1; border: 2px solid #DDDFE6; border-radius: 12px; padding: 12px; text-align: center; font-weight: 700; font-size: 13.5px; color: #4E5666; cursor: pointer; }
+  .pay-opt.sel { border-color: #2264BE; color: #2264BE; background: #F0F6FE; }
+  .cta { width: 100%; margin-top: 20px; background: #0B6B4D; color: #fff; border: none; border-radius: 12px; padding: 16px; font-size: 15.5px; font-weight: 800; cursor: pointer; font-family: inherit; }
+  .cta:hover { filter: brightness(1.1); }
+  .cta:disabled { opacity: .6; cursor: default; }
+  .okbox { background: #E9F7EF; border: 1px solid #BFE5CE; border-radius: 16px; padding: 22px; text-align: center; font-size: 26px; }
+  .okbox .big { font-size: 21px; font-weight: 800; color: #0B6B4D; margin-top: 4px; }
+  .paybox { background: #fff; border-radius: 16px; padding: 24px; margin-top: 14px; text-align: center; box-shadow: 0 2px 10px rgba(26,31,43,.08); }
+  .paybox #pixQr img { border: 1px solid #E3E5EB; border-radius: 12px; padding: 8px; background: #fff; width: 230px; height: 230px; image-rendering: pixelated; margin: 10px auto; display: block; }
+  .copia { font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: #4E5666; background: #F4F5F8; border-radius: 8px; padding: 10px 12px; margin: 12px 0; word-break: break-all; text-align: left; }
+  .btnc { background: #2D324B; color: #fff; border: none; border-radius: 10px; padding: 12px 22px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  footer { background: #2D324B; color: rgba(255,255,255,.75); text-align: center; font-size: 12.5px; padding: 22px 16px; }
+  .print { position: fixed; bottom: 18px; right: 18px; background: #2D324B; color: #fff; border: none; border-radius: 24px; padding: 12px 20px; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(26,31,43,.35); font-family: inherit; }
+  .err { max-width: 560px; margin: 80px auto; background: #fff; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 2px 12px rgba(26,31,43,.1); }
+  .err img { height: 60px; margin-bottom: 16px; }
+  .err b { display: block; font-size: 17px; color: #2D324B; margin-bottom: 8px; }
+  .err span { font-size: 13.5px; color: #4E5666; }
+  .loading { text-align: center; padding: 120px 20px; color: #8A8F9C; font-size: 14px; }
+  @media (max-width: 760px) {
+    .hero-in { flex-direction: column; text-align: center; }
+    .hero h1 { font-size: 26px; }
+    .hero img.art { max-height: 220px; }
+    .hero .chips { justify-content: center; }
+    .invest { flex-direction: column; }
+    .plusmark, .oumark { align-self: center; }
+  }
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .print { display: none; }
+    body { background: #fff; }
+    /* cartões nunca quebram entre páginas — evita foto cortada pela borda */
+    .feat, .eqcard, .moncard, .invest .card, .paybox, .okbox, .aceite, .invest-hint { break-inside: avoid; page-break-inside: avoid; }
+    section { break-before: auto; }
+    h2 { break-after: avoid; page-break-after: avoid; }
+    .hero { padding-bottom: 70px; }
+    .hero img.art { max-height: 200px; }
+    .feat, .eqcard, .moncard, .invest .card { box-shadow: none; border: 1px solid #E3E5EB; }
+    .card.plan:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div id="app"><div class="loading">Carregando proposta…</div></div>
+<script>
+'use strict';
+/* ============================================================
+   SAFEBOAT · Proposta Comercial (visualização do cliente)
+   Acesso somente via funções seguras (nº + código do link).
+   ============================================================ */
+const SUPA_URL = 'https://ppdafbzlnjgggycecjhs.supabase.co';
+const SUPA_KEY = 'sb_publishable_IN2C9q60_SfQjDgVwGCzrQ_vPCdoADp';
+
+const PLANOS = {
+  mensal: { label: 'Mensal', valor: 249, sufixo: '/mês' },
+  anual:  { label: 'Anual',  valor: 2490, sufixo: '/ano', destaque: '2 meses grátis — economize R$ 498/ano' },
+};
+const PAGAMENTO = {
+  pixChave: '52998441000128',
+  pixNome: 'SAFEBOAT TECNOLOGIA LTDA',
+  pixCidade: 'FLORIANOPOLIS',
+  linkCartao: '',
+};
+const REDES = {
+  nenhuma: { label: 'Sem rede NMEA e sem rede CAN' },
+  nmea: { label: 'Rede NMEA com dados de motor convertidos' },
+  can: {
+    label: 'Com rede CAN, não conectada à rede NMEA',
+    obs: 'Se a embarcação não possuir rede NMEA, criaremos uma e converteremos os dados CAN — lendo todos os dados de motor. Se já possuir, converteremos os dados dos motores e os conectaremos à rede NMEA existente, lendo também tudo o mais que estiver a bordo.',
+  },
+};
+const MONITORAVEIS_BASE = ['Rastreio','Velocidade','Acionamentos de bomba de porão','Alarme de alagamento','Alarme detector de fumaça','Sirene de alarme sonoro a bordo — dispara em alta temperatura, alagamento ou detecção de fumaça','Tensão de todos os bancos de bateria da embarcação','Posição da chave geral','Temperatura da casa de máquinas','Umidade na casa de máquinas'];
+const MONITORAVEIS_MOTOR = ['Horímetro','Rotação','Pressão de óleo','Temperatura de óleo','Temperatura de coolant','Pressão de combustível','Pressão de turbina','Consumo instantâneo e por trajeto'];
+const MONITORAVEIS_EXTRA = ['Profundidade','Níveis de tanques de combustível e água'];
+const KIT_IMGS = {
+  'Central SAFEBOAT': 'img/eq-central.jpg',
+  'Sensor de fumaça': 'img/eq-fumaca.jpg',
+  'Conversor J1939-NMEA': 'img/eq-conversor.jpg',
+  'Sensor de alagamento': 'img/eq-alagamento.jpg',
+  'Cabo NMEA': 'img/eq-cabo-nmea.jpg',
+  'T NMEA': 'img/eq-t-nmea.jpg',
+  'Sensor de consumo de bateria': 'img/eq-bateria.jpg',
+  'Sirene de alarme': 'img/eq-sirene.svg',
+  'Câmera Wi-Fi Full HD': 'img/eq-camera.png',
+};
+
+/* Câmera de segurança opcional (Intelbras iM5 SC Wi-Fi Full HD).
+   Implementação = preço unitário + 15%. Assinatura: +R$29,90/mês por câmera ou
+   +R$299,00/ano por câmera (mesma lógica do plano anual — paga 10 meses).
+   Requer Starlink a bordo; consumo de dados/energia por conta do usuário. */
+const CAMERA = { nome: 'Câmera Wi-Fi Full HD', precoUnit: 411.24, markup: 0.15, mensal: 29.90, anual: 299.00, img: 'img/eq-camera.png' };
+const camUnitImpl = () => Math.round(CAMERA.precoUnit * (1 + CAMERA.markup) * 100) / 100;
+
+const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const fmtBRL = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const fmtData = (d) => { if (!d) return ''; const p = String(d).slice(0, 10).split('-'); return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : d; };
+
+/* PIX BR Code (estático, com valor) */
+function normAscii(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\x20-\x7E]/g, '').toUpperCase(); }
+function crc16pix(s) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < s.length; i++) {
+    crc ^= s.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) crc = crc & 0x8000 ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+  }
+  return crc.toString(16).toUpperCase().padStart(4, '0');
+}
+function pixPayload(valor, txid) {
+  const f = (id, v) => id + String(v.length).padStart(2, '0') + v;
+  const mai = f('00', 'br.gov.bcb.pix') + f('01', PAGAMENTO.pixChave);
+  let pl = f('00', '01') + f('26', mai) + f('52', '0000') + f('53', '986');
+  if (valor) pl += f('54', Number(valor).toFixed(2));
+  pl += f('58', 'BR') + f('59', normAscii(PAGAMENTO.pixNome).slice(0, 25)) + f('60', normAscii(PAGAMENTO.pixCidade).slice(0, 15));
+  pl += f('62', f('05', (txid || '***').slice(0, 25)));
+  pl += '6304';
+  return pl + crc16pix(pl);
+}
+
+async function rpc(fn, args) {
+  const r = await fetch(SUPA_URL + '/rest/v1/rpc/' + fn, {
+    method: 'POST',
+    headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(args),
+  });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+function parseRef() {
+  const seg = location.pathname.split('/').filter(Boolean).pop() || '';
+  let m = seg.match(/^(\d+)-([a-z0-9]{4,10})$/i);
+  if (!m) {
+    const q = new URLSearchParams(location.search).get('p') || '';
+    m = q.match(/^(\d+)-([a-z0-9]{4,10})$/i);
+  }
+  return m ? { n: parseInt(m[1], 10), t: m[2] } : null;
+}
+
+function erroHTML(msg) {
+  return '<div class="err"><img src="img/logo-circulo.png" alt="SAFEBOAT"><b>' + msg + '</b>' +
+    '<span>Confira se o link foi copiado por completo ou fale com o consultor SAFEBOAT que enviou esta proposta.</span></div>';
+}
+
+let p = null;
+let ref = null;
+let planoSel = null;
+let pagSel = 'pix';
+
+/* Auth social (Google/Apple) — captura e-mail VERIFICADO e cria o cadastro.
+   Depende dos provedores habilitados no Supabase (Authentication → Providers). */
+const sbAuth = (window.supabase && window.supabase.createClient)
+  ? window.supabase.createClient(SUPA_URL, SUPA_KEY, { auth: { persistSession: true, detectSessionInUrl: true, flowType: 'implicit' } })
+  : null;
+/* Login social temporariamente DESLIGADO (a pedido) — a sessão do Google ficava
+   persistida no navegador e reaparecia em toda proposta. Para reativar quando o
+   fluxo estiver validado, basta voltar para true. */
+const SOCIAL_LOGIN = false;
+let authUser = null; // { email, nome, provedor } quando o cliente entra com Google/Apple
+
+async function loginSocial(provedor) {
+  if (!sbAuth) { alert('Login social indisponível neste navegador. Use o e-mail abaixo.'); return; }
+  const { error } = await sbAuth.auth.signInWithOAuth({
+    provider: provedor,
+    options: { redirectTo: location.origin + location.pathname + '?p=' + ref.n + '-' + ref.t },
+  });
+  if (error) {
+    alert('Login com ' + (provedor === 'google' ? 'Google' : 'Apple') + ' ainda não está ativado. Preencha o e-mail manualmente abaixo por enquanto.');
+  }
+}
+
+async function detectarSessaoSocial() {
+  if (!sbAuth) return;
+  try {
+    const { data: { session } } = await sbAuth.auth.getSession();
+    if (session && session.user) {
+      const u = session.user;
+      const meta = u.user_metadata || {};
+      authUser = {
+        email: (u.email || '').toLowerCase(),
+        nome: meta.full_name || meta.name || '',
+        provedor: (u.app_metadata && u.app_metadata.provider) || 'social',
+      };
+    }
+  } catch (e) { authUser = null; }
+}
+
+async function main() {
+  ref = parseRef();
+  const app = document.getElementById('app');
+  if (!ref) { app.innerHTML = erroHTML('Link de proposta inválido'); return; }
+  try {
+    const rows = await rpc('prop_get', { n: ref.n, t: ref.t });
+    if (!rows || !rows.length) { app.innerHTML = erroHTML('Proposta não encontrada'); return; }
+    p = rows[0];
+  } catch (e) {
+    app.innerHTML = erroHTML('Não foi possível carregar a proposta');
+    return;
+  }
+  planoSel = p.plano || null;
+  pagSel = p.pagamento || 'pix';
+  if (SOCIAL_LOGIN) await detectarSessaoSocial();
+  render();
+}
+
+/* Upgrade: cliente atual que adiciona acesso NMEA. Pré-instalado o sistema base,
+   paga só a implementação do upgrade (R$500) e MANTÉM a assinatura atual. */
+const isUpgrade = () => String(p.kit || '').split(' + ').includes('#UPGRADE');
+const isRenov = () => String(p.kit || '').split(' + ').includes('#RENOVACAO');
+/* Frota B2B: composição codificada em marcador #B2B=<base64 json> */
+function fleet() {
+  const t = String(p.kit || '').split(' + ').find((k) => k.indexOf('#B2B=') === 0);
+  if (!t) return null;
+  try { return JSON.parse(decodeURIComponent(escape(atob(t.slice(5))))); } catch (e) { return null; }
+}
+/* Câmeras opcionais: quantidade codificada no marcador #CAM=<n> no campo kit */
+function cams() {
+  const t = String(p.kit || '').split(' + ').find((k) => k.indexOf('#CAM=') === 0);
+  return t ? Math.max(0, parseInt(t.slice(5), 10) || 0) : 0;
+}
+const camImpl = () => cams() * camUnitImpl();              // acréscimo na implementação
+const camAssin = (plano) => cams() * (plano === 'anual' ? CAMERA.anual : CAMERA.mensal); // acréscimo na assinatura (anual = 10 meses)
+const implValor = () => Number(p.valor) + camImpl();       // implementação total (sistema + câmeras)
+const implIsento = () => implValor() === 0;
+const REDE_NOME = { nenhuma: 'Sem rede NMEA/CAN', nmea: 'Rede NMEA', can: 'Rede CAN (com conversor)' };
+/* Valor da assinatura do plano — por frota (B2B) ou fixo (B2C) */
+function planoValor(plano) {
+  const f = fleet();
+  if (f) return f.boats * (plano === 'anual' ? f.subAnual : f.subMensal);
+  return PLANOS[plano] ? PLANOS[plano].valor : 0;
+}
+/* Assinatura TOTAL do plano — já com a mensalidade/anuidade das câmeras embutida.
+   O cliente vê um número só (ex.: 249 + 29,90 = 278,90); o detalhe por câmera
+   fica na seção da câmera, para o total não ficar fragmentado. */
+const assinValor = (plano) => planoValor(plano) + camAssin(plano);
+const totalCom = (plano) => isUpgrade()
+  ? Number(p.valor)
+  : (isRenov() ? planoValor(plano) : implValor() + assinValor(plano));
+
+function pubKitCard(item) {
+  const img = KIT_IMGS[item];
+  return '<div class="eqcard">' +
+    (img ? '<img src="' + img + '" alt="' + esc(item) + '">' : '<div class="icon">🔌</div>') +
+    '<b>' + esc(item) + '</b></div>';
+}
+
+/* Card(s) de câmera para a grade do kit (com foto e quantidade) */
+function camKitCards() {
+  const n = cams();
+  if (!n || isUpgrade() || isRenov()) return '';
+  return '<div class="eqcard"><img src="' + CAMERA.img + '" alt="' + esc(CAMERA.nome) + '"><b>' + esc(CAMERA.nome) + (n > 1 ? ' · ' + n + '×' : '') + '</b></div>';
+}
+
+/* Seção da câmera opcional — só aparece quando o vendedor incluiu câmeras (#CAM=n)
+   na proposta e o fluxo é o padrão (não upgrade / não renovação). */
+function camSecaoHTML() {
+  const n = cams();
+  if (!n || isUpgrade() || isRenov()) return '';
+  const plural = n > 1 ? 's' : '';
+  return '<section><h2>Câmera' + plural + ' de segurança a bordo <span style="font-size:13px;font-weight:700;color:#2264BE">· opcional</span></h2>' +
+    '<div class="cam-wrap">' +
+      '<div class="eqcard cam-img"><img src="' + CAMERA.img + '" alt="' + esc(CAMERA.nome) + '"><b>' + esc(CAMERA.nome) + ' · ' + n + '×</b></div>' +
+      '<div class="cam-tx">' +
+        '<p>Monitore o convés, o cockpit e os acessos em vídeo Full HD 1080p, com visão noturna e acesso ao vivo pelo app — integrado à sua central SAFEBOAT.</p>' +
+        '<div class="cam-req">🛰 <b>Requer Starlink instalada a bordo.</b> A câmera transmite vídeo pela internet do barco. O <b>consumo de dados e energia é conforme a demanda e de responsabilidade do usuário</b> — a SAFEBOAT não se responsabiliza pela franquia/consumo do serviço de internet.</div>' +
+        '<div class="cam-preco">' +
+          '<div><span>Implementação</span><b>' + n + ' × ' + fmtBRL(camUnitImpl()) + ' = ' + fmtBRL(camImpl()) + '</b></div>' +
+          '<div><span>Assinatura mensal</span><b>+ ' + fmtBRL(CAMERA.mensal) + ' por câmera/mês' + (n > 1 ? ' (' + n + '× = ' + fmtBRL(n * CAMERA.mensal) + '/mês)' : '') + '</b></div>' +
+          '<div><span>Assinatura anual</span><b>+ ' + fmtBRL(CAMERA.anual) + ' por câmera/ano' + (n > 1 ? ' (' + n + '× = ' + fmtBRL(n * CAMERA.anual) + '/ano)' : '') + ' <span style="font-weight:600;color:#0B6B4D">· paga 10 meses</span></b></div>' +
+        '</div>' +
+      '</div>' +
+    '</div></section>';
+}
+
+const isento = () => !Number(p.valor);
+/* Nota "+ câmera(s)" para os cards de assinatura (a mensalidade base não inclui a câmera;
+   ela é somada à parte e detalhada no resumo de pagamento). */
+function camAssinNota(plano) {
+  const n = cams();
+  if (!n) return '';
+  return '<div style="margin-top:7px;color:#2264BE;font-weight:700">Já inclui ' + n + ' câmera' + (n > 1 ? 's' : '') +
+    ' (' + fmtBRL(planoValor(plano)) + ' + ' + fmtBRL(camAssin(plano)) + ')</div>';
+}
+
+function render() {
+  const temRede = p.rede === 'can' || p.rede === 'nmea';
+  const upg = isUpgrade();
+  const renov = isRenov();
+  const f = fleet();
+  const kitItens = String(p.kit).split(' + ').filter((k) => k && k !== '#UPGRADE' && k !== '#RENOVACAO' && k.indexOf('#B2B=') !== 0 && k.indexOf('#CAM=') !== 0);
+  const termosUrl = (p.segmento === 'B2B' ? 'termos-b2b.html' : 'termos-b2c.html') + '?p=' + ref.n + '-' + ref.t;
+  const numeroFmt = 'Nº ' + String(p.numero).padStart(4, '0');
+  const validade = (() => { const d = new Date(p.created_at || Date.now()); d.setDate(d.getDate() + 30); return fmtData(d.toISOString()); })();
+
+  document.getElementById('app').innerHTML =
+    '<div class="hero"><div class="hero-in"><div class="tx">' +
+      '<img class="logo" src="img/logo.png" alt="SAFEBOAT">' +
+      '<div class="k">Proposta comercial ' + numeroFmt + '</div>' +
+      '<h1>' + esc(p.cliente) + '</h1>' +
+      '<div class="sub">' + esc([p.barco, p.modelo].filter(Boolean).join(' · ')) + '</div>' +
+      '<div class="chips">' +
+        '<span class="chip">📅 ' + fmtData(p.created_at) + '</span>' +
+        '<span class="chip">⏳ Válida até ' + validade + '</span>' +
+        '<span class="chip">🔧 ' + (renov ? '🔄 Renovação de assinatura' : upg ? '⬆ Upgrade — acesso à rede NMEA' : esc((REDES[p.rede] || {}).label || '')) + '</span>' +
+      '</div>' +
+    '</div><img class="art" src="img/recursos.jpg" alt="SAFEBOAT no barco"></div></div>' +
+    '<main>' +
+    '<section><h2>Por que SAFEBOAT</h2><div class="feats">' +
+      '<div class="feat"><img src="img/telemetria.jpg" alt="Telemetria de motores e parâmetros-chave"></div>' +
+      '<div class="feat"><img src="img/cerca.jpg" alt="Rastreamento e cerca virtual com alarme de âncora"></div>' +
+      '<div class="feat"><img src="img/sensores.jpg" alt="Sensores de fumaça, incêndio e alagamento"></div>' +
+      '<div class="feat"><img src="img/ia.jpg" alt="Diagnósticos em tempo real com IA integrada"></div>' +
+    '</div></section>' +
+    (renov
+      ? '<section><h2>Renovação do seu contrato</h2><div class="moncard"><b>🔄 Renovação de assinatura — sem alteração no sistema</b><div style="margin-top:10px;font-size:13.5px;color:#3A3F4E;line-height:1.6">Seu equipamento SAFEBOAT já está instalado e funcionando. Esta proposta renova a sua assinatura para os próximos 12 meses (ou mensal), mantendo o monitoramento ativo — sem qualquer mudança de hardware ou nova instalação.</div></div></section>'
+      : (f
+          ? '<section><h2>Sua frota</h2><div class="moncard"><b>🚤 ' + f.boats + ' embarcações</b>' +
+              '<div style="margin-top:10px">' + f.lines.map((l) => '<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #EFF0F4;font-size:13.5px"><span><b>' + l.qtd + '×</b> ' + esc(REDE_NOME[l.redeKey] || l.label) + '</span><span style="color:#6B7080">kit por barco</span></div>').join('') + '</div>' +
+              '<div class="obs" style="margin-top:12px"><b>Cada barco</b> recebe o kit correspondente à sua rede: central SAFEBOAT, sensores de fumaça e alagamento e, quando aplicável, T NMEA, conversor J1939-NMEA e cabo NMEA. A instalação é feita embarcação por embarcação pela equipe técnica SAFEBOAT.</div></div></section>'
+          : '<section><h2>Seu kit de instalação</h2><div class="eqgrid">' + kitItens.map(pubKitCard).join('') + camKitCards() + '</div></section>') +
+        '<section><h2>O que será monitorado</h2><div class="mongrid">' +
+          (temRede
+            ? '<div class="moncard"><b>🔧 Dados via rede CAN/NMEA — todos os parâmetros que o motor fornecer</b><ul>' + MONITORAVEIS_MOTOR.concat(MONITORAVEIS_EXTRA).map((m) => '<li>' + esc(m) + '</li>').join('') + '</ul>' +
+              (p.rede === 'can' && REDES.can.obs ? '<div class="obs"><b>Instalação:</b> ' + esc(REDES.can.obs) + '</div>' : '') +
+              '<div class="obs"><b>Obs.:</b> a disponibilidade de cada parâmetro depende do modelo do motor. Motores que não possuem o sensor correspondente não transmitem esse dado na rede — o SAFEBOAT exibirá todos os parâmetros que o seu motor disponibilizar.</div></div>'
+            : '') +
+          '<div class="moncard"><b>🛥 Embarcação e segurança</b><ul>' + MONITORAVEIS_BASE.map((m) => '<li>' + esc(m) + '</li>').join('') + '</ul></div>' +
+        '</div></section>') +
+    camSecaoHTML() +
+    '<section><h2>Investimento</h2>' +
+    (renov
+      ? '<div class="invest-hint">Seu contrato SAFEBOAT venceu. Renove sua assinatura para continuar com o monitoramento ativo — escolha mensal ou anual.</div>' +
+        '<div class="invest">' +
+          '<div class="card plan" data-plano="mensal"><div class="mark"></div><div class="t">Renovação mensal</div><div class="v">' + fmtBRL(planoValor('mensal')) + '<small>/mês</small></div><div class="d">Renova mês a mês. Cancele quando quiser.</div></div>' +
+          '<div class="oumark">OU</div>' +
+          '<div class="card plan" data-plano="anual"><div class="badge">' + PLANOS.anual.destaque + '</div><div class="mark"></div><div class="t">Renovação anual</div><div class="v">' + fmtBRL(planoValor('anual')) + '<small>/ano</small></div><div class="d">Equivale a ' + fmtBRL(planoValor('anual') / 12) + '/mês. 12 meses de monitoramento contínuo.</div></div>' +
+        '</div></section>'
+      : (upg
+      ? '<div class="invest-hint">Você já é cliente SAFEBOAT. Este <b>upgrade</b> adiciona o acesso à rede NMEA por uma <b>implementação única de ' + fmtBRL(p.valor) + '</b>. Sua <b>assinatura atual é mantida</b> — sem nova cobrança. Confirme abaixo qual é o seu plano atual.</div>' +
+        '<div class="invest">' +
+          '<div class="card"><div class="t">Upgrade · implementação única</div><div class="v">' + fmtBRL(p.valor) + '</div><div class="d">Adição do acesso à rede NMEA por equipe técnica SAFEBOAT em <b>até 30 dias</b> após o pagamento. Pago no fechamento.</div></div>' +
+          '<div class="plusmark" style="background:#0B6B4D">✓</div>' +
+          '<div class="card plan" data-plano="mensal"><div class="mark"></div><div class="t">Meu plano atual é mensal</div><div class="v" style="font-size:19px">Mantido</div><div class="d">Sua mensalidade de ' + fmtBRL(planoValor('mensal')) + ' segue igual — <b>sem nova cobrança</b> neste upgrade.</div></div>' +
+          '<div class="oumark">OU</div>' +
+          '<div class="card plan" data-plano="anual"><div class="mark"></div><div class="t">Meu plano atual é anual</div><div class="v" style="font-size:19px">Mantido</div><div class="d">Sua anuidade de ' + fmtBRL(planoValor('anual')) + ' segue igual — <b>sem nova cobrança</b> neste upgrade.</div></div>' +
+        '</div></section>'
+      : ((f
+          ? '<div class="invest-hint">Frota de <b>' + f.boats + ' embarcações</b>. A <b>implementação</b> soma o setup de cada barco (conforme a rede) e a <b>assinatura</b> é de <b>' + fmtBRL(f.subMensal) + '/barco/mês</b> — total <b>' + fmtBRL(planoValor('mensal')) + '/mês</b> ou <b>' + fmtBRL(planoValor('anual')) + '/ano</b>.</div>'
+          : implIsento()
+          ? '<div class="invest-hint">🎁 <b>Implementação isenta</b> — você paga apenas a <b>assinatura</b> (mensal ou anual) no fechamento.</div>'
+          : '<div class="invest-hint">O investimento tem <b>dois componentes</b> — a <b>implementação</b> (única' + (cams() ? ', já com a' + (cams() > 1 ? 's ' + cams() + ' câmeras' : ' câmera') : '') + ') <b>+</b> a <b>assinatura</b> (mensal ou anual' + (cams() ? ', com a mensalidade da' + (cams() > 1 ? 's câmeras' : ' câmera') : '') + ') — <b>pagos juntos, em um único PIX, no fechamento</b>.</div>') +
+        '<div class="invest">' +
+          '<div class="card"><div class="t">Implementação · pagamento único</div><div class="v">' + (implIsento() ? 'Isenta 🎁' : fmtBRL(implValor())) + '</div><div class="d">' + (implIsento() ? 'Cortesia SAFEBOAT — kit e instalação' : 'Kit completo + instalação') + ' por equipe técnica SAFEBOAT em <b>até 30 dias</b> após o pagamento.' + (cams() ? ' <b style="color:#2264BE">Inclui ' + cams() + ' câmera' + (cams() > 1 ? 's' : '') + ' (' + fmtBRL(camImpl()) + ').</b>' : '') + '</div></div>' +
+          '<div class="plusmark">+</div>' +
+          '<div class="card plan" data-plano="mensal"><div class="mark"></div><div class="t">Assinatura mensal</div><div class="v">' + fmtBRL(assinValor('mensal')) + '<small>/mês</small></div><div class="d">1ª mensalidade paga no fechamento. O período de uso só começa após a implementação.</div>' + camAssinNota('mensal') + '</div>' +
+          '<div class="oumark">OU</div>' +
+          '<div class="card plan" data-plano="anual"><div class="badge">' + PLANOS.anual.destaque + '</div><div class="mark"></div><div class="t">Assinatura anual</div><div class="v">' + fmtBRL(assinValor('anual')) + '<small>/ano</small></div><div class="d">Equivale a ' + fmtBRL(assinValor('anual') / 12) + '/mês. O período anual só começa após a implementação.</div>' + camAssinNota('anual') + '</div>' +
+        '</div></section>'))) +
+    '<section id="secAceite"></section>' +
+    '</main>' +
+    '<footer>SAFEBOAT TECNOLOGIA LTDA · CNPJ 52.998.441/0001-28 · A inteligência que protege seu patrimônio</footer>' +
+    '<button class="print" onclick="window.print()">🖨 Salvar PDF</button>';
+
+  document.querySelectorAll('.plan').forEach((el) => {
+    if (p.plano && el.dataset.plano === p.plano) el.classList.add('sel');
+    el.addEventListener('click', () => {
+      if (p.status === 'aceita') return;
+      planoSel = el.dataset.plano;
+      document.querySelectorAll('.plan').forEach((x) => x.classList.toggle('sel', x === el));
+      const btn = document.getElementById('btnAceitar');
+      if (btn) btn.textContent = ctaLabel();
+    });
+  });
+  renderAceite();
+}
+
+function ctaLabel() {
+  if (isRenov()) return planoSel ? 'Renovar assinatura — pagar ' + fmtBRL(totalCom(planoSel)) + (planoSel === 'anual' ? ' (anuidade)' : ' (mensalidade)') : 'Escolha mensal ou anual acima';
+  if (!planoSel) return isUpgrade() ? 'Confirme seu plano atual acima' : 'Aceitar termos e contratar';
+  if (isUpgrade()) return 'Aceitar e pagar upgrade — ' + fmtBRL(totalCom(planoSel)) + ' (implementação do upgrade)';
+  return 'Aceitar termos e contratar — pagar ' + fmtBRL(totalCom(planoSel)) + ' (' + (implIsento() ? '' : 'implementação + ') + (planoSel === 'anual' ? 'anuidade' : '1ª mensalidade') + ')';
+}
+
+function renderAceite() {
+  if (!SOCIAL_LOGIN) authUser = null; // blindagem: com login social off, nunca usa sessão residual
+  const termosUrl = (p.segmento === 'B2B' ? 'termos-b2b.html' : 'termos-b2c.html') + '?p=' + ref.n + '-' + ref.t;
+  const sec = document.getElementById('secAceite');
+  if (p.status === 'aceita') {
+    sec.innerHTML = '<h2>Contratação</h2>' +
+      '<div class="okbox">✅<div class="big">Proposta aceita!</div>' +
+      '<div style="margin-top:6px;color:#3A3F4E;font-size:13.5px">Aceita por <b>' + esc(p.aceite_nome || p.cliente) + '</b>' +
+      (p.aceite_at ? ' em ' + fmtData(String(p.aceite_at).slice(0, 10)) : '') +
+      (p.plano && PLANOS[p.plano] ? ' · Plano ' + PLANOS[p.plano].label + ' (' + fmtBRL(planoValor(p.plano)) + PLANOS[p.plano].sufixo + ')' : '') + '</div>' +
+      (p.aceite_email ? '<div style="margin-top:4px;font-size:12.5px;color:#4E5666">📧 Uma via do contrato será enviada para <b>' + esc(p.aceite_email) + '</b> — este e-mail também será seu acesso ao app SAFEBOAT.</div>' : '') +
+      '<div style="margin-top:4px;font-size:12.5px;color:#4E5666">Contrato: <a href="' + termosUrl + '" target="_blank" style="color:#2264BE;font-weight:700">termos de uso aceitos</a></div>' +
+      '<a href="contrato.html?p=' + ref.n + '-' + ref.t + '" target="_blank" style="display:inline-block;margin-top:14px;background:#2D324B;color:#fff;text-decoration:none;border-radius:10px;padding:11px 20px;font-size:13.5px;font-weight:700">📜 Ver contrato assinado (PDF)</a></div>' +
+      pagamentoHTML();
+    wirePagamento();
+    return;
+  }
+  const gIcon = '<svg width="17" height="17" viewBox="0 0 48 48" style="flex:none"><path fill="#4285F4" d="M45 24c0-1.6-.1-2.8-.4-4H24v7.6h12c-.2 2-1.6 5-4.6 7l7 5.4C42.8 42 45 33.9 45 24z"/><path fill="#34A853" d="M24 46c6.5 0 11.9-2.1 15.9-5.8l-7-5.4c-2 1.3-4.5 2.1-8.9 2.1-6.3 0-11.6-4.2-13.5-9.9l-7.2 5.6C7.8 40.5 15.3 46 24 46z"/><path fill="#FBBC05" d="M10.5 27c-.5-1.5-.8-3.1-.8-4.9s.3-3.4.8-4.9l-7.2-5.6C1.9 15 1 19.4 1 22.1s.9 7.1 2.3 10.5l7.2-5.6z"/><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.2-6.2C35.9 3.3 30.5 1 24 1 15.3 1 7.8 6.5 4.3 14.6l7.2 5.6C13.4 13.7 18.7 9.5 24 9.5z"/></svg>';
+  const provNome = authUser ? (authUser.provedor === 'apple' ? 'Apple' : 'Google') : '';
+  sec.innerHTML = '<h2>Contratação</h2><div class="aceite">' +
+    '<div style="font-size:14px;color:#3A3F4E">Escolha acima o plano de assinatura, confira os termos e finalize — leva menos de um minuto.</div>' +
+    (!SOCIAL_LOGIN ? '' : (authUser
+      ? '<div style="margin:14px 0;padding:12px 14px;background:#E9F7EF;border:1px solid #BFE5CE;border-radius:10px;font-size:13px;color:#0B6B4D">✓ Você entrou com <b>' + esc(provNome) + '</b> — e-mail verificado: <b>' + esc(authUser.email) + '</b></div>'
+      : '<div style="margin:14px 0">' +
+          '<div style="font-size:13px;color:#3A3F4E;margin-bottom:8px">Entre com sua conta para agilizar — e-mail verificado e acesso ao app:</div>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+            '<button type="button" id="socGoogle" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:9px;padding:11px;border:1px solid #DDDFE6;border-radius:10px;background:#fff;font-weight:700;font-size:13.5px;cursor:pointer;color:#3A3F4E">' + gIcon + ' Continuar com Google</button>' +
+            '<button type="button" id="socApple" style="flex:1;min-width:150px;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;border:1px solid #1A1F2B;border-radius:10px;background:#1A1F2B;font-weight:700;font-size:13.5px;cursor:pointer;color:#fff"> Continuar com Apple</button>' +
+          '</div>' +
+          '<div style="text-align:center;color:#8A8F9C;font-size:12px;margin:12px 0 2px">ou preencha manualmente</div>' +
+        '</div>')) +
+    '<label class="f">Nome completo do responsável *</label><input type="text" id="aNome" placeholder="Seu nome completo" value="' + esc(authUser && authUser.nome || '') + '">' +
+    '<label class="f">' + (p.segmento === 'B2B' ? 'CNPJ *' : 'CPF *') + '</label><input type="text" id="aDoc" placeholder="' + (p.segmento === 'B2B' ? '00.000.000/0000-00' : '000.000.000-00') + '">' +
+    '<label class="f">E-mail *</label><input type="email" id="aEmail" inputmode="email" placeholder="seu@email.com" value="' + esc(authUser && authUser.email || '') + '"' + (authUser ? ' readonly style="background:#F0F6FE"' : '') + '><div style="font-size:11.5px;color:#8A8F9C;margin-top:4px">' + (authUser ? 'E-mail verificado pela sua conta ' + esc(provNome) + ' — mais segurança na assinatura.' : 'Enviaremos o contrato assinado para este e-mail, que também será seu acesso ao app SAFEBOAT.') + '</div>' +
+    '<div class="check"><input type="checkbox" id="aTermos"><span>Li e aceito os <a href="' + termosUrl + '" target="_blank">Termos de Uso e o Contrato de Prestação de Serviços</a> da SAFEBOAT (' + (p.segmento === 'B2B' ? 'empresas' : 'pessoa física') + ').</span></div>' +
+    '<div class="pay-opts">' +
+      '<div class="pay-opt' + (pagSel === 'pix' ? ' sel' : '') + '" data-pag="pix">💠 PIX (QR Code)</div>' +
+      '<div class="pay-opt' + (pagSel === 'cartao' ? ' sel' : '') + '" data-pag="cartao">💳 Cartão de crédito</div>' +
+    '</div>' +
+    '<button class="cta" id="btnAceitar">' + ctaLabel() + '</button>' +
+    '<div style="margin-top:10px;font-size:12px;color:#8A8F9C;text-align:center">' + (isRenov() ? 'O pagamento renova sua assinatura SAFEBOAT pelo período escolhido (mensal ou anual). Não há alteração no equipamento nem nova instalação — o monitoramento continua ativo.' : (isUpgrade() ? 'O pagamento no fechamento é apenas a <b>implementação do upgrade</b> — sua assinatura atual é mantida, sem nova cobrança. A leitura da rede NMEA passa a valer <b>após a instalação</b> · instalação em até <b>30 dias</b> a partir do pagamento.' : ((implIsento() ? 'O pagamento no fechamento é apenas da assinatura escolhida (mensalidade ou anuidade integral) — a implementação é cortesia.' : 'O pagamento no fechamento inclui a implementação <b>+</b> a assinatura escolhida (mensalidade ou anuidade integral).') + ' O período de uso passa a valer <b>somente após a implementação</b> · instalação em até <b>30 dias</b> a partir do pagamento.'))) + '</div>' +
+  '</div>';
+  document.querySelectorAll('.pay-opt').forEach((el) => el.addEventListener('click', () => {
+    pagSel = el.dataset.pag;
+    document.querySelectorAll('.pay-opt').forEach((x) => x.classList.toggle('sel', x === el));
+  }));
+  const bg = document.getElementById('socGoogle'); if (bg) bg.addEventListener('click', () => loginSocial('google'));
+  const ba = document.getElementById('socApple'); if (ba) ba.addEventListener('click', () => loginSocial('apple'));
+  document.getElementById('btnAceitar').addEventListener('click', aceitarProposta);
+}
+
+function pagamentoHTML() {
+  const plano = PLANOS[p.plano] || null;
+  const total = totalCom(p.plano);
+  const upg = isUpgrade();
+  const renov = isRenov();
+  const cab = renov ? 'renovação da assinatura' : (upg ? 'implementação do upgrade' : (implIsento() ? 'assinatura (implementação isenta)' : 'implementação + assinatura'));
+  const resumo = renov
+    ? '<div style="display:inline-block;text-align:left;margin:6px auto 2px;font-size:13px;color:#3A3F4E">' +
+        (plano ? '<div>Renovação ' + plano.label.toLowerCase() + (p.plano === 'anual' ? ' (12 meses)' : '') + ' <b style="float:right;margin-left:26px">' + fmtBRL(planoValor(p.plano)) + '</b></div>' : '') +
+        '<div style="border-top:1px solid #E3E5EB;margin-top:6px;padding-top:6px;font-weight:800;color:#2D324B">Total <span style="float:right;margin-left:26px;font-size:22px">' + fmtBRL(total) + '</span></div>' +
+      '</div>'
+    : upg
+    ? '<div style="display:inline-block;text-align:left;margin:6px auto 2px;font-size:13px;color:#3A3F4E">' +
+        '<div>Upgrade · acesso à rede NMEA <b style="float:right;margin-left:26px">' + fmtBRL(p.valor) + '</b></div>' +
+        (plano ? '<div style="color:#6B7080">Assinatura ' + plano.label.toLowerCase() + ' atual <b style="float:right;margin-left:26px;color:#0B6B4D">mantida</b></div>' : '') +
+        '<div style="border-top:1px solid #E3E5EB;margin-top:6px;padding-top:6px;font-weight:800;color:#2D324B">Total <span style="float:right;margin-left:26px;font-size:22px">' + fmtBRL(total) + '</span></div>' +
+      '</div>'
+    : '<div style="display:inline-block;text-align:left;margin:6px auto 2px;font-size:13px;color:#3A3F4E">' +
+        '<div>Implementação' + ' <b style="float:right;margin-left:26px">' + (implIsento() ? 'Isenta 🎁' : fmtBRL(implValor())) + '</b></div>' +
+        (cams() ? '<div style="font-size:11.5px;color:#8A8F9C;margin:-2px 0 5px">kit do sistema ' + fmtBRL(p.valor) + ' + ' + cams() + ' câmera' + (cams() > 1 ? 's' : '') + ' ' + fmtBRL(camImpl()) + '</div>' : '') +
+        (plano ? '<div>Assinatura ' + plano.label.toLowerCase() + (p.plano === 'anual' ? ' (anuidade integral)' : ' (1ª mensalidade)') + ' <b style="float:right;margin-left:26px">' + fmtBRL(assinValor(p.plano)) + '</b></div>' : '') +
+        (cams() && plano ? '<div style="font-size:11.5px;color:#8A8F9C;margin:-2px 0 5px">assinatura ' + fmtBRL(planoValor(p.plano)) + ' + ' + cams() + ' câmera' + (cams() > 1 ? 's' : '') + ' ' + fmtBRL(camAssin(p.plano)) + '</div>' : '') +
+        '<div style="border-top:1px solid #E3E5EB;margin-top:6px;padding-top:6px;font-weight:800;color:#2D324B">Total <span style="float:right;margin-left:26px;font-size:22px">' + fmtBRL(total) + '</span></div>' +
+      '</div>';
+  const avisos = renov
+    ? '<div style="margin-top:14px;font-size:12.5px;color:#4E5666;background:#F4F5F8;border-radius:10px;padding:10px 14px;text-align:left">🔄 Renovação sem alteração no sistema — o monitoramento continua ativo pelo período contratado.</div>'
+    : '<div style="margin-top:14px;font-size:12.5px;color:#4E5666;background:#F4F5F8;border-radius:10px;padding:10px 14px;text-align:left">' +
+        '⏱ <b>Instalação em até 30 dias</b> a partir da data do pagamento.<br>' +
+        (upg ? '📅 A leitura da rede NMEA passa a valer <b>após a instalação</b>. Sua assinatura atual é mantida, sem nova cobrança.' : '📅 O período de uso da assinatura passa a valer <b>somente após a implementação</b> do sistema.') +
+      '</div>';
+  let inner;
+  if ((p.pagamento || pagSel) === 'cartao' && PAGAMENTO.linkCartao) {
+    inner = '<div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8A8F9C;font-weight:700">Pagamento · ' + cab + '</div>' +
+      resumo +
+      '<a href="' + PAGAMENTO.linkCartao + '" target="_blank"><button class="btnc">💳 Pagar com cartão de crédito</button></a>';
+  } else if (PAGAMENTO.pixChave) {
+    inner = '<div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8A8F9C;font-weight:700">Pagamento via PIX · ' + cab + '</div>' +
+      resumo +
+      '<div id="pixQr"></div>' +
+      '<div style="font-size:12.5px;color:#4E5666">Escaneie com o app do seu banco · Favorecido: ' + esc(PAGAMENTO.pixNome) + '</div>' +
+      '<div class="copia" id="pixCopia"></div>' +
+      '<button class="btnc" id="btnCopiaPix">📋 Copiar código PIX (copia e cola)</button>';
+  } else {
+    inner = '<div style="font-size:15px;font-weight:700;color:#2D324B">Total a pagar (' + (implIsento() ? 'assinatura — implementação isenta' : 'implementação + assinatura') + '): ' + fmtBRL(total) + '</div>' +
+      '<div style="margin-top:8px;font-size:13.5px;color:#4E5666">Nossa equipe entrará em contato pelo WhatsApp com os dados de pagamento.</div>';
+  }
+  return '<div class="paybox">' + inner + avisos + '</div>';
+}
+
+function wirePagamento() {
+  if (PAGAMENTO.pixChave && document.getElementById('pixQr')) {
+    const payload = pixPayload(totalCom(p.plano), 'SB' + String(p.numero).padStart(4, '0'));
+    document.getElementById('pixCopia').textContent = payload;
+    if (window.qrcode) {
+      const qr = window.qrcode(0, 'M');
+      qr.addData(payload);
+      qr.make();
+      document.getElementById('pixQr').innerHTML = qr.createImgTag(5, 8);
+    }
+    const b = document.getElementById('btnCopiaPix');
+    if (b) b.addEventListener('click', () => {
+      navigator.clipboard.writeText(payload).then(() => { b.textContent = '✓ Código copiado!'; });
+    });
+  }
+}
+
+/* Evidência da assinatura: snapshot integral do contrato aceito + hash SHA-256.
+   O hash prova QUAL texto foi aceito; o snapshot preserva o contrato no banco
+   mesmo que os termos publicados mudem depois. */
+async function evidenciaContrato() {
+  try {
+    const url = p.segmento === 'B2B' ? 'termos-b2b.html' : 'termos-b2c.html';
+    const html = await (await fetch(url, { cache: 'no-store' })).text();
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(html));
+    const hash = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+    return { hash, html };
+  } catch (e) { return { hash: null, html: null }; }
+}
+
+async function aceitarProposta() {
+  const nome = document.getElementById('aNome').value.trim();
+  const doc = document.getElementById('aDoc').value.trim();
+  const email = (authUser ? authUser.email : document.getElementById('aEmail').value.trim().toLowerCase());
+  if (!planoSel) { alert(isUpgrade() ? 'Confirme qual é o seu plano atual (mensal ou anual) na seção Investimento.' : 'Escolha o plano de assinatura (mensal ou anual) na seção Investimento.'); return; }
+  if (!nome || !doc) { alert('Preencha seu nome completo e ' + (p.segmento === 'B2B' ? 'CNPJ' : 'CPF') + '.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Informe um e-mail válido — ele será seu acesso ao app e receberá o contrato.'); return; }
+  if (!document.getElementById('aTermos').checked) { alert('É necessário aceitar os Termos de Uso e o Contrato para contratar.'); return; }
+  const btn = document.getElementById('btnAceitar');
+  btn.disabled = true; btn.textContent = 'Registrando aceite…';
+  const ev = await evidenciaContrato();
+  let ok = false;
+  try {
+    ok = await rpc('prop_aceitar', { n: ref.n, t: ref.t, p_nome: nome, p_doc: doc, p_plano: planoSel, p_pag: pagSel, p_hash: ev.hash, p_contrato: ev.html, p_email: email });
+  } catch (e) {
+    // banco ainda sem as colunas de evidência → registra o aceite básico
+    try {
+      ok = await rpc('prop_aceitar', { n: ref.n, t: ref.t, p_nome: nome, p_doc: doc, p_plano: planoSel, p_pag: pagSel });
+    } catch (e2) { ok = false; }
+  }
+  if (!ok) {
+    btn.disabled = false; btn.textContent = 'Tentar novamente';
+    alert('Não foi possível registrar o aceite. Verifique sua conexão e tente de novo.');
+    return;
+  }
+  const rows = await rpc('prop_get', { n: ref.n, t: ref.t });
+  if (rows && rows.length) p = rows[0];
+  renderAceite();
+  document.getElementById('secAceite').scrollIntoView({ behavior: 'smooth' });
+}
+
+main();
+</script>
+</body>
+</html>

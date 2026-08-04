@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAFEBOAT</title>
+<link rel="icon" type="image/png" href="/img/logo.png">
+<script>
+/* Rotas de proposta: /proposta/<numero>-<token> não é um arquivo real —
+   o GitHub Pages cai aqui. Encaminha para o visualizador preservando a
+   referência da proposta. Qualquer outro caminho vê a página 404 abaixo. */
+(function () {
+  var m = location.pathname.match(/^\/proposta\/(\d+-[a-z0-9]{4,10})\/?$/i);
+  if (m) location.replace('/proposta/?p=' + m[1] + location.hash);
+})();
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         background: #2D324B; color: #fff; min-height: 100vh; display: flex;
+         align-items: center; justify-content: center; text-align: center; padding: 24px; }
+  .box { max-width: 460px; }
+  img { height: 54px; margin-bottom: 26px; }
+  h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+  p { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.6; }
+  a.btn { display: inline-block; margin-top: 24px; background: #fff; color: #2D324B;
+          text-decoration: none; font-weight: 700; font-size: 14px;
+          border-radius: 10px; padding: 12px 22px; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <img src="/img/logo-branco.png" alt="SAFEBOAT">
+    <h1>Página não encontrada</h1>
+    <p>O endereço que você abriu não existe ou foi movido. Se você recebeu um link
+       de proposta, confira se ele foi copiado por completo.</p>
+    <a class="btn" href="/">Ir para o site</a>
+  </div>
+</body>
+</html>
