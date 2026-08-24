@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrate o SAFEBOAT — monte seu plano online</title>
+  <meta name="description" content="Monte o plano SAFEBOAT para a sua embarcação, veja o preço na hora e contrate 100% online. Instalação em até 30 dias, equipamento em comodato.">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SAFEBOAT">
+  <meta property="og:url" content="https://safeboat.tech/contratar.html">
+  <meta property="og:title" content="Contrate o SAFEBOAT — monte seu plano em 5 minutos">
+  <meta property="og:description" content="Três perguntas, preço na hora e contratação online. 3 naufrágios evitados, +R$ 10 milhões em prejuízos evitados, +100 embarcações monitoradas.">
+  <meta property="og:image" content="https://safeboat.tech/img/og-safeboat.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <style>
+    /* ─── Landing de autocontratação (lp-) ─── */
+    .hero-lp { padding-bottom: 90px; }
+    .hero-lp .hero-grade { grid-template-columns: 1fr; max-width: 880px; text-align: center; }
+    .hero-lp .hero-sub, .hero-lp .hero-prova { margin-left: auto; margin-right: auto; }
+    .hero-lp .hero-acoes { justify-content: center; }
+
+    .lp-wiz {
+      max-width: 880px; margin: 0 auto;
+      background: var(--branco); border: 1px solid var(--linha); border-radius: 22px;
+      padding: 44px 48px 40px; box-shadow: 0 30px 70px rgba(35, 48, 74, 0.10);
+    }
+    .lp-passos { display: flex; gap: 6px; margin-bottom: 36px; }
+    .lp-passos span {
+      flex: 1; height: 4px; border-radius: 99px; background: var(--linha);
+      transition: background 0.3s;
+    }
+    .lp-passos span.on { background: var(--navy); }
+    .lp-etapa-titulo { font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 8px; font-family: var(--fonte-titulo); }
+    .lp-wiz h3 { font-size: 1.5rem; font-weight: 400; color: var(--navy); margin-bottom: 6px; }
+    .lp-ajuda { font-size: 0.9rem; color: var(--cinza-texto); margin-bottom: 26px; }
+
+    .lp-opcoes { display: grid; gap: 14px; }
+    .lp-opcao {
+      display: block; text-align: left; width: 100%; cursor: pointer;
+      border: 1px solid var(--linha); border-radius: 14px; padding: 18px 20px;
+      background: var(--branco); font-family: var(--fonte-corpo); transition: border-color 0.25s, background 0.25s;
+    }
+    .lp-opcao:hover { border-color: var(--navy); }
+    .lp-opcao.sel { border-color: var(--navy); background: var(--neblina); box-shadow: inset 0 0 0 1px var(--navy); }
+    .lp-opcao b { display: block; font-size: 0.98rem; font-weight: 500; color: var(--tinta); margin-bottom: 3px; }
+    .lp-opcao small { font-size: 0.82rem; color: var(--cinza-texto); line-height: 1.55; display: block; }
+    .lp-opcao .lp-preco { float: right; font-family: var(--fonte-titulo); color: var(--navy); font-size: 0.95rem; margin-left: 12px; }
+
+    .lp-add { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid var(--linha); border-radius: 14px; padding: 16px 20px; margin-bottom: 14px; }
+    .lp-add-info b { display: block; font-size: 0.95rem; font-weight: 500; color: var(--tinta); }
+    .lp-add-info small { font-size: 0.8rem; color: var(--cinza-texto); line-height: 1.5; display: block; max-width: 46ch; }
+    .lp-step { display: flex; align-items: center; gap: 0; border: 1px solid var(--linha); border-radius: 99px; flex-shrink: 0; }
+    .lp-step button { width: 40px; height: 40px; border: none; background: none; font-size: 1.2rem; color: var(--navy); cursor: pointer; }
+    .lp-step output { min-width: 30px; text-align: center; font-weight: 500; }
+    .lp-tgl { position: relative; width: 52px; height: 30px; flex-shrink: 0; }
+    .lp-tgl input { opacity: 0; width: 100%; height: 100%; position: absolute; cursor: pointer; z-index: 2; }
+    .lp-tgl i { position: absolute; inset: 0; border-radius: 99px; background: var(--linha); transition: 0.25s; }
+    .lp-tgl i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: 0.25s; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+    .lp-tgl input:checked + i { background: var(--navy); }
+    .lp-tgl input:checked + i::after { transform: translateX(22px); }
+
+    .lp-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; gap: 14px; }
+    .lp-volta { background: none; border: none; font-family: var(--fonte-titulo); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; padding: 10px 0; }
+    .lp-avanca { border: none; cursor: pointer; }
+
+    .lp-total {
+      margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--linha);
+      display: flex; flex-wrap: wrap; gap: 8px 34px; font-size: 0.86rem; color: var(--cinza-texto);
+    }
+    .lp-total b { color: var(--navy); font-weight: 600; }
+
+    .lp-kit { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; margin: 18px 0 8px; }
+    .lp-kit figure { text-align: center; }
+    .lp-kit img { width: 100%; height: 72px; object-fit: contain; border: 1px solid var(--linha); border-radius: 10px; padding: 6px; background: #fff; }
+    .lp-kit figcaption { font-size: 0.66rem; line-height: 1.3; color: var(--cinza-texto); margin-top: 5px; }
+
+    .lp-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+    .lp-form label { font-size: 0.78rem; color: var(--cinza-texto); display: block; }
+    .lp-form input {
+      width: 100%; margin-top: 5px; padding: 12px 14px; font-family: var(--fonte-corpo); font-size: 0.95rem;
+      border: 1px solid var(--linha); border-radius: 10px; background: var(--branco); color: var(--tinta);
+    }
+    .lp-form input:focus { outline: none; border-color: var(--navy); }
+    .lp-form .lp-w { grid-column: 1 / -1; }
+    .lp-aceite { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; font-size: 0.8rem; color: var(--cinza-texto); line-height: 1.6; }
+    .lp-aceite input { width: auto; margin-top: 3px; }
+    .lp-aceite a { color: var(--navy); }
+
+    .lp-fech { text-align: center; }
+    .lp-fech h3 { margin-bottom: 4px; }
+    .lp-fech-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 26px; text-align: left; }
+    .lp-fech-bloco { border: 1px solid var(--linha); border-radius: 16px; padding: 26px 26px 22px; }
+    .lp-fech-bloco h4 { font-family: var(--fonte-titulo); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); margin-bottom: 6px; }
+    .lp-fech-bloco .v { font-size: 1.5rem; font-family: var(--fonte-titulo); color: var(--navy); margin-bottom: 8px; }
+    .lp-fech-bloco p { font-size: 0.82rem; color: var(--cinza-texto); line-height: 1.6; margin-bottom: 14px; }
+    #lpPixQr { display: flex; justify-content: center; margin: 8px 0 12px; }
+    #lpPixQr img { image-rendering: pixelated; border: 1px solid var(--linha); border-radius: 10px; padding: 8px; background: #fff; }
+    .lp-copia { width: 100%; font-size: 0.7rem; word-break: break-all; background: var(--neblina); border: 1px dashed var(--linha); border-radius: 8px; padding: 10px; color: var(--cinza-texto); margin-bottom: 10px; }
+    .lp-btn-mini { display: block; width: 100%; text-align: center; }
+    .lp-zap { margin-top: 26px; }
+
+    .lp-erro { color: #C0392B; font-size: 0.82rem; margin-top: 12px; display: none; }
+
+    @media (max-width: 760px) {
+      .lp-wiz { padding: 30px 22px 28px; }
+      .lp-form { grid-template-columns: 1fr; }
+      .lp-fech-grade { grid-template-columns: 1fr; }
+      .lp-add { flex-wrap: wrap; }
+    }
+
+    /* comparativo */
+    .lp-comp { max-width: 880px; margin: 0 auto; border: 1px solid var(--linha-clara); border-radius: 16px; overflow: hidden; }
+    .lp-comp table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .lp-comp th, .lp-comp td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--linha-clara); color: rgba(255,255,255,0.85); }
+    .lp-comp th { font-family: var(--fonte-titulo); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.74rem; }
+    .lp-comp td:nth-child(2) { color: rgba(255,255,255,0.45); }
+    .lp-comp tr:last-child td { border-bottom: none; }
+
+    /* FAQ */
+    .lp-faq { max-width: 760px; margin: 0 auto; }
+    .lp-faq details { border-bottom: 1px solid var(--linha); padding: 4px 0; }
+    .lp-faq summary { cursor: pointer; padding: 16px 0; font-size: 0.98rem; font-weight: 500; color: var(--tinta); list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+    .lp-faq summary::after { content: "+"; color: var(--navy); font-size: 1.2rem; }
+    .lp-faq details[open] summary::after { content: "–"; }
+    .lp-faq p { font-size: 0.9rem; color: var(--cinza-texto); padding-bottom: 18px; }
+  </style>
+</head>
+<body>
+
+<header id="topo">
+  <div class="contentor barra">
+    <a href="index.html" class="marca" aria-label="SAFEBOAT">
+      <img src="img/logo-branco.png" alt="SAFEBOAT">
+    </a>
+    <div class="barra-acoes">
+      <a class="botao botao-contorno" href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Estou%20montando%20meu%20plano%20no%20site%20e%20quero%20falar%20com%20um%20especialista." target="_blank" rel="noopener">Falar com especialista</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero hero-lp" id="inicio">
+  <div class="hero-ondas" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path d="M0,120 C240,60 480,180 720,120 C960,60 1200,180 1440,110" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+      <path d="M0,170 C240,110 480,230 720,170 C960,110 1200,230 1440,160" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="contentor hero-grade">
+    <div class="hero-texto">
+      <p class="olho">Contratação 100% online</p>
+      <h1>Monte seu SAFEBOAT.<br>Contrate em <em>5 minutos</em>.</h1>
+      <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. Nossa equipe instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas.</p>
+      <div class="hero-prova">
+        <strong>3</strong> naufrágios evitados
+        <span>·</span> <strong>+R$ 10 milhões</strong> em prejuízos evitados
+        <span>·</span> <strong>+100</strong> embarcações monitoradas
+      </div>
+      <div class="hero-acoes">
+        <a class="botao botao-claro botao-hero" href="#montar">Montar meu plano</a>
+      </div>
+      <p class="hero-selo">Equipamento em comodato &nbsp;·&nbsp; Instalação em ~4 horas &nbsp;·&nbsp; Suporte em português</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WIZARD ══════════ -->
+<section class="secao secao-neblina" id="montar">
+  <div class="contentor">
+    <div class="lp-wiz" id="lpWiz">
+      <div class="lp-passos" id="lpPassos"><span class="on"></span><span></span><span></span><span></span></div>
+
+      <!-- Passo 1 · rede -->
+      <div class="lp-p" data-p="1">
+        <p class="lp-etapa-titulo">Passo 1 de 4 · Sua embarcação</p>
+        <h3>Como são os instrumentos do seu barco?</h3>
+        <p class="lp-ajuda">Isso define o kit. Se não souber, escolha a última opção — nossa equipe confirma na instalação.</p>
+        <div class="lp-opcoes" id="lpRede">
+          <button class="lp-opcao sel" data-rede="nenhuma" data-naosei="0" type="button">
+            <span class="lp-preco">R$ 1.100</span>
+            <b>Instrumentos analógicos (ponteiro)</b>
+            <small>Sem rede NMEA e sem rede CAN. O SAFEBOAT monitora segurança, baterias e ambiente da casa de máquinas.</small>
+          </button>
+          <button class="lp-opcao" data-rede="nmea" data-naosei="0" type="button">
+            <span class="lp-preco">R$ 1.300</span>
+            <b>Tela de navegação com dados do motor</b>
+            <small>Rede NMEA com dados de motor já convertidos. O SAFEBOAT se conecta à rede e lê tudo — inclusive a telemetria dos motores.</small>
+          </button>
+          <button class="lp-opcao" data-rede="can" data-naosei="0" type="button">
+            <span class="lp-preco">R$ 1.600</span>
+            <b>Motor eletrônico, sem os dados na tela</b>
+            <small>Rede CAN não conectada à NMEA. Instalamos o conversor J1939 e passamos a ler todos os dados do motor.</small>
+          </button>
+          <button class="lp-opcao" data-rede="nenhuma" data-naosei="1" type="button">
+            <span class="lp-preco">a confirmar</span>
+            <b>Não sei dizer</b>
+            <small>Sem problema: começamos pelo kit base (R$ 1.100) e a equipe técnica confirma na instalação. Se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança.</small>
+          </button>
+        </div>
+        <div class="lp-nav"><span></span><button class="botao botao-navy lp-avanca" data-vai="2" type="button">Continuar</button></div>
+      </div>
+
+      <!-- Passo 2 · opcionais -->
+      <div class="lp-p" data-p="2" hidden>
+        <p class="lp-etapa-titulo">Passo 2 de 4 · Opcionais</p>
+        <h3>Quer ampliar a proteção?</h3>
+        <p class="lp-ajuda">Todos são opcionais — o kit base já monitora segurança, baterias e casa de máquinas.</p>
+
+        <div class="lp-add">
+          <div class="lp-add-info">
+            <b>Sensor de consumo de bateria</b>
+            <small>Mede tensão e corrente direto no banco. + R$ 400 na implementação.</small>
+          </div>
+          <span class="lp-tgl"><input type="checkbox" id="lpBateria"><i></i></span>
+        </div>
+
+        <div class="lp-add">
+          <div class="lp-add-info">
+            <b>Câmeras Wi-Fi Full HD</b>
+            <small>Veja o barco ao vivo pelo app. + R$ 472,93 por câmera na implementação e + R$ 29,90/mês cada. Requer internet a bordo (ex.: Starlink).</small>
+          </div>
+          <span class="lp-step"><button type="button" data-menos="cams">−</button><output id="lpCams">0</output><button type="button" data-mais="cams">+</button></span>
+        </div>
+
+        <div class="lp-add">
+          <div class="lp-add-info">
+            <b>VIB · manutenção preditiva do motor</b>
+            <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na implementação e + R$ 49,90/motor/mês.</small>
+          </div>
+          <span class="lp-step"><button type="button" data-menos="vibs">−</button><output id="lpVibs">0</output><button type="button" data-mais="vibs">+</button></span>
+        </div>
+
+        <div class="lp-nav">
+          <button class="lp-volta" data-vai="1" type="button">← Voltar</button>
+          <button class="botao botao-navy lp-avanca" data-vai="3" type="button">Continuar</button>
+        </div>
+      </div>
+
+      <!-- Passo 3 · plano -->
+      <div class="lp-p" data-p="3" hidden>
+        <p class="lp-etapa-titulo">Passo 3 de 4 · Assinatura</p>
+        <h3>Como prefere pagar a assinatura?</h3>
+        <p class="lp-ajuda">A assinatura mantém o monitoramento 24h, o aplicativo, os alertas e o suporte.</p>
+        <div class="lp-opcoes" id="lpPlano">
+          <button class="lp-opcao sel" data-plano="mensal" type="button">
+            <span class="lp-preco" id="lpPvMensal">R$ 249/mês</span>
+            <b>Mensal, no cartão</b>
+            <small>Recorrência no cartão de crédito, sem comprometer o limite. Cancele quando quiser.</small>
+          </button>
+          <button class="lp-opcao" data-plano="anual" type="button">
+            <span class="lp-preco" id="lpPvAnual">R$ 2.490/ano</span>
+            <b>Anual · 2 meses grátis</b>
+            <small>Pague 10 meses e use 12 — economia de R$ 498/ano no plano base.</small>
+          </button>
+        </div>
+        <div class="lp-nav">
+          <button class="lp-volta" data-vai="2" type="button">← Voltar</button>
+          <button class="botao botao-navy lp-avanca" data-vai="4" type="button">Ver meu plano</button>
+        </div>
+      </div>
+
+      <!-- Passo 4 · resumo + contato -->
+      <div class="lp-p" data-p="4" hidden>
+        <p class="lp-etapa-titulo">Passo 4 de 4 · Seu plano</p>
+        <h3>Confira e conclua</h3>
+        <div id="lpResumo"></div>
+        <div class="lp-form">
+          <label class="lp-w">Nome completo<input id="lpNome" autocomplete="name" placeholder="Seu nome"></label>
+          <label>WhatsApp<input id="lpTel" autocomplete="tel" inputmode="tel" placeholder="(48) 9…"></label>
+          <label>E-mail<input id="lpEmail" autocomplete="email" inputmode="email" placeholder="voce@email.com"></label>
+          <label>Nome do barco <small style="opacity:.6">(opcional)</small><input id="lpBarco" placeholder="Ex.: ST Tropez"></label>
+          <label>Cidade / marina<input id="lpCidade" placeholder="Ex.: Itajaí · Marina Itajaí"></label>
+          <label class="lp-aceite"><input type="checkbox" id="lpAceite"> <span>Li e aceito os <a href="https://proposta.safeboat.ai/termos-b2c.html" target="_blank" rel="noopener">termos do serviço SAFEBOAT</a> e a <a href="privacidade.html" target="_blank">política de privacidade</a>.</span></label>
+        </div>
+        <p class="lp-erro" id="lpErro"></p>
+        <div class="lp-nav">
+          <button class="lp-volta" data-vai="3" type="button">← Voltar</button>
+          <button class="botao botao-navy lp-avanca" id="lpConcluir" type="button">Concluir contratação</button>
+        </div>
+      </div>
+
+      <!-- Fechamento -->
+      <div class="lp-p lp-fech" data-p="5" hidden>
+        <p class="lp-etapa-titulo">Tudo pronto 🎉</p>
+        <h3 id="lpFechTitulo">Falta só o pagamento</h3>
+        <p class="lp-ajuda">Assim que o pagamento for identificado, agendamos a instalação — em até 30 dias, feita pela equipe técnica SAFEBOAT.</p>
+        <div class="lp-fech-grade" id="lpFechGrade"></div>
+        <div class="lp-zap">
+          <a class="botao botao-navy lp-btn-mini" id="lpZap" target="_blank" rel="noopener">Enviar comprovante no WhatsApp</a>
+          <p style="font-size:.78rem;color:var(--cinza-texto);margin-top:10px">Seu plano também já chegou à nossa equipe — se preferir, é só chamar no WhatsApp que concluímos com você.</p>
+        </div>
+      </div>
+
+      <!-- Barra de total (passos 1–4) -->
+      <div class="lp-total" id="lpTotais"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COMO FUNCIONA ══════════ -->
+<section class="secao">
+  <div class="contentor">
+    <div class="cabeca">
+      <p class="olho">Como funciona</p>
+      <h2>Do clique ao barco monitorado</h2>
+    </div>
+    <div class="ciclo-grade">
+      <article class="ciclo"><span class="ciclo-num">01</span><h3>Monte e pague online</h3><p>Você escolhe o kit, os opcionais e o plano. Implementação via PIX e assinatura no cartão — tudo nesta página, sem ligação de vendedor.</p></article>
+      <article class="ciclo"><span class="ciclo-num">02</span><h3>Instalamos em até 30 dias</h3><p>Equipe técnica SAFEBOAT, instalação em cerca de 4 horas, sem furar o casco e sem interferir na estética. O equipamento é nosso, em comodato.</p></article>
+      <article class="ciclo"><span class="ciclo-num">03</span><h3>Você navega vigiado</h3><p>Bateria, porão, motores e casa de máquinas no seu celular, 24h — com alertas em tempo real e a SAFEBOAT AI no WhatsApp.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COMPARATIVO ══════════ -->
+<section class="secao secao-navy">
+  <div class="contentor">
+    <div class="cabeca">
+      <p class="olho olho-claro">Por que SAFEBOAT</p>
+      <h2>Rastreador avisa onde afundou.<br>O SAFEBOAT avisa antes de afundar.</h2>
+    </div>
+    <div class="lp-comp">
+      <table>
+        <tr><th></th><th>Rastreador comum</th><th>SAFEBOAT</th></tr>
+        <tr><td>Posição e cerca virtual</td><td>Sim</td><td>Sim, com alarme de âncora</td></tr>
+        <tr><td>Bomba de porão e alagamento</td><td>—</td><td>Alerta no primeiro sinal</td></tr>
+        <tr><td>Fumaça e princípio de incêndio</td><td>—</td><td>Detector + sirene a bordo</td></tr>
+        <tr><td>Baterias e chave geral</td><td>—</td><td>Tensão de todos os bancos, 24h</td></tr>
+        <tr><td>Telemetria dos motores</td><td>—</td><td>Horímetro, RPM, pressões e temperaturas</td></tr>
+        <tr><td>Gestão de manutenções</td><td>—</td><td>Revisões com aviso de vencimento</td></tr>
+        <tr><td>IA que responde sobre o barco</td><td>—</td><td>SAFEBOAT AI no WhatsApp</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="secao">
+  <div class="contentor">
+    <div class="cabeca">
+      <p class="olho">Dúvidas frequentes</p>
+      <h2>Antes de contratar</h2>
+    </div>
+    <div class="lp-faq">
+      <details><summary>A instalação exige obra ou furo no casco?</summary><p>Não. A instalação é feita pela equipe SAFEBOAT em cerca de 4 horas, sem furar o casco e sem interferir na estética da embarcação.</p></details>
+      <details><summary>O equipamento é meu?</summary><p>O hardware é da SAFEBOAT, em comodato — você paga a implementação (kit + instalação) uma única vez e a assinatura mensal ou anual. Se o equipamento falhar, a reposição é por nossa conta.</p></details>
+      <details><summary>E se eu não souber qual rede meu barco tem?</summary><p>Escolha "Não sei dizer" no passo 1. Contratamos pelo kit base e a equipe técnica confirma na instalação; se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança extra.</p></details>
+      <details><summary>As câmeras funcionam em qualquer barco?</summary><p>As câmeras precisam de internet a bordo (por exemplo, Starlink). O consumo de dados e energia é da embarcação. Sem internet a bordo, o restante do sistema funciona normalmente pela conexão celular da central.</p></details>
+      <details><summary>Posso cancelar a assinatura?</summary><p>Sim. O plano mensal pode ser cancelado a qualquer momento; o anual vale por 12 meses com 2 meses de cortesia. Os detalhes estão nos termos do serviço.</p></details>
+      <details><summary>Em quanto tempo o sistema é instalado?</summary><p>Em até 30 dias após a confirmação do pagamento — normalmente bem antes, conforme a agenda da sua região. O período da assinatura só começa a contar após a instalação.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape secao-navy">
+  <div class="contentor rodape-base">
+    <p>© 2026 SAFEBOAT · Todos os direitos reservados</p>
+    <p><a class="rodape-mini" href="index.html">Site</a> · <a class="rodape-mini" href="suporte.html">Suporte</a> · <a class="rodape-mini" href="privacidade.html">Privacidade</a></p>
+  </div>
+</footer>
+
+<script>
+'use strict';
+/* ============================================================
+   SAFEBOAT · Autocontratação
+   Regras de preço e checkout idênticas ao sistema de propostas
+   (safeboat-leads / safeboat-proposta) — manter em sincronia.
+   ============================================================ */
+const REDES = {
+  nenhuma: { valor: 1100, label: 'Sem rede NMEA e sem rede CAN',
+    kit: ['Central SAFEBOAT', 'Sensor de fumaça', 'Sensor de alagamento', 'Sirene de alarme'] },
+  nmea: { valor: 1300, label: 'Rede NMEA com dados de motor já convertidos',
+    kit: ['Central SAFEBOAT', 'Sensor de fumaça', 'T NMEA', 'Cabo NMEA', 'Sensor de alagamento', 'Sirene de alarme'] },
+  can: { valor: 1600, label: 'Rede CAN (com conversor J1939-NMEA)',
+    kit: ['Central SAFEBOAT', 'Sensor de fumaça', 'Conversor J1939-NMEA', 'Cabo NMEA', 'Sensor de alagamento', 'Sirene de alarme'] },
+};
+const KIT_IMGS = {
+  'Central SAFEBOAT': 'img/eq/eq-central.jpg',
+  'Sensor de fumaça': 'img/eq/eq-fumaca.jpg',
+  'Sensor de alagamento': 'img/eq/eq-alagamento.jpg',
+  'Sirene de alarme': 'img/eq/eq-sirene.svg',
+  'T NMEA': 'img/eq/eq-t-nmea.jpg',
+  'Cabo NMEA': 'img/eq/eq-cabo-nmea.jpg',
+  'Conversor J1939-NMEA': 'img/eq/eq-conversor.jpg',
+  'Sensor de consumo de bateria': 'img/eq/eq-bateria.jpg',
+  'Câmera Wi-Fi Full HD': 'img/eq/eq-camera.png',
+  'VIB — sensor de vibração': 'img/eq/eq-vib.png',
+};
+const BATERIA = 400;
+const CAMERA = { impl: 472.93, mensal: 29.90, anual: 299.00 };
+const VIB = { impl: 600, mensal: 49.90, anual: 499.00 };
+const PLANOS = { mensal: { base: 249, sufixo: '/mês' }, anual: { base: 2490, sufixo: '/ano' } };
+const PAGAMENTO = { pixChave: '52998441000128', pixNome: 'SAFEBOAT TECNOLOGIA LTDA', pixCidade: 'FLORIANOPOLIS' };
+const ZAP = '5548991400063';
+const SUPA_URL = 'https://ppdafbzlnjgggycecjhs.supabase.co';
+const SUPA_KEY = 'sb_publishable_IN2C9q60_SfQjDgVwGCzrQ_vPCdoADp';
+
+/* Assinatura mensal no cartão: planos de recorrência Mercado Pago por valor
+   exato (mesma tabela do sistema de propostas). */
+const MP_MENSAL = {
+  '249.00': '4e58b2cad1cc43c3b8a99b2cff07cabe',
+  '278.90': '2481437868db429a809a93b852ba8fe3',
+  '298.90': 'da203b928b2f4e1b9176ca0efda756b2',
+  '308.80': '40b77e70cab74c80a55f5e867d4f448f',
+  '328.80': '4f487b97635b44f1b2a1e8733140d185',
+  '338.70': '52e050aafbf54437abaa1e104572e9b7',
+  '348.80': 'e866aced694a406a8126dd70660243c0',
+  '358.70': 'f23c9089e1cb437faada261396f09ccc',
+  '368.60': 'a178a1c17c6e428e94b3c6b9bbd2c13e',
+  '378.70': '3cb47074e56b4de29612091b808e4c39',
+  '388.60': 'b96c8fad6f8640cbadff0f3fcf4369e9',
+  '398.70': '6cd6c163f42940218ce920a7fcdff1d7',
+  '408.60': 'da0ff330910c489c86e637bdf774103c',
+  '418.50': '646538d2ed0c4561b586c7cd0915c949',
+  '428.60': '09853460f0ae4a87b485e7665929a764',
+  '438.50': '5d138a3168864042b19212829cfac0f4',
+  '458.50': '907bcae223b243dc9c6c7d2913817e7d',
+  '468.40': '8a25acbbcd4b4065bfe89dfdb61a713e',
+  '488.40': 'e0a8251cd02d4862ac073d6cc2e5e6d0',
+  '518.30': 'e4e17f9b2dd94284935c1b215d0d2d55',
+};
+const mpMensalUrl = (v) => {
+  const id = MP_MENSAL[Number(v).toFixed(2)];
+  return id ? 'https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=' + id : null;
+};
+
+/* ── estado ── */
+const st = { rede: 'nenhuma', naosei: false, bateria: false, cams: 0, vibs: 0, plano: 'mensal' };
+const $ = (s) => document.querySelector(s);
+const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+/* UTMs da campanha (Instagram/Meta Ads) — guardadas para o CRM */
+const qs = new URLSearchParams(location.search);
+const utm = {};
+['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach((k) => {
+  const v = qs.get(k) || sessionStorage.getItem('sb_' + k);
+  if (v) { utm[k] = v; sessionStorage.setItem('sb_' + k, v); }
+});
+const eventoOrigem = () => {
+  const s = (utm.utm_source || '').toLowerCase();
+  if (s.includes('ig') || s.includes('insta')) return 'instagram';
+  if (utm.fbclid || s.includes('fb') || s.includes('face') || (utm.utm_medium || '').match(/cpc|paid|ads/i)) return 'ads';
+  return 'outro';
+};
+
+/* ── cálculo ── */
+const implTotal = () => REDES[st.rede].valor + (st.bateria ? BATERIA : 0) + st.cams * CAMERA.impl + st.vibs * VIB.impl;
+const assinatura = (p) => (p === 'anual')
+  ? PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual
+  : PLANOS.mensal.base + st.cams * CAMERA.mensal + st.vibs * VIB.mensal;
+const kitAtual = () => {
+  const k = REDES[st.rede].kit.slice();
+  if (st.bateria) k.push('Sensor de consumo de bateria');
+  for (let i = 0; i < st.cams; i++) k.push('Câmera Wi-Fi Full HD');
+  for (let i = 0; i < st.vibs; i++) k.push('VIB — sensor de vibração');
+  return k;
+};
+
+/* ── navegação ── */
+let passo = 1;
+function irPara(n) {
+  passo = n;
+  document.querySelectorAll('.lp-p').forEach((el) => (el.hidden = Number(el.dataset.p) !== n));
+  document.querySelectorAll('#lpPassos span').forEach((el, i) => el.classList.toggle('on', i < Math.min(n, 4)));
+  $('#lpTotais').style.display = n === 5 ? 'none' : 'flex';
+  if (n === 4) montarResumo();
+  render();
+  $('#lpWiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.querySelectorAll('[data-vai]').forEach((b) => b.addEventListener('click', () => irPara(Number(b.dataset.vai))));
+
+/* ── passo 1: rede ── */
+$('#lpRede').addEventListener('click', (e) => {
+  const b = e.target.closest('.lp-opcao'); if (!b) return;
+  document.querySelectorAll('#lpRede .lp-opcao').forEach((x) => x.classList.remove('sel'));
+  b.classList.add('sel');
+  st.rede = b.dataset.rede; st.naosei = b.dataset.naosei === '1';
+  render();
+});
+
+/* ── passo 2: opcionais ── */
+$('#lpBateria').addEventListener('change', (e) => { st.bateria = e.target.checked; render(); });
+document.querySelectorAll('[data-mais],[data-menos]').forEach((b) => b.addEventListener('click', () => {
+  const k = b.dataset.mais || b.dataset.menos;
+  st[k] = Math.max(0, Math.min(3, st[k] + (b.dataset.mais ? 1 : -1)));
+  render();
+}));
+
+/* ── passo 3: plano ── */
+$('#lpPlano').addEventListener('click', (e) => {
+  const b = e.target.closest('.lp-opcao'); if (!b) return;
+  document.querySelectorAll('#lpPlano .lp-opcao').forEach((x) => x.classList.remove('sel'));
+  b.classList.add('sel');
+  st.plano = b.dataset.plano;
+  render();
+});
+
+/* ── render dos totais ── */
+function render() {
+  $('#lpCams').textContent = st.cams;
+  $('#lpVibs').textContent = st.vibs;
+  $('#lpPvMensal').textContent = fmt(assinatura('mensal')) + '/mês';
+  $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
+  $('#lpTotais').innerHTML =
+    '<span>Implementação (única): <b>' + fmt(implTotal()) + '</b>' + (st.naosei ? ' <small>· a confirmar na instalação</small>' : '') + '</span>' +
+    '<span>Assinatura: <b>' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + '</b></span>';
+}
+
+/* ── resumo do passo 4 ── */
+function montarResumo() {
+  const kit = kitAtual();
+  const vistos = {};
+  const figs = kit.map((n) => {
+    vistos[n] = (vistos[n] || 0) + 1;
+    if (vistos[n] > 1) return '';
+    const q = kit.filter((x) => x === n).length;
+    return '<figure><img src="' + (KIT_IMGS[n] || '') + '" alt="" loading="lazy"><figcaption>' + (q > 1 ? q + '× ' : '') + n + '</figcaption></figure>';
+  }).join('');
+  $('#lpResumo').innerHTML =
+    '<p class="lp-ajuda" style="margin-bottom:4px">' + REDES[st.rede].label + (st.naosei ? ' · <b>a confirmar na instalação</b>' : '') + '</p>' +
+    '<div class="lp-kit">' + figs + '</div>';
+}
+
+/* ── PIX BR Code (estático, com valor) ── */
+function normAscii(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\x20-\x7E]/g, '').toUpperCase(); }
+function crc16pix(s) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < s.length; i++) {
+    crc ^= s.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) crc = crc & 0x8000 ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+  }
+  return crc.toString(16).toUpperCase().padStart(4, '0');
+}
+function pixPayload(valor, txid) {
+  const f = (id, v) => id + String(v.length).padStart(2, '0') + v;
+  const mai = f('00', 'br.gov.bcb.pix') + f('01', PAGAMENTO.pixChave);
+  let pl = f('00', '01') + f('26', mai) + f('52', '0000') + f('53', '986');
+  if (valor) pl += f('54', Number(valor).toFixed(2));
+  pl += f('58', 'BR') + f('59', normAscii(PAGAMENTO.pixNome).slice(0, 25)) + f('60', normAscii(PAGAMENTO.pixCidade).slice(0, 15));
+  pl += f('62', f('05', (txid || '***').slice(0, 25)));
+  pl += '6304';
+  return pl + crc16pix(pl);
+}
+
+/* ── conclusão ── */
+function resumoTexto() {
+  return 'PLANO SAFEBOAT — montado no site' +
+    '\nRede: ' + REDES[st.rede].label + (st.naosei ? ' (cliente não soube informar — confirmar na instalação)' : '') +
+    '\nKit: ' + kitAtual().join(', ') +
+    '\nImplementação: ' + fmt(implTotal()) +
+    '\nAssinatura: ' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + ' (' + st.plano + ')' +
+    (Object.keys(utm).length ? '\nCampanha: ' + Object.entries(utm).map(([k, v]) => k + '=' + v).join(' ') : '');
+}
+
+async function gravarLead(dados) {
+  try {
+    await fetch(SUPA_URL + '/rest/v1/rpc/landing_lead', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', apikey: SUPA_KEY, authorization: 'Bearer ' + SUPA_KEY },
+      body: JSON.stringify({
+        p_nome: dados.nome, p_tel: dados.tel, p_email: dados.email,
+        p_barco: dados.barco, p_cidade: dados.cidade,
+        p_evento: eventoOrigem(), p_notas: resumoTexto(),
+      }),
+    });
+  } catch (e) { /* o fechamento segue mesmo sem CRM — o WhatsApp cobre */ }
+}
+
+$('#lpConcluir').addEventListener('click', async () => {
+  const nome = $('#lpNome').value.trim();
+  const tel = $('#lpTel').value.replace(/\D/g, '');
+  const erro = $('#lpErro');
+  if (nome.length < 2) { erro.textContent = 'Informe seu nome.'; erro.style.display = 'block'; return; }
+  if (tel.length < 10) { erro.textContent = 'Informe um WhatsApp válido, com DDD.'; erro.style.display = 'block'; return; }
+  if (!$('#lpAceite').checked) { erro.textContent = 'É preciso aceitar os termos do serviço.'; erro.style.display = 'block'; return; }
+  erro.style.display = 'none';
+  $('#lpConcluir').disabled = true;
+
+  gravarLead({ nome, tel, email: $('#lpEmail').value.trim(), barco: $('#lpBarco').value.trim(), cidade: $('#lpCidade').value.trim() });
+  montarFechamento(nome);
+  irPara(5);
+});
+
+function montarFechamento(nome) {
+  const impl = implTotal();
+  const mensal = assinatura('mensal');
+  const anual = assinatura('anual');
+  const txid = 'SBSITE' + Date.now().toString(36).toUpperCase();
+  let html = '';
+
+  if (st.plano === 'mensal') {
+    const mp = mpMensalUrl(mensal);
+    html =
+      '<div class="lp-fech-bloco"><h4>1 · Implementação — PIX</h4><div class="v">' + fmt(impl) + '</div>' +
+      '<p>Kit + instalação, pagamento único. Escaneie ou use o copia e cola:</p>' +
+      '<div id="lpPixQr"></div><div class="lp-copia" id="lpPixCopia"></div>' +
+      '<button class="botao botao-navy lp-btn-mini" id="lpBtnCopia" type="button">Copiar código PIX</button></div>' +
+      '<div class="lp-fech-bloco"><h4>2 · Assinatura — cartão</h4><div class="v">' + fmt(mensal) + '/mês</div>' +
+      '<p>Recorrência no cartão de crédito, sem comprometer o limite. A cobrança só recorre após a instalação.</p>' +
+      (mp
+        ? '<a class="botao botao-navy lp-btn-mini" href="' + mp + '" target="_blank" rel="noopener">Ativar assinatura no cartão</a>'
+        : '<p><b>Nossa equipe envia o link da assinatura no seu WhatsApp</b> — o valor do seu plano é ativado manualmente.</p>') +
+      '</div>';
+  } else {
+    const total = impl + anual;
+    html =
+      '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>Pagamento único — PIX</h4><div class="v">' + fmt(total) + '</div>' +
+      '<p>Implementação (' + fmt(impl) + ') + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia). Escaneie ou use o copia e cola:</p>' +
+      '<div id="lpPixQr"></div><div class="lp-copia" id="lpPixCopia"></div>' +
+      '<button class="botao botao-navy lp-btn-mini" id="lpBtnCopia" type="button">Copiar código PIX</button>' +
+      '<p style="margin-top:12px">Prefere o cartão? Conclua pelo WhatsApp que enviamos o link.</p></div>';
+  }
+  $('#lpFechGrade').innerHTML = html;
+
+  const valorPix = st.plano === 'mensal' ? impl : impl + anual;
+  const payload = pixPayload(valorPix, txid);
+  $('#lpPixCopia').textContent = payload;
+  if (window.qrcode) {
+    const qr = window.qrcode(0, 'M');
+    qr.addData(payload); qr.make();
+    $('#lpPixQr').innerHTML = qr.createImgTag(4, 8);
+  }
+  $('#lpBtnCopia').addEventListener('click', () => {
+    navigator.clipboard.writeText(payload).then(() => { $('#lpBtnCopia').textContent = '✓ Código copiado'; });
+  });
+
+  const msg = 'Olá! Acabei de montar meu plano SAFEBOAT no site e vou enviar o comprovante.\n\n' +
+    'Nome: ' + nome + '\n' + resumoTexto();
+  $('#lpZap').href = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent(msg);
+}
+
+render();
+</script>
+</body>
+</html>
