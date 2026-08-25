@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <script src="contratar-pagamentos.js"></script>
   <style>
     /* ─── Landing de autocontratação (lp-) ─── */
     .hero-lp { padding-bottom: 90px; }
@@ -415,34 +416,15 @@ const ZAP = '5548991400063';
 const SUPA_URL = 'https://ppdafbzlnjgggycecjhs.supabase.co';
 const SUPA_KEY = 'sb_publishable_IN2C9q60_SfQjDgVwGCzrQ_vPCdoADp';
 
-/* Assinatura mensal no cartão: planos de recorrência Mercado Pago por valor
-   exato (mesma tabela do sistema de propostas). */
-const MP_MENSAL = {
-  '249.00': '4e58b2cad1cc43c3b8a99b2cff07cabe',
-  '278.90': '2481437868db429a809a93b852ba8fe3',
-  '298.90': 'da203b928b2f4e1b9176ca0efda756b2',
-  '308.80': '40b77e70cab74c80a55f5e867d4f448f',
-  '328.80': '4f487b97635b44f1b2a1e8733140d185',
-  '338.70': '52e050aafbf54437abaa1e104572e9b7',
-  '348.80': 'e866aced694a406a8126dd70660243c0',
-  '358.70': 'f23c9089e1cb437faada261396f09ccc',
-  '368.60': 'a178a1c17c6e428e94b3c6b9bbd2c13e',
-  '378.70': '3cb47074e56b4de29612091b808e4c39',
-  '388.60': 'b96c8fad6f8640cbadff0f3fcf4369e9',
-  '398.70': '6cd6c163f42940218ce920a7fcdff1d7',
-  '408.60': 'da0ff330910c489c86e637bdf774103c',
-  '418.50': '646538d2ed0c4561b586c7cd0915c949',
-  '428.60': '09853460f0ae4a87b485e7665929a764',
-  '438.50': '5d138a3168864042b19212829cfac0f4',
-  '458.50': '907bcae223b243dc9c6c7d2913817e7d',
-  '468.40': '8a25acbbcd4b4065bfe89dfdb61a713e',
-  '488.40': 'e0a8251cd02d4862ac073d6cc2e5e6d0',
-  '518.30': 'e4e17f9b2dd94284935c1b215d0d2d55',
-};
-const mpMensalUrl = (v) => {
-  const id = MP_MENSAL[Number(v).toFixed(2)];
-  return id ? 'https://www.mercadopago.com.br/subscriptions/checkout?preapproval_plan_id=' + id : null;
-};
+/* Tabelas Mercado Pago (contratar-pagamentos.js, extraídas do sistema de
+   propostas): MP_PLANOS.full = assinatura mensal recorrente por valor exato;
+   MP_IMPL = implementação avulsa no cartão; MP_ANUAL = total anual no cartão.
+   Mesma lógica da página de propostas: mensal exige recorrência no cartão e a
+   implementação vai em PIX OU cartão; anual é pagamento único, PIX ou cartão. */
+const temMP = typeof MP_PLANOS !== 'undefined';
+const mpMensalUrl = (v) => (temMP && MP_PLANOS.full[Number(v).toFixed(2)]) || null;
+const mpImplUrl = (v) => (temMP && MP_IMPL[Number(v).toFixed(2)]) || null;
+const mpAnualUrl = (v) => (temMP && MP_ANUAL[Number(v).toFixed(2)]) || null;
 
 /* ── estado ── */
 /* sel = como o cliente descreveu o motor; rede = kit correspondente */
@@ -494,6 +476,7 @@ function irPara(n) {
   $('#lpTotais').style.display = (n >= 2 && n <= 4) ? 'flex' : 'none';
   if (n === 4) montarResumo();
   render();
+  if (typeof enviarParcial === 'function') enviarParcial(); // rascunho acompanha o avanço
   $('#lpWiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 document.querySelectorAll('[data-vai]').forEach((b) => b.addEventListener('click', () => irPara(Number(b.dataset.vai))));
@@ -600,16 +583,56 @@ function resumoTexto() {
     (Object.keys(utm).length ? '\nCampanha: ' + Object.entries(utm).map(([k, v]) => k + '=' + v).join(' ') : '');
 }
 
+/* ── id da sessão: liga o rascunho (parcial) ao lead concluído ── */
+const SID = sessionStorage.getItem('sb_sid') ||
+  (() => { const v = (crypto.randomUUID ? crypto.randomUUID() : 'sid' + Date.now() + Math.random().toString(36).slice(2, 10)); sessionStorage.setItem('sb_sid', v); return v; })();
+
+const rpc = (fn, body) => fetch(SUPA_URL + '/rest/v1/rpc/' + fn, {
+  method: 'POST',
+  headers: { 'content-type': 'application/json', apikey: SUPA_KEY, authorization: 'Bearer ' + SUPA_KEY },
+  body: JSON.stringify(body),
+});
+
+/* Quem começa a preencher e não conclui vira "parcial" no CRM, para a equipe
+   de vendas abordar. Só envia quando já há contato mínimo (nome, tel ou
+   e-mail); atualiza a cada mudança relevante, com debounce. Best-effort. */
+let parcialTimer = null;
+let concluiu = false;
+function dadosContato() {
+  return {
+    nome: $('#lpNome').value.trim(),
+    tel: $('#lpTel').value.trim(),
+    email: $('#lpEmail').value.trim(),
+    barco: $('#lpBarco').value.trim(),
+    cidade: $('#lpCidade').value.trim(),
+  };
+}
+function enviarParcial() {
+  if (concluiu) return;
+  const d = dadosContato();
+  const temContato = d.nome.length >= 2 || d.tel.replace(/\D/g, '').length >= 10 || d.email.includes('@');
+  if (!temContato) return;
+  rpc('landing_parcial', {
+    p_sid: SID, p_nome: d.nome, p_tel: d.tel, p_email: d.email,
+    p_barco: d.barco, p_cidade: d.cidade, p_passo: passo,
+    p_resumo: resumoTexto(), p_evento: eventoOrigem(),
+  }).catch(() => {});
+}
+function parcialDebounce() {
+  clearTimeout(parcialTimer);
+  parcialTimer = setTimeout(enviarParcial, 1500);
+}
+['lpNome', 'lpTel', 'lpEmail', 'lpBarco', 'lpCidade'].forEach((i) =>
+  $('#' + i).addEventListener('input', parcialDebounce));
+
 async function gravarLead(dados) {
+  concluiu = true;
+  clearTimeout(parcialTimer);
   try {
-    await fetch(SUPA_URL + '/rest/v1/rpc/landing_lead', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', apikey: SUPA_KEY, authorization: 'Bearer ' + SUPA_KEY },
-      body: JSON.stringify({
-        p_nome: dados.nome, p_tel: dados.tel, p_email: dados.email,
-        p_barco: dados.barco, p_cidade: dados.cidade,
-        p_evento: eventoOrigem(), p_notas: resumoTexto(),
-      }),
+    await rpc('landing_lead', {
+      p_nome: dados.nome, p_tel: dados.tel, p_email: dados.email,
+      p_barco: dados.barco, p_cidade: dados.cidade,
+      p_evento: eventoOrigem(), p_notas: resumoTexto(), p_sid: SID,
     });
   } catch (e) { /* o fechamento segue mesmo sem CRM — o WhatsApp cobre */ }
 }
@@ -634,29 +657,47 @@ function montarFechamento(nome) {
   const mensal = assinatura('mensal');
   const anual = assinatura('anual');
   const txid = 'SBSITE' + Date.now().toString(36).toUpperCase();
+  const blocoPix = (titulo) =>
+    '<div id="lpPixQr"></div>' +
+    '<p style="margin-bottom:6px">Escaneie com o app do seu banco · Favorecido: ' + PAGAMENTO.pixNome + '</p>' +
+    '<div class="lp-copia" id="lpPixCopia"></div>' +
+    '<button class="botao botao-navy lp-btn-mini" id="lpBtnCopia" type="button">Copiar código PIX (copia e cola)</button>';
   let html = '';
 
   if (st.plano === 'mensal') {
-    const mp = mpMensalUrl(mensal);
+    /* Mensal: assinatura recorrente no cartão + implementação em PIX OU cartão
+       — espelho do fluxo da página de propostas. */
+    const mpRec = mpMensalUrl(mensal);
+    const mpImp = mpImplUrl(impl);
     html =
-      '<div class="lp-fech-bloco"><h4>1 · Implementação — PIX</h4><div class="v">' + fmt(impl) + '</div>' +
-      '<p>Kit + instalação, pagamento único. Escaneie ou use o copia e cola:</p>' +
-      '<div id="lpPixQr"></div><div class="lp-copia" id="lpPixCopia"></div>' +
-      '<button class="botao botao-navy lp-btn-mini" id="lpBtnCopia" type="button">Copiar código PIX</button></div>' +
-      '<div class="lp-fech-bloco"><h4>2 · Assinatura — cartão</h4><div class="v">' + fmt(mensal) + '/mês</div>' +
-      '<p>Recorrência no cartão de crédito, sem comprometer o limite. A cobrança só recorre após a instalação.</p>' +
-      (mp
-        ? '<a class="botao botao-navy lp-btn-mini" href="' + mp + '" target="_blank" rel="noopener">Ativar assinatura no cartão</a>'
-        : '<p><b>Nossa equipe envia o link da assinatura no seu WhatsApp</b> — o valor do seu plano é ativado manualmente.</p>') +
+      '<div class="lp-fech-bloco"><h4>1 · Assinatura mensal — cartão</h4><div class="v">' + fmt(mensal) + '/mês</div>' +
+      (mpRec
+        ? '<p>Débito automático mensal no cartão (Mercado Pago) · não compromete o limite · 1ª cobrança na ativação. A cobrança só recorre após a instalação.</p>' +
+          '<a class="botao botao-navy lp-btn-mini" href="' + mpRec + '" target="_blank" rel="noopener">💳 Ativar assinatura no cartão</a>'
+        : '<p style="background:#FFF6E6;border:1px solid #F3D699;border-radius:10px;padding:10px 14px">💳 Para esta configuração, nossa equipe envia em seguida o link de ativação da assinatura no cartão (' + fmt(mensal) + '/mês) — é só concluir pelo WhatsApp abaixo.</p>') +
+      '</div>' +
+      '<div class="lp-fech-bloco"><h4>2 · Implementação — PIX ou cartão</h4><div class="v">' + fmt(impl) + '</div>' +
+      '<p>Kit + instalação, pagamento único — como preferir:</p>' +
+      (mpImp
+        ? '<a class="botao botao-navy lp-btn-mini" href="' + mpImp + '" target="_blank" rel="noopener">💳 Pagar implementação no cartão</a>' +
+          '<p style="margin:8px 0 10px">Pagamento único no cartão (Mercado Pago) · ou, se preferir, use o PIX abaixo:</p>'
+        : '') +
+      blocoPix() +
       '</div>';
   } else {
+    /* Anual: pagamento único (implementação + anuidade) — cartão avulso pelo
+       link do total exato, ou PIX. Mesma regra do sistema de propostas. */
     const total = impl + anual;
+    const mpAno = mpAnualUrl(total);
     html =
-      '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>Pagamento único — PIX</h4><div class="v">' + fmt(total) + '</div>' +
-      '<p>Implementação (' + fmt(impl) + ') + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia). Escaneie ou use o copia e cola:</p>' +
-      '<div id="lpPixQr"></div><div class="lp-copia" id="lpPixCopia"></div>' +
-      '<button class="botao botao-navy lp-btn-mini" id="lpBtnCopia" type="button">Copiar código PIX</button>' +
-      '<p style="margin-top:12px">Prefere o cartão? Conclua pelo WhatsApp que enviamos o link.</p></div>';
+      '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>Pagamento único — implementação + anuidade</h4><div class="v">' + fmt(total) + '</div>' +
+      '<p>Implementação (' + fmt(impl) + ') + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia).</p>' +
+      (mpAno
+        ? '<a class="botao botao-navy lp-btn-mini" href="' + mpAno + '" target="_blank" rel="noopener">💳 Pagar no cartão — ' + fmt(total) + '</a>' +
+          '<p style="margin:8px 0 10px">1x sem juros · em até 12x com juros da operadora · ou, se preferir, use o PIX abaixo:</p>'
+        : '') +
+      blocoPix() +
+      '</div>';
   }
   $('#lpFechGrade').innerHTML = html;
 
