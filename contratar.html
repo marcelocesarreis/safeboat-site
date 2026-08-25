@@ -107,6 +107,16 @@
 
     .lp-erro { color: #C0392B; font-size: 0.82rem; margin-top: 12px; display: none; }
 
+    .lp-motorbox { margin-top: 14px; border: 1px solid var(--navy); border-radius: 14px; padding: 18px 20px; background: var(--neblina); }
+    .lp-motorbox label { font-size: 0.85rem; color: var(--tinta); font-weight: 500; display: block; }
+    .lp-motorbox input {
+      width: 100%; margin-top: 8px; padding: 12px 14px; font-family: var(--fonte-corpo); font-size: 0.95rem;
+      border: 1px solid var(--linha); border-radius: 10px; background: var(--branco); color: var(--tinta);
+    }
+    .lp-motorbox input:focus { outline: none; border-color: var(--navy); }
+    .lp-motorbox small { display: block; margin-top: 8px; font-size: 0.78rem; color: var(--cinza-texto); }
+    .lp-recom { display: none; margin-top: 6px; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); font-weight: 600; }
+
     @media (max-width: 760px) {
       .lp-wiz { padding: 30px 22px 28px; }
       .lp-form { grid-template-columns: 1fr; }
@@ -176,34 +186,37 @@
     <div class="lp-wiz" id="lpWiz">
       <div class="lp-passos" id="lpPassos"><span class="on"></span><span></span><span></span><span></span></div>
 
-      <!-- Passo 1 · rede -->
+      <!-- Passo 1 · motor -->
       <div class="lp-p" data-p="1">
         <p class="lp-etapa-titulo">Passo 1 de 4 · Sua embarcação</p>
-        <h3>Como são os instrumentos do seu barco?</h3>
-        <p class="lp-ajuda">Isso define o kit. Se não souber, escolha a última opção — nossa equipe confirma na instalação.</p>
+        <h3>Como é o motor do seu barco?</h3>
+        <p class="lp-ajuda">É isso que define o kit ideal. Se não souber, escolha a última opção — nossa equipe confirma na instalação.</p>
         <div class="lp-opcoes" id="lpRede">
-          <button class="lp-opcao sel" data-rede="nenhuma" data-naosei="0" type="button">
-            <span class="lp-preco">R$ 1.100</span>
-            <b>Instrumentos analógicos (ponteiro)</b>
-            <small>Sem rede NMEA e sem rede CAN. O SAFEBOAT monitora segurança, baterias e ambiente da casa de máquinas.</small>
+          <button class="lp-opcao sel" data-sel="mecanico" type="button">
+            <b>Meu motor é mecânico</b>
+            <small>O SAFEBOAT monitora segurança, baterias, bomba de porão e o ambiente da casa de máquinas. Para a saúde do motor, o sensor VIB (opcional, no próximo passo) faz a análise preditiva por vibração.</small>
           </button>
-          <button class="lp-opcao" data-rede="nmea" data-naosei="0" type="button">
-            <span class="lp-preco">R$ 1.300</span>
-            <b>Tela de navegação com dados do motor</b>
-            <small>Rede NMEA com dados de motor já convertidos. O SAFEBOAT se conecta à rede e lê tudo — inclusive a telemetria dos motores.</small>
+          <button class="lp-opcao" data-sel="nmea" type="button">
+            <b>Meu motor é eletrônico e já vejo os dados dele na tela do barco</b>
+            <small>Sua embarcação tem rede NMEA com os dados do motor convertidos. O SAFEBOAT se conecta à rede e lê tudo — telemetria completa dos motores no aplicativo.</small>
           </button>
-          <button class="lp-opcao" data-rede="can" data-naosei="0" type="button">
-            <span class="lp-preco">R$ 1.600</span>
-            <b>Motor eletrônico, sem os dados na tela</b>
-            <small>Rede CAN não conectada à NMEA. Instalamos o conversor J1939 e passamos a ler todos os dados do motor.</small>
+          <button class="lp-opcao" data-sel="can" type="button">
+            <b>Meu motor é eletrônico, mas só vejo os dados nos relógios do painel</b>
+            <small>Seu motor gera os dados (rede CAN), mas eles ainda não chegam a uma tela. Instalamos o conversor e você passa a ver toda a telemetria no aplicativo.</small>
           </button>
-          <button class="lp-opcao" data-rede="nenhuma" data-naosei="1" type="button">
-            <span class="lp-preco">a confirmar</span>
+          <button class="lp-opcao" data-sel="naosei" type="button">
             <b>Não sei dizer</b>
-            <small>Sem problema: começamos pelo kit base (R$ 1.100) e a equipe técnica confirma na instalação. Se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança.</small>
+            <small>Sem problema: contratamos o kit base e a equipe técnica confirma na instalação. Se o seu motor tiver dados disponíveis, fazemos o upgrade combinando com você antes de qualquer cobrança.</small>
           </button>
         </div>
-        <div class="lp-nav"><span></span><button class="botao botao-navy lp-avanca" data-vai="2" type="button">Continuar</button></div>
+        <div class="lp-motorbox" id="lpMotorBox" hidden>
+          <label>Marca e modelo do motor <b style="color:#C0392B">*</b>
+            <input id="lpMotor" placeholder="Ex.: Volvo Penta D6-400 · Mercury Verado 300 · Scania DI13">
+          </label>
+          <small>Com a marca e o modelo confirmamos o protocolo do seu motor antes da instalação.</small>
+        </div>
+        <p class="lp-erro" id="lpErro1"></p>
+        <div class="lp-nav"><span></span><button class="botao botao-navy lp-avanca" id="lpP1Avanca" type="button">Continuar</button></div>
       </div>
 
       <!-- Passo 2 · opcionais -->
@@ -232,6 +245,7 @@
           <div class="lp-add-info">
             <b>VIB · manutenção preditiva do motor</b>
             <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na implementação e + R$ 49,90/motor/mês.</small>
+            <span class="lp-recom" id="lpVibRecom">★ Recomendado para motor mecânico — é a telemetria preditiva do seu motor</span>
           </div>
           <span class="lp-step"><button type="button" data-menos="vibs">−</button><output id="lpVibs">0</output><button type="button" data-mais="vibs">+</button></span>
         </div>
@@ -431,7 +445,15 @@ const mpMensalUrl = (v) => {
 };
 
 /* ── estado ── */
-const st = { rede: 'nenhuma', naosei: false, bateria: false, cams: 0, vibs: 0, plano: 'mensal' };
+/* sel = como o cliente descreveu o motor; rede = kit correspondente */
+const SEL_REDE = { mecanico: 'nenhuma', nmea: 'nmea', can: 'can', naosei: 'nenhuma' };
+const SEL_LABEL = {
+  mecanico: 'Motor mecânico — kit base de segurança e baterias',
+  nmea: 'Motor eletrônico com dados na tela (rede NMEA)',
+  can: 'Motor eletrônico sem dados na tela (rede CAN + conversor)',
+  naosei: 'Kit base — rede a confirmar na instalação',
+};
+const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, plano: 'mensal' };
 const $ = (s) => document.querySelector(s);
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -468,20 +490,37 @@ function irPara(n) {
   passo = n;
   document.querySelectorAll('.lp-p').forEach((el) => (el.hidden = Number(el.dataset.p) !== n));
   document.querySelectorAll('#lpPassos span').forEach((el, i) => el.classList.toggle('on', i < Math.min(n, 4)));
-  $('#lpTotais').style.display = n === 5 ? 'none' : 'flex';
+  /* Totais só a partir do passo 2: no passo 1 a escolha é técnica, não de preço */
+  $('#lpTotais').style.display = (n >= 2 && n <= 4) ? 'flex' : 'none';
   if (n === 4) montarResumo();
   render();
   $('#lpWiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 document.querySelectorAll('[data-vai]').forEach((b) => b.addEventListener('click', () => irPara(Number(b.dataset.vai))));
 
-/* ── passo 1: rede ── */
+/* ── passo 1: motor ── */
 $('#lpRede').addEventListener('click', (e) => {
   const b = e.target.closest('.lp-opcao'); if (!b) return;
   document.querySelectorAll('#lpRede .lp-opcao').forEach((x) => x.classList.remove('sel'));
   b.classList.add('sel');
-  st.rede = b.dataset.rede; st.naosei = b.dataset.naosei === '1';
+  st.sel = b.dataset.sel;
+  st.rede = SEL_REDE[st.sel];
+  st.naosei = st.sel === 'naosei';
+  $('#lpMotorBox').hidden = st.sel !== 'can';
+  if (st.sel === 'can') $('#lpMotor').focus();
+  $('#lpErro1').style.display = 'none';
   render();
+});
+$('#lpMotor').addEventListener('input', (e) => { st.motor = e.target.value.trim(); });
+$('#lpP1Avanca').addEventListener('click', () => {
+  if (st.sel === 'can' && st.motor.length < 3) {
+    const erro = $('#lpErro1');
+    erro.textContent = 'Informe a marca e o modelo do motor — precisamos deles para confirmar o protocolo antes da instalação.';
+    erro.style.display = 'block';
+    $('#lpMotor').focus();
+    return;
+  }
+  irPara(2);
 });
 
 /* ── passo 2: opcionais ── */
@@ -505,6 +544,7 @@ $('#lpPlano').addEventListener('click', (e) => {
 function render() {
   $('#lpCams').textContent = st.cams;
   $('#lpVibs').textContent = st.vibs;
+  $('#lpVibRecom').style.display = st.sel === 'mecanico' ? 'block' : 'none';
   $('#lpPvMensal').textContent = fmt(assinatura('mensal')) + '/mês';
   $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
   $('#lpTotais').innerHTML =
@@ -523,7 +563,8 @@ function montarResumo() {
     return '<figure><img src="' + (KIT_IMGS[n] || '') + '" alt="" loading="lazy"><figcaption>' + (q > 1 ? q + '× ' : '') + n + '</figcaption></figure>';
   }).join('');
   $('#lpResumo').innerHTML =
-    '<p class="lp-ajuda" style="margin-bottom:4px">' + REDES[st.rede].label + (st.naosei ? ' · <b>a confirmar na instalação</b>' : '') + '</p>' +
+    '<p class="lp-ajuda" style="margin-bottom:4px">' + SEL_LABEL[st.sel] +
+    (st.sel === 'can' && st.motor ? ' · <b>' + st.motor.replace(/[<>&]/g, '') + '</b>' : '') + '</p>' +
     '<div class="lp-kit">' + figs + '</div>';
 }
 
@@ -551,7 +592,8 @@ function pixPayload(valor, txid) {
 /* ── conclusão ── */
 function resumoTexto() {
   return 'PLANO SAFEBOAT — montado no site' +
-    '\nRede: ' + REDES[st.rede].label + (st.naosei ? ' (cliente não soube informar — confirmar na instalação)' : '') +
+    '\nMotor: ' + SEL_LABEL[st.sel] + (st.sel === 'can' && st.motor ? ' — ' + st.motor : '') +
+    (st.naosei ? ' (não soube informar — confirmar na instalação)' : '') +
     '\nKit: ' + kitAtual().join(', ') +
     '\nImplementação: ' + fmt(implTotal()) +
     '\nAssinatura: ' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + ' (' + st.plano + ')' +
@@ -636,6 +678,7 @@ function montarFechamento(nome) {
 }
 
 render();
+$('#lpTotais').style.display = 'none'; // passo 1 não mostra preço
 </script>
 </body>
 </html>
