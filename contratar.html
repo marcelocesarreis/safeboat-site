@@ -70,6 +70,8 @@
     .lp-volta { background: none; border: none; font-family: var(--fonte-titulo); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; padding: 10px 0; }
     .lp-avanca { border: none; cursor: pointer; }
 
+    .lp-especialista { margin-top: 14px; font-size: 0.78rem; color: var(--cinza-texto); text-align: center; }
+    .lp-especialista a { color: var(--navy); text-decoration: underline; text-underline-offset: 3px; }
     .lp-total {
       margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--linha);
       display: flex; flex-wrap: wrap; gap: 8px 34px; font-size: 0.86rem; color: var(--cinza-texto);
@@ -316,6 +318,7 @@
 
       <!-- Barra de total (passos 1–4) -->
       <div class="lp-total" id="lpTotais"></div>
+      <p class="lp-especialista" id="lpEspecialista">Preferir montar com a gente? <a href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Estou%20montando%20meu%20plano%20no%20site%20e%20tenho%20uma%20d%C3%BAvida." target="_blank" rel="noopener">Falar com um especialista no WhatsApp</a> — sem compromisso.</p>
     </div>
   </div>
 </section>
@@ -438,6 +441,7 @@ const SEL_LABEL = {
   naosei: 'Kit base — rede a confirmar na instalação',
 };
 const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, plano: 'mensal' };
+/* aplicar pré-seleções vindas do link (definidas mais abaixo, junto do parse da URL) */
 const $ = (s) => document.querySelector(s);
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -448,6 +452,12 @@ const utm = {};
   const v = qs.get(k) || sessionStorage.getItem('sb_' + k);
   if (v) { utm[k] = v; sessionStorage.setItem('sb_' + k, v); }
 });
+/* Pré-seleção por link: ?vib=1 (a seção VIB do site manda para cá) e ?cam=1 */
+const preVib = Math.min(3, Math.max(0, parseInt(qs.get('vib'), 10) || 0));
+const preCam = Math.min(4, Math.max(0, parseInt(qs.get('cam'), 10) || 0));
+if (preVib) st.vibs = preVib;
+if (preCam) st.cams = preCam;
+
 const eventoOrigem = () => {
   const s = (utm.utm_source || '').toLowerCase();
   if (s.includes('ig') || s.includes('insta')) return 'instagram';
@@ -476,7 +486,8 @@ function irPara(n) {
   document.querySelectorAll('#lpPassos span').forEach((el, i) => el.classList.toggle('on', i < Math.min(n, 4)));
   /* Totais só a partir do passo 2: no passo 1 a escolha é técnica, não de preço */
   $('#lpTotais').style.display = (n >= 2 && n <= 4) ? 'flex' : 'none';
-  if (n === 4) montarResumo();
+  $('#lpEspecialista').style.display = n === 5 ? 'none' : 'block';
+  if (n === 4) { montarResumo(); setTimeout(() => $('#lpNome').focus(), 150); }
   render();
   if (typeof enviarParcial === 'function') enviarParcial(); // rascunho acompanha o avanço
   $('#lpWiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
