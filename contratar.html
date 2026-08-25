@@ -70,6 +70,14 @@
     .lp-volta { background: none; border: none; font-family: var(--fonte-titulo); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; padding: 10px 0; }
     .lp-avanca { border: none; cursor: pointer; }
 
+    .lp-monit { margin: 18px 0 22px; border: 1px solid var(--linha); border-radius: 14px; padding: 20px 22px 16px; background: var(--neblina); }
+    .lp-monit-titulo { font-family: var(--fonte-titulo); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); margin-bottom: 14px; }
+    .lp-monit-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px 26px; }
+    .lp-monit-grupo b { display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 8px; }
+    .lp-monit-grupo ul { list-style: none; margin: 0; padding: 0; }
+    .lp-monit-grupo li { position: relative; padding-left: 20px; font-size: 0.82rem; color: var(--tinta); margin-bottom: 6px; line-height: 1.45; }
+    .lp-monit-grupo li::before { content: "✓"; position: absolute; left: 0; color: var(--navy); font-size: 0.78rem; }
+    .lp-monit-nota { margin-top: 12px; font-size: 0.76rem; color: var(--cinza-texto); line-height: 1.6; border-top: 1px dashed var(--linha); padding-top: 10px; }
     .lp-especialista { margin-top: 14px; font-size: 0.78rem; color: var(--cinza-texto); text-align: center; }
     .lp-especialista a { color: var(--navy); text-decoration: underline; text-underline-offset: 3px; }
     .lp-total {
@@ -287,6 +295,7 @@
         <p class="lp-etapa-titulo">Passo 4 de 4 · Seu plano</p>
         <h3>Confira e conclua</h3>
         <div id="lpResumo"></div>
+        <div class="lp-monit" id="lpMonit"></div>
         <div class="lp-form">
           <label class="lp-w">Nome completo<input id="lpNome" autocomplete="name" placeholder="Seu nome"></label>
           <label>WhatsApp<input id="lpTel" autocomplete="tel" inputmode="tel" placeholder="(48) 9…"></label>
@@ -562,6 +571,72 @@ function montarResumo() {
     '<p class="lp-ajuda" style="margin-bottom:4px">' + SEL_LABEL[st.sel] +
     (st.sel === 'can' && st.motor ? ' · <b>' + st.motor.replace(/[<>&]/g, '') + '</b>' : '') + '</p>' +
     '<div class="lp-kit">' + figs + '</div>';
+  montarMonit();
+}
+
+/* ── Tudo o que será monitorado NESTE barco (dinâmico pelo kit) ── */
+function montarMonit() {
+  const grupos = [];
+
+  grupos.push(['Embarcação · 24h', [
+    'Rastreio e posição em tempo real',
+    'Velocidade',
+    'Alarme de âncora e cerca virtual',
+    'Acionamentos da bomba de porão',
+    'Alarme de alagamento',
+    'Alarme do detector de fumaça',
+    'Tensão de todos os bancos de bateria',
+    'Posição da chave geral',
+    'Temperatura da casa de máquinas',
+    'Umidade da casa de máquinas',
+  ]]);
+
+  if (st.rede === 'nmea' || st.rede === 'can') {
+    grupos.push(['Motores · ' + (st.rede === 'can' ? 'rede CAN convertida' : 'rede NMEA'), [
+      'Horímetro automático',
+      'Rotação (RPM)',
+      'Pressão e temperatura de óleo',
+      'Temperatura de arrefecimento',
+      'Pressão de combustível e de turbina',
+      'Consumo instantâneo e por trajeto',
+      'Profundidade',
+      'Níveis de tanques de combustível e água',
+    ]]);
+  }
+
+  if (st.vibs > 0) {
+    const itensVib = [
+      'Nota de saúde 0–100 por motor',
+      'Alinhamento motor × eixo',
+      'Fixação e coxins',
+      'Combustão e injetores',
+      'Rolamentos e reversora',
+      'Hélice e eixo (desbalanceio)',
+      'Faixa crítica de rpm do casco',
+    ];
+    if (st.rede === 'nenhuma') itensVib.push('RPM e horímetro estimados pela vibração');
+    grupos.push(['Saúde do motor · VIB' + (st.vibs > 1 ? ' (' + st.vibs + ' motores)' : ''), itensVib]);
+  }
+
+  if (st.cams > 0 || st.bateria) {
+    const extras = [];
+    if (st.cams > 0) extras.push(st.cams + '× câmera ao vivo no app, com visão noturna');
+    if (st.bateria) extras.push('Consumo em amperes do banco de serviço');
+    grupos.push(['Extras do seu kit', extras]);
+  }
+
+  const nota = st.naosei
+    ? '<p class="lp-monit-nota">Se a instalação confirmar rede de motor (NMEA ou CAN), a telemetria completa dos motores é habilitada — combinamos com você antes de qualquer ajuste.</p>'
+    : '';
+
+  $('#lpMonit').innerHTML =
+    '<p class="lp-monit-titulo">Tudo o que será monitorado no seu barco</p>' +
+    '<div class="lp-monit-grade">' +
+    grupos.map(([t, itens]) =>
+      '<div class="lp-monit-grupo"><b>' + t + '</b><ul>' +
+      itens.map((i) => '<li>' + i + '</li>').join('') + '</ul></div>'
+    ).join('') +
+    '</div>' + nota;
 }
 
 /* ── PIX BR Code (estático, com valor) ── */
