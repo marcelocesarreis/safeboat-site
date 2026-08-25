@@ -53,51 +53,54 @@ if (!semAnimacao && numeros.length) {
   numeros.forEach((el) => contador.observe(el));
 }
 
-// Demo VIB: saúde do motor no app.
-// A linha de RMS anda saudável, começa a derivar (padrão de desalinhamento),
-// cruza a zona de atenção e o app dispara o alerta preditivo — em loop.
-const vibLinha = document.getElementById("vibLinha");
-if (vibLinha && !semAnimacao) {
-  const zona = document.getElementById("vibZona");
-  const zonaTxt = document.getElementById("vibZonaTxt");
-  const alerta = document.getElementById("vibAlerta");
-  const dias = document.getElementById("vibDias");
-  const PONTOS = 90;                     // janela deslizante
-  const CICLO = 11000;                   // ms por ciclo completo
-  let t0 = performance.now();
-  const pts = [];
+// Demo VIB: reprodução da interface real de saúde do motor do app
+// (anel 0–100, faróis por sistema, tendência e Assistente VIB).
+// Quando o telefone entra na tela: o anel enche até 92, os faróis
+// aparecem em sequência, a linha de tendência se desenha e a análise
+// do assistente surge por último — como o app carregando de verdade.
+const vibRing = document.getElementById("vibRingArc");
+if (vibRing && !semAnimacao) {
+  const CIRC = 283;                       // 2πr do anel (r=45)
+  const saudeEl = document.getElementById("vibSaude");
+  const linha = document.getElementById("vibLinha");
+  const ponta = document.getElementById("vibPonta");
+  const compr = linha.getTotalLength();
 
-  const passo = (agora) => {
-    const t = ((agora - t0) % CICLO) / CICLO;   // 0..1 dentro do ciclo
-    // fase saudável (0–0.45): RMS baixo e estável · deriva (0.45–1): sobe
-    const deriva = t < 0.45 ? 0 : Math.pow((t - 0.45) / 0.55, 1.6);
-    const rms = 88 - deriva * 62 + Math.sin(agora / 130) * 3 + Math.random() * 2;
-    pts.push(rms);
-    if (pts.length > PONTOS) pts.shift();
-    vibLinha.setAttribute("points", pts.map((y, i) => (i * (300 / (PONTOS - 1))).toFixed(1) + "," + y.toFixed(1)).join(" "));
+  // estado inicial: tudo zerado até o telefone aparecer
+  vibRing.setAttribute("stroke-dasharray", "0 " + CIRC);
+  saudeEl.textContent = "0";
+  linha.style.strokeDasharray = compr;
+  linha.style.strokeDashoffset = compr;
+  ponta.style.opacity = "0";
 
-    const alto = deriva > 0.5;                  // cruzou a zona de atenção
-    vibLinha.setAttribute("stroke", alto ? "#C9A34A" : "#8CC63F");
-    zona.classList.toggle("alerta", alto);
-    zonaTxt.textContent = alto ? "Zona B · Atenção — tendência subindo" : "Zona A · Saudável";
-    alerta.classList.toggle("on", deriva > 0.7);
-    dias.textContent = alto ? "zona C em ~" + Math.max(4, Math.round(26 - deriva * 22)) + " dias" : "estável";
-    requestAnimationFrame(passo);
+  const rodar = () => {
+    const t0 = performance.now();
+    const DUR = 1400;
+    const anel = (agora) => {
+      const t = Math.min((agora - t0) / DUR, 1);
+      const s = 1 - Math.pow(1 - t, 3);
+      vibRing.setAttribute("stroke-dasharray", (92 / 100) * CIRC * s + " " + CIRC);
+      saudeEl.textContent = Math.round(92 * s);
+      if (t < 1) requestAnimationFrame(anel);
+    };
+    requestAnimationFrame(anel);
+    document.querySelectorAll(".vib-chip").forEach((c, i) =>
+      setTimeout(() => c.classList.add("in"), 500 + i * 180));
+    setTimeout(() => {
+      linha.style.transition = "stroke-dashoffset 1.5s ease-out";
+      linha.style.strokeDashoffset = "0";
+      setTimeout(() => (ponta.style.opacity = "1"), 1400);
+    }, 900);
+    setTimeout(() => document.getElementById("vibMsg").classList.add("in"), 2400);
   };
-  requestAnimationFrame(passo);
-} else if (vibLinha) {
-  // Sem animação: quadro estático já contando a história (deriva + alerta)
-  const pts = [];
-  for (let i = 0; i < 90; i++) {
-    const d = i < 40 ? 0 : Math.pow((i - 40) / 50, 1.6);
-    pts.push((i * (300 / 89)).toFixed(1) + "," + (88 - d * 62).toFixed(1));
-  }
-  vibLinha.setAttribute("points", pts.join(" "));
-  vibLinha.setAttribute("stroke", "#C9A34A");
-  document.getElementById("vibZona").classList.add("alerta");
-  document.getElementById("vibZonaTxt").textContent = "Zona B · Atenção — tendência subindo";
-  document.getElementById("vibAlerta").classList.add("on");
-  document.getElementById("vibDias").textContent = "zona C em ~9 dias";
+
+  const gatilho = new IntersectionObserver((es) => {
+    if (es.some((e) => e.isIntersecting)) { rodar(); gatilho.disconnect(); }
+  }, { threshold: 0.45 });
+  gatilho.observe(document.querySelector(".vib-fone"));
+} else if (vibRing) {
+  document.querySelectorAll(".vib-chip").forEach((c) => c.classList.add("in"));
+  document.getElementById("vibMsg").classList.add("in");
 }
 
 // Menu móvel

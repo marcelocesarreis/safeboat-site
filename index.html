@@ -488,25 +488,43 @@
         <div class="vib-fone">
           <div class="vib-fone-tela">
             <div class="vib-app-cab">
-              <span>SAÚDE DO MOTOR</span>
-              <b>MOTOR BB · VOLVO D6</b>
+              <span>AZIMUT 500 · TWO ANGEL'S</span>
+              <b>MOTOR BOMBORDO</b>
             </div>
-            <div class="vib-zona" id="vibZona"><i></i><span id="vibZonaTxt">Zona A · Saudável</span></div>
+            <div class="vib-saude">
+              <div class="vib-ring">
+                <svg viewBox="0 0 104 104" aria-hidden="true">
+                  <circle cx="52" cy="52" r="45" fill="none" stroke="#3A466B" stroke-width="9"/>
+                  <circle id="vibRingArc" cx="52" cy="52" r="45" fill="none" stroke="#ACDD8B" stroke-width="9"
+                          stroke-linecap="round" stroke-dasharray="260 283" transform="rotate(-90 52 52)"/>
+                </svg>
+                <div class="vib-ring-val"><b id="vibSaude">92</b><span>saúde VIB</span></div>
+              </div>
+              <div class="vib-chips">
+                <span class="vib-chip"><i class="fg-ok"></i>Alinhamento</span>
+                <span class="vib-chip"><i class="fg-ok"></i>Fixação</span>
+                <span class="vib-chip"><i class="fg-obs"></i>Combustão</span>
+                <span class="vib-chip"><i class="fg-ok"></i>Rolamentos</span>
+              </div>
+            </div>
             <div class="vib-graf">
-              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
-                <line x1="0" y1="28" x2="300" y2="28" stroke="#C0392B" stroke-opacity=".35" stroke-dasharray="5 5"/>
-                <line x1="0" y1="58" x2="300" y2="58" stroke="#C9A34A" stroke-opacity=".35" stroke-dasharray="5 5"/>
-                <polyline id="vibLinha" fill="none" stroke="#8CC63F" stroke-width="2.5" points=""/>
+              <div class="vib-graf-tit">Vibração · tendência <span>30 dias</span></div>
+              <svg viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="0" y1="58" x2="300" y2="58" stroke="#3A466B" stroke-dasharray="4 5"/>
+                <text x="4" y="53" fill="#98A3BE" font-size="8.5">linha de base</text>
+                <polyline id="vibLinha" fill="none" stroke="#ACDD8B" stroke-width="2.5" stroke-linejoin="round"
+                  points="0,56 28,57 56,54 84,58 112,55 140,57 168,52 196,54 224,47 252,45 280,41 300,40"/>
+                <circle id="vibPonta" cx="300" cy="40" r="3.5" fill="#ACDD8B"/>
               </svg>
-              <div class="vib-graf-leg"><span>vibração (RMS) por regime</span><span id="vibDias">— </span></div>
+              <div class="vib-graf-leg">Leve subida nas últimas 3 navegações — dentro do normal, acompanhando.</div>
             </div>
-            <div class="vib-alerta" id="vibAlerta">
-              <b>⚠ Tendência de desalinhamento</b>
-              <span>Padrão 2× rotação subindo há 12 dias. Agende o alinhamento — ainda é manutenção, não retífica.</span>
+            <div class="vib-msg" id="vibMsg">
+              <div class="vib-msg-who">Assistente VIB · análise de ontem</div>
+              Motor operou bem. A vibração de combustão a plena carga segue <b>um pouco acima do motor gêmeo</b> — nada urgente; vale citar os bicos injetores na próxima revisão.
             </div>
           </div>
         </div>
-        <p class="vib-demo-leg">Demonstração da saúde do motor no aplicativo — desenvolvida para o app SAFEBOAT</p>
+        <p class="vib-demo-leg">Interface real da saúde do motor — desenvolvida para o app SAFEBOAT</p>
       </div>
 
       <div class="vib-texto revela">
