@@ -291,7 +291,8 @@
           <label>E-mail<input id="lpEmail" autocomplete="email" inputmode="email" placeholder="voce@email.com"></label>
           <label>Nome do barco <small style="opacity:.6">(opcional)</small><input id="lpBarco" placeholder="Ex.: ST Tropez"></label>
           <label>Cidade / marina<input id="lpCidade" placeholder="Ex.: Itajaí · Marina Itajaí"></label>
-          <label class="lp-aceite"><input type="checkbox" id="lpAceite"> <span>Li e aceito os <a href="https://proposta.safeboat.ai/termos-b2c.html" target="_blank" rel="noopener">termos do serviço SAFEBOAT</a> e a <a href="privacidade.html" target="_blank">política de privacidade</a>.</span></label>
+          <label class="lp-w">CPF ou CNPJ <small style="opacity:.6">(opcional — para constar no seu contrato)</small><input id="lpDoc" inputmode="numeric" placeholder="000.000.000-00"></label>
+          <label class="lp-aceite"><input type="checkbox" id="lpAceite"> <span>Li e aceito o <a href="proposta/termos-b2c.html" target="_blank" rel="noopener">contrato de serviço SAFEBOAT</a> e a <a href="privacidade.html" target="_blank">política de privacidade</a>. Ao concluir, o contrato é gerado preenchido com os seus dados e fica disponível para você.</span></label>
         </div>
         <p class="lp-erro" id="lpErro"></p>
         <div class="lp-nav">
@@ -305,6 +306,7 @@
         <p class="lp-etapa-titulo">Tudo pronto 🎉</p>
         <h3 id="lpFechTitulo">Falta só o pagamento</h3>
         <p class="lp-ajuda">Assim que o pagamento for identificado, agendamos a instalação — em até 30 dias, feita pela equipe técnica SAFEBOAT.</p>
+        <div id="lpContrato"></div>
         <div class="lp-fech-grade" id="lpFechGrade"></div>
         <div class="lp-zap">
           <a class="botao botao-navy lp-btn-mini" id="lpZap" target="_blank" rel="noopener">Enviar comprovante no WhatsApp</a>
@@ -575,6 +577,7 @@ function pixPayload(valor, txid) {
 /* ── conclusão ── */
 function resumoTexto() {
   return 'PLANO SAFEBOAT — montado no site' +
+    (propostaRef ? '\nProposta Nº ' + String(propostaRef.numero).padStart(4, '0') : '') +
     '\nMotor: ' + SEL_LABEL[st.sel] + (st.sel === 'can' && st.motor ? ' — ' + st.motor : '') +
     (st.naosei ? ' (não soube informar — confirmar na instalação)' : '') +
     '\nKit: ' + kitAtual().join(', ') +
@@ -605,6 +608,7 @@ function dadosContato() {
     email: $('#lpEmail').value.trim(),
     barco: $('#lpBarco').value.trim(),
     cidade: $('#lpCidade').value.trim(),
+    doc: $('#lpDoc').value.trim(),
   };
 }
 function enviarParcial() {
@@ -629,12 +633,74 @@ async function gravarLead(dados) {
   concluiu = true;
   clearTimeout(parcialTimer);
   try {
-    await rpc('landing_lead', {
+    const r = await rpc('landing_lead', {
       p_nome: dados.nome, p_tel: dados.tel, p_email: dados.email,
       p_barco: dados.barco, p_cidade: dados.cidade,
       p_evento: eventoOrigem(), p_notas: resumoTexto(), p_sid: SID,
     });
+    if (r.ok) return (await r.json()) || null;   // uuid do lead
   } catch (e) { /* o fechamento segue mesmo sem CRM — o WhatsApp cobre */ }
+  return null;
+}
+
+/* ── Proposta real + contrato — o MESMO sistema do CRM ──
+   A proposta entra na tabela propostas; o contrato autopreenchido fica em
+   proposta/termos-b2c.html?p=numero-token (via prop_get) e o aceite é
+   registrado com snapshot + SHA-256 via prop_aceitar, como na proposta
+   enviada pela equipe. */
+let propostaRef = null;
+
+async function criarProposta(leadId, d) {
+  try {
+    const r = await rpc('landing_proposta', {
+      p_lead_id: leadId, p_cliente: d.nome, p_barco: d.barco,
+      p_rede: st.rede, p_valor: implTotal(), p_kit: kitProposta(),
+    });
+    if (r.ok) {
+      const j = await r.json();
+      if (j && j.numero && j.token) return j;
+    }
+  } catch (e) {}
+  return null;   // sem proposta: fechamento segue no fluxo básico
+}
+
+/* kit no formato do CRM: itens + marcadores #CAM=n / #VIB=n */
+function kitProposta() {
+  const k = REDES[st.rede].kit.slice();
+  if (st.bateria) k.push('Sensor de consumo de bateria');
+  if (st.cams) k.push('#CAM=' + st.cams);
+  if (st.vibs) k.push('#VIB=' + st.vibs);
+  return k.join(' + ');
+}
+
+/* Aceite com evidência, idêntico ao da página de propostas: carrega o
+   contrato preenchido (mesma origem), remove os scripts, congela o HTML,
+   calcula SHA-256 e grava via prop_aceitar. */
+async function registrarAceite(d) {
+  if (!propostaRef) return;
+  const ref = propostaRef.numero + '-' + propostaRef.token;
+  try {
+    const fr = document.createElement('iframe');
+    fr.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
+    fr.src = 'proposta/termos-b2c.html?p=' + ref;
+    document.body.appendChild(fr);
+    await new Promise((res, rej) => { fr.onload = res; setTimeout(rej, 15000); });
+    for (let i = 0; i < 40 && !fr.contentDocument.querySelector('.filled'); i++) {
+      await new Promise((r) => setTimeout(r, 250));
+    }
+    const doc = fr.contentDocument;
+    doc.querySelectorAll('script').forEach((s) => s.remove());
+    const html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+    fr.remove();
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(html));
+    const hash = Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+    await rpc('prop_aceitar', {
+      n: propostaRef.numero, t: propostaRef.token,
+      p_nome: d.nome, p_doc: d.doc || '',
+      p_plano: st.plano, p_pag: st.plano === 'mensal' ? 'cartao' : 'pix',
+      p_hash: hash, p_contrato: html,
+    });
+  } catch (e) { /* proposta existe; a equipe formaliza o aceite se preciso */ }
 }
 
 $('#lpConcluir').addEventListener('click', async () => {
@@ -645,11 +711,16 @@ $('#lpConcluir').addEventListener('click', async () => {
   if (tel.length < 10) { erro.textContent = 'Informe um WhatsApp válido, com DDD.'; erro.style.display = 'block'; return; }
   if (!$('#lpAceite').checked) { erro.textContent = 'É preciso aceitar os termos do serviço.'; erro.style.display = 'block'; return; }
   erro.style.display = 'none';
-  $('#lpConcluir').disabled = true;
+  const btn = $('#lpConcluir');
+  btn.disabled = true;
+  btn.textContent = 'Gerando seu contrato…';
 
-  gravarLead({ nome, tel, email: $('#lpEmail').value.trim(), barco: $('#lpBarco').value.trim(), cidade: $('#lpCidade').value.trim() });
+  const d = dadosContato();
+  const leadId = await gravarLead(d);
+  propostaRef = await criarProposta(leadId, d);
   montarFechamento(nome);
   irPara(5);
+  registrarAceite(d);   // evidência do aceite em segundo plano
 });
 
 function montarFechamento(nome) {
@@ -700,6 +771,14 @@ function montarFechamento(nome) {
       '</div>';
   }
   $('#lpFechGrade').innerHTML = html;
+
+  /* Contrato preenchido — mesmo sistema da proposta do CRM */
+  $('#lpContrato').innerHTML = propostaRef
+    ? '<div style="margin:6px 0 4px;padding:14px 18px;border:1px solid var(--linha);border-radius:12px;background:var(--neblina);font-size:.88rem;color:var(--tinta)">' +
+      '📄 <b>Proposta Nº ' + String(propostaRef.numero).padStart(4, '0') + '</b> gerada no seu nome — ' +
+      '<a href="proposta/termos-b2c.html?p=' + propostaRef.numero + '-' + propostaRef.token + '" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:underline;text-underline-offset:3px">ver meu contrato preenchido</a>' +
+      '<div style="font-size:.76rem;color:var(--cinza-texto);margin-top:4px">Guarde este link — ele é o seu acesso ao contrato. O aceite fica registrado com carimbo de data, hora e código de verificação.</div></div>'
+    : '';
 
   const valorPix = st.plano === 'mensal' ? impl : impl + anual;
   const payload = pixPayload(valorPix, txid);
