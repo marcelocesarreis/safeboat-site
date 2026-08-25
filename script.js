@@ -103,6 +103,32 @@ if (vibRing && !semAnimacao) {
   document.getElementById("vibMsg").classList.add("in");
 }
 
+// Scrollspy: marca no menu o capítulo que está na tela
+const espiaLinks = Array.from(document.querySelectorAll('#menu a[href^="#"]'));
+if (espiaLinks.length) {
+  const secoes = espiaLinks
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+  const marcar = (id) =>
+    espiaLinks.forEach((a) => a.classList.toggle("ativo", a.getAttribute("href") === "#" + id));
+  const visiveis = new Map();
+  const espia = new IntersectionObserver(
+    (entradas) => {
+      for (const e of entradas) {
+        if (e.isIntersecting) visiveis.set(e.target.id, e.intersectionRatio);
+        else visiveis.delete(e.target.id);
+      }
+      // a seção mais presente na janela (descontada a barra fixa) ganha a marca
+      let melhor = null, maior = 0;
+      for (const [id, r] of visiveis) if (r > maior) { maior = r; melhor = id; }
+      if (melhor) marcar(melhor);
+      else if (scrollY < 200) marcar("");   // topo: nenhum capítulo marcado
+    },
+    { rootMargin: "-96px 0px -40% 0px", threshold: [0.05, 0.2, 0.5, 0.8] }
+  );
+  secoes.forEach((s) => espia.observe(s));
+}
+
 // Menu móvel
 const hamburguer = document.getElementById("hamburguer");
 const menu = document.getElementById("menu");

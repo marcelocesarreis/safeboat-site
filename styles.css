@@ -100,6 +100,8 @@ nav a {
   transition: color 0.25s, border-color 0.25s;
 }
 nav a:hover { color: var(--acento); border-color: var(--acento); }
+/* Scrollspy: o capítulo visível fica marcado na barra */
+nav a.ativo { color: var(--acento); border-color: var(--acento); font-weight: 400; }
 
 .barra-acoes { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 
@@ -191,7 +193,8 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
   margin-bottom: 34px;
 }
 .hero-prova strong { color: var(--acento); font-weight: 600; }
-.hero-prova span { color: rgba(255, 255, 255, 0.3); margin: 0 4px; }
+.hero-prova .hp { white-space: nowrap; }
+.hero-prova .hp-sep { color: rgba(255, 255, 255, 0.3); margin: 0 4px; }
 
 .hero-acoes {
   display: flex;
@@ -657,8 +660,9 @@ nav a:hover { color: var(--acento); border-color: var(--acento); }
 }
 
 /* ─── Botão Contratar no cabeçalho ─── */
-.botao-contratar { background: var(--branco); color: var(--navy); font-weight: 600; }
+.botao-contratar { background: var(--branco); color: var(--navy); font-weight: 600; white-space: nowrap; }
 .botao-contratar:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3); }
+.ct-curto { display: none; }
 .hero-frota-linha { margin: -12px 0 26px; }
 .hero-frota-linha .hero-frotas { font-size: 0.74rem; opacity: 0.8; }
 
@@ -999,6 +1003,26 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
   .breve-render img { max-height: 200px; }
   .grade-kpi { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
   .kpi:nth-child(3) { border-left: none; }
+  /* Cabeçalho compacto: logo menor + rótulo curto no botão, senão o
+     conjunto estoura a largura e empurra o hamburguer para fora da tela */
+  .marca img { height: 34px; }
+  .barra { gap: 12px; }
+  .barra-acoes { gap: 8px; }
+  .botao-contratar { padding: 10px 14px 8px; font-size: 0.7rem; letter-spacing: 0.08em; }
+  .ct-longo { display: none; }
+  .ct-curto { display: inline; }
+
+  /* Estatísticas do hero: uma por linha, sem os separadores */
+  .hero-prova {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    border-radius: 16px;
+    padding: 14px 18px;
+  }
+  .hero-prova .hp-sep { display: none; }
+
   .kpi-seguro { grid-template-columns: 1fr; }
   .ciclo { padding: 30px 26px 26px; }
   .historico-faixa { padding: 30px 26px; }
