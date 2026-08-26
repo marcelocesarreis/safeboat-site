@@ -24,9 +24,15 @@
 
   var dict = null;
 
+  /* &nbsp; no HTML vira   no nó de texto; as chaves do dicionário
+     usam espaço comum — normaliza antes de procurar */
+  function chaveDe(t) {
+    return t.split(String.fromCharCode(160)).join(' ').trim();
+  }
+
   function traduzTexto(t) {
     if (!dict) return null;
-    var chave = t.trim();
+    var chave = chaveDe(t);
     if (!chave) return null;
     var v = dict[chave];
     if (v === undefined) return null;
@@ -50,7 +56,7 @@
     for (var i = 0; i < ATTRS.length; i++) {
       var v = no.getAttribute && no.getAttribute(ATTRS[i]);
       if (v && dict) {
-        var tr = dict['@' + v.trim()];
+        var tr = dict['@' + chaveDe(v)];
         if (tr !== undefined) no.setAttribute(ATTRS[i], tr);
       }
     }
