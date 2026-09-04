@@ -114,15 +114,39 @@
       margin-top: 10px; display: block;
     }
 
-    /* ── arte · âncora visual de longe (retrato 511×768 — largura orça a altura) ── */
-    .arte { margin-top: 38px; position: relative; width: 400px; flex-shrink: 0; }
-    .arte img {
-      width: 100%; border-radius: 26px;
-      box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 120px rgba(107,211,238,.12);
+    /* ── vitrine de equipamentos · catálogo apontável do estande ── */
+    .kit { margin-top: 38px; position: relative; width: 700px; flex-shrink: 0; }
+    .kit-titulo {
+      font-family: "Josefin Sans", sans-serif; font-weight: 600;
+      font-size: 34px; letter-spacing: .04em;
     }
-    .arte figcaption {
-      margin-top: 16px; width: 700px; margin-left: -150px; font-size: 19px; letter-spacing: .2em; text-transform: uppercase;
-      font-family: "Josefin Sans", sans-serif; color: rgba(255,255,255,.6);
+    .kit-sub {
+      margin-top: 6px; font-size: 20px; font-weight: 300;
+      color: rgba(255,255,255,.78);
+    }
+    .kit-grade {
+      margin-top: 24px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .kit-grade figure {
+      background: var(--navy-noite);
+      border: 2px solid rgba(255,255,255,.16);
+      border-radius: 18px; padding: 14px 10px 12px;
+    }
+    .kit-grade img {
+      width: 100%; height: 150px; object-fit: contain; border-radius: 12px;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,.05) 0%, transparent 70%);
+    }
+    .kit-grade figcaption {
+      margin-top: 10px; font-size: 16.5px; line-height: 1.25; font-weight: 400;
+      color: rgba(255,255,255,.9); min-height: 42px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kit-grade .destaque { border-color: rgba(255,255,255,.45); }
+    .kit-grade .tag {
+      display: inline-block; margin-left: 6px; padding: 1px 8px;
+      font-size: 12px; letter-spacing: .08em; border: 1px solid rgba(255,255,255,.5);
+      border-radius: 99px; text-transform: uppercase;
     }
 
     /* ── rodapé ── */
@@ -170,10 +194,20 @@
       </div>
     </div>
 
-    <figure class="arte">
-      <img src="img/hero-banner.png" alt="Embarcação com a central SAFEBOAT conectada aos sensores de bordo">
-      <figcaption>Bateria · Porão · Motores · Câmeras · Alarme de âncora · IA</figcaption>
-    </figure>
+    <div class="kit">
+      <p class="kit-titulo">O kit que vai no seu barco</p>
+      <p class="kit-sub">Instalação em ~4 horas, sem furar o casco — peça uma demonstração aqui no estande</p>
+      <div class="kit-grade">
+        <figure class="destaque"><img src="img/hw-central.png" alt="Central SAFEBOAT"><figcaption>Central SAFEBOAT</figcaption></figure>
+        <figure class="destaque"><img src="img/render-vib.png" alt="Sensor VIB"><figcaption>Sensor VIB<span class="tag">novo</span></figcaption></figure>
+        <figure><img src="img/eq/eq-camera.png" alt="Câmera Wi-Fi"><figcaption>Câmera visão noturna</figcaption></figure>
+        <figure><img src="img/hw-detector-fumaca.png" alt="Detector de fumaça"><figcaption>Detector de fumaça</figcaption></figure>
+        <figure><img src="img/hw-sensor-bateria.png" alt="Sensor de bateria"><figcaption>Sensor de bateria</figcaption></figure>
+        <figure><img src="img/hw-leitor-nmea.png" alt="Leitor NMEA WiFi"><figcaption>Leitor NMEA WiFi</figcaption></figure>
+        <figure><img src="img/hw-leitor-j1939.png" alt="Leitor J1939 WiFi"><figcaption>Leitor J1939 WiFi</figcaption></figure>
+        <figure><img src="img/hw-conversor.png" alt="Conversor J1939-NMEA"><figcaption>Conversor J1939-NMEA</figcaption></figure>
+      </div>
+    </div>
 
     <div class="rodape">
       <div class="site">safeboat.tech</div>
