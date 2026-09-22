@@ -262,6 +262,15 @@
           <span class="lp-step"><button type="button" data-menos="vibs">−</button><output id="lpVibs">0</output><button type="button" data-mais="vibs">+</button></span>
         </div>
 
+        <div class="lp-add">
+          <div class="lp-add-info">
+            <b>Câmera térmica com IA · vê o calor antes do fogo</b>
+            <small>Olha a praça de máquinas 24 h; a IA aprende a temperatura normal de cada equipamento e avisa no app quando algo esquenta fora do padrão. + R$ 990 por câmera instalada (lançamento) · + R$ 49,90/mês pela 1ª e + R$ 25/mês por câmera a mais. Requer 12 V e Wi-Fi a bordo. Dois motores: quatro câmeras.</small>
+            <span class="lp-recom" id="lpTermRecom">★ Recomendado para motor de centro e casa de máquinas fechada</span>
+          </div>
+          <span class="lp-step"><button type="button" data-menos="terms">−</button><output id="lpTerms">0</output><button type="button" data-mais="terms">+</button></span>
+        </div>
+
         <div class="lp-nav">
           <button class="lp-volta" data-vai="1" type="button">← Voltar</button>
           <button class="botao botao-navy lp-avanca" data-vai="3" type="button">Continuar</button>
@@ -421,10 +430,14 @@ const KIT_IMGS = {
   'Sensor de consumo de bateria': 'img/eq/eq-bateria.jpg',
   'Câmera Wi-Fi Full HD': 'img/eq/eq-camera.png',
   'VIB — sensor de vibração': 'img/eq/eq-vib.png',
+  'Câmera térmica com IA': 'img/eq/eq-termica.jpg',
 };
 const BATERIA = 400;
 const CAMERA = { impl: 472.93, mensal: 29.90, anual: 299.00 };
 const VIB = { impl: 600, mensal: 49.90, anual: 499.00 };
+/* térmica: 1ª câmera 49,90/mês (499/ano) + 25/mês (250/ano) por câmera adicional */
+const TERM = { impl: 990, mensal1: 49.90, mensalAdic: 25.00, anual1: 499.00, anualAdic: 250.00 };
+const termAssin = (p) => st.terms ? (p === 'anual' ? TERM.anual1 + (st.terms - 1) * TERM.anualAdic : TERM.mensal1 + (st.terms - 1) * TERM.mensalAdic) : 0;
 const PLANOS = { mensal: { base: 249, sufixo: '/mês' }, anual: { base: 2490, sufixo: '/ano' } };
 const PAGAMENTO = { pixChave: '52998441000128', pixNome: 'SAFEBOAT TECNOLOGIA LTDA', pixCidade: 'FLORIANOPOLIS' };
 const ZAP = '5548991400063';
@@ -450,7 +463,7 @@ const SEL_LABEL = {
   can: 'Motor eletrônico sem dados na tela (rede CAN + conversor)',
   naosei: 'Kit base — rede a confirmar na instalação',
 };
-const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, plano: 'mensal' };
+const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, terms: 0, plano: 'mensal' };
 /* aplicar pré-seleções vindas do link (definidas mais abaixo, junto do parse da URL) */
 const $ = (s) => document.querySelector(s);
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -466,6 +479,8 @@ const utm = {};
 const preVib = Math.min(3, Math.max(0, parseInt(qs.get('vib'), 10) || 0));
 const preCam = Math.min(4, Math.max(0, parseInt(qs.get('cam'), 10) || 0));
 if (preVib) st.vibs = preVib;
+const preTerm = Math.min(6, Math.max(0, parseInt(qs.get('termica'), 10) || 0));
+if (preTerm) st.terms = preTerm;
 if (preCam) st.cams = preCam;
 
 const eventoOrigem = () => {
@@ -476,15 +491,18 @@ const eventoOrigem = () => {
 };
 
 /* ── cálculo ── */
-const implTotal = () => REDES[st.rede].valor + (st.bateria ? BATERIA : 0) + st.cams * CAMERA.impl + st.vibs * VIB.impl;
+/* implBase vai para a proposta como `valor` — a proposta soma câmeras/VIB/térmica pelos marcadores */
+const implBase = () => REDES[st.rede].valor + (st.bateria ? BATERIA : 0);
+const implTotal = () => Math.round((implBase() + st.cams * CAMERA.impl + st.vibs * VIB.impl + st.terms * TERM.impl) * 100) / 100;
 const assinatura = (p) => (p === 'anual')
-  ? PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual
-  : PLANOS.mensal.base + st.cams * CAMERA.mensal + st.vibs * VIB.mensal;
+  ? Math.round((PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual + termAssin('anual')) * 100) / 100
+  : Math.round((PLANOS.mensal.base + st.cams * CAMERA.mensal + st.vibs * VIB.mensal + termAssin('mensal')) * 100) / 100;
 const kitAtual = () => {
   const k = REDES[st.rede].kit.slice();
   if (st.bateria) k.push('Sensor de consumo de bateria');
   for (let i = 0; i < st.cams; i++) k.push('Câmera Wi-Fi Full HD');
   for (let i = 0; i < st.vibs; i++) k.push('VIB — sensor de vibração');
+  for (let i = 0; i < st.terms; i++) k.push('Câmera térmica com IA');
   return k;
 };
 
@@ -533,7 +551,7 @@ $('#lpP1Avanca').addEventListener('click', () => {
 $('#lpBateria').addEventListener('change', (e) => { st.bateria = e.target.checked; render(); });
 document.querySelectorAll('[data-mais],[data-menos]').forEach((b) => b.addEventListener('click', () => {
   const k = b.dataset.mais || b.dataset.menos;
-  st[k] = Math.max(0, Math.min(3, st[k] + (b.dataset.mais ? 1 : -1)));
+  st[k] = Math.max(0, Math.min(k === 'terms' ? 6 : 3, st[k] + (b.dataset.mais ? 1 : -1)));
   render();
 }));
 
@@ -550,6 +568,7 @@ $('#lpPlano').addEventListener('click', (e) => {
 function render() {
   $('#lpCams').textContent = st.cams;
   $('#lpVibs').textContent = st.vibs;
+  $('#lpTerms').textContent = st.terms;
   $('#lpVibRecom').style.display = st.sel === 'mecanico' ? 'block' : 'none';
   $('#lpPvMensal').textContent = fmt(assinatura('mensal')) + '/mês';
   $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
@@ -617,6 +636,15 @@ function montarMonit() {
     ];
     if (st.rede === 'nenhuma') itensVib.push('RPM e horímetro estimados pela vibração');
     grupos.push(['Saúde do motor · VIB' + (st.vibs > 1 ? ' (' + st.vibs + ' motores)' : ''), itensVib]);
+  }
+
+  if (st.terms > 0) {
+    grupos.push(['Praça de máquinas · câmera térmica com IA' + (st.terms > 1 ? ' (' + st.terms + ' câmeras)' : ''), [
+      'Temperatura de cada equipamento no campo da câmera, 24 h',
+      'Aprende o normal em cada regime (parado, lenta, cruzeiro)',
+      'Alerta de aquecimento anormal com a imagem térmica no app',
+      'Localiza: alternador, escape, mancal ou quadro elétrico',
+    ]]);
   }
 
   if (st.cams > 0 || st.bateria) {
@@ -741,7 +769,7 @@ async function criarProposta(leadId, d) {
   try {
     const r = await rpc('landing_proposta', {
       p_lead_id: leadId, p_cliente: d.nome, p_barco: d.barco,
-      p_rede: st.rede, p_valor: implTotal(), p_kit: kitProposta(),
+      p_rede: st.rede, p_valor: implBase(), p_kit: kitProposta(),
     });
     if (r.ok) {
       const j = await r.json();
@@ -757,6 +785,7 @@ function kitProposta() {
   if (st.bateria) k.push('Sensor de consumo de bateria');
   if (st.cams) k.push('#CAM=' + st.cams);
   if (st.vibs) k.push('#VIB=' + st.vibs);
+  if (st.terms) k.push('#TERM=' + st.terms);
   return k.join(' + ');
 }
 
