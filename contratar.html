@@ -178,7 +178,7 @@
     <div class="hero-texto">
       <p class="olho">Contratação 100% online</p>
       <h1>Monte seu SAFEBOAT.<br>Contrate em <em>5 minutos</em>.</h1>
-      <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. Nossa equipe instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas.</p>
+      <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. A rede de instaladores SAFEBOAT instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas — ou enviamos o kit para o seu instalador.</p>
       <div class="hero-prova">
         <strong>3</strong> naufrágios evitados
         <span>·</span> <strong>+R$ 10 milhões</strong> em prejuízos evitados
@@ -240,7 +240,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Sensor de consumo de bateria</b>
-            <small>Mede tensão e corrente direto no banco. + R$ 400 na implementação.</small>
+            <small>Mede tensão e corrente direto no banco. + R$ 400 na ativação.</small>
           </div>
           <span class="lp-tgl"><input type="checkbox" id="lpBateria"><i></i></span>
         </div>
@@ -248,7 +248,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Câmeras Wi-Fi Full HD</b>
-            <small>Veja o barco ao vivo pelo app. + R$ 472,93 por câmera na implementação e + R$ 29,90/mês cada. Requer internet a bordo (ex.: Starlink).</small>
+            <small>Veja o barco ao vivo pelo app. + R$ 472,93 por câmera na ativação e + R$ 29,90/mês cada. Requer internet a bordo (ex.: Starlink).</small>
           </div>
           <span class="lp-step"><button type="button" data-menos="cams">−</button><output id="lpCams">0</output><button type="button" data-mais="cams">+</button></span>
         </div>
@@ -256,7 +256,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>VIB · manutenção preditiva do motor</b>
-            <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na implementação e + R$ 49,90/motor/mês.</small>
+            <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na ativação e + R$ 49,90/motor/mês.</small>
             <span class="lp-recom" id="lpVibRecom">★ Recomendado para motor mecânico — é a telemetria preditiva do seu motor</span>
           </div>
           <span class="lp-step"><button type="button" data-menos="vibs">−</button><output id="lpVibs">0</output><button type="button" data-mais="vibs">+</button></span>
@@ -265,7 +265,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Câmera térmica com IA · vê o calor antes do fogo</b>
-            <small>Olha a praça de máquinas 24 h; a IA aprende a temperatura normal de cada equipamento e avisa no app quando algo esquenta fora do padrão. + R$ 990 por câmera instalada (lançamento) · + R$ 49,90/mês pela 1ª e + R$ 25/mês por câmera a mais. Requer 12 V e Wi-Fi a bordo. Dois motores: quatro câmeras.</small>
+            <small>Olha a praça de máquinas 24 h; a IA aprende a temperatura normal de cada equipamento e avisa no app quando algo esquenta fora do padrão. + R$ 990 por câmera na ativação (lançamento) · + R$ 49,90/mês pela 1ª e + R$ 25/mês por câmera a mais. Requer 12 V e Wi-Fi a bordo. Dois motores: quatro câmeras.</small>
             <span class="lp-recom" id="lpTermRecom">★ Recomendado para motor de centro e casa de máquinas fechada</span>
           </div>
           <span class="lp-step"><button type="button" data-menos="terms">−</button><output id="lpTerms">0</output><button type="button" data-mais="terms">+</button></span>
@@ -279,8 +279,22 @@
 
       <!-- Passo 3 · plano -->
       <div class="lp-p" data-p="3" hidden>
-        <p class="lp-etapa-titulo">Passo 3 de 4 · Assinatura</p>
-        <h3>Como prefere pagar a assinatura?</h3>
+        <p class="lp-etapa-titulo">Passo 3 de 4 · Instalação e assinatura</p>
+        <h3>Quem vai instalar o SAFEBOAT no seu barco?</h3>
+        <p class="lp-ajuda">Os equipamentos são da SAFEBOAT, em comodato — a taxa de ativação cobre o hardware. A instalação é escolha sua.</p>
+        <div class="lp-opcoes" id="lpInst">
+          <button class="lp-opcao sel" data-inst="SB" type="button">
+            <span class="lp-preco" id="lpPvInst">R$ 1.000</span>
+            <b>Quero que os instaladores da SAFEBOAT instalem no meu barco</b>
+            <small id="lpInstDet">Instalação básica R$ 1.000 + R$ 100 por câmera térmica + R$ 100 por câmera de vigilância + R$ 100 para leitura do motor (CAN/NMEA). Em até 30 dias, pela rede de instaladores SAFEBOAT.</small>
+          </button>
+          <button class="lp-opcao" data-inst="PROPRIO" type="button">
+            <span class="lp-preco">Sem custo</span>
+            <b>Tenho meu instalador</b>
+            <small>Quero receber o kit completo para a instalação dele. Enviamos com o guia de instalação; o monitoramento é ativado depois da instalação, com validação remota.</small>
+          </button>
+        </div>
+        <h3 style="margin-top:28px">Como prefere pagar a assinatura?</h3>
         <p class="lp-ajuda">A assinatura mantém o monitoramento 24h, o aplicativo, os alertas e o suporte.</p>
         <div class="lp-opcoes" id="lpPlano">
           <button class="lp-opcao sel" data-plano="mensal" type="button">
@@ -326,7 +340,7 @@
       <div class="lp-p lp-fech" data-p="5" hidden>
         <p class="lp-etapa-titulo">Tudo pronto 🎉</p>
         <h3 id="lpFechTitulo">Falta só o pagamento</h3>
-        <p class="lp-ajuda">Assim que o pagamento for identificado, agendamos a instalação — em até 30 dias, feita pela equipe técnica SAFEBOAT.</p>
+        <p class="lp-ajuda" id="lpFechAjuda">Assim que o pagamento for identificado, agendamos a instalação — em até 30 dias, feita pela rede de instaladores SAFEBOAT.</p>
         <div id="lpContrato"></div>
         <div class="lp-fech-grade" id="lpFechGrade"></div>
         <div class="lp-zap">
@@ -350,8 +364,8 @@
       <h2>Do clique ao barco monitorado</h2>
     </div>
     <div class="ciclo-grade">
-      <article class="ciclo"><span class="ciclo-num">01</span><h3>Monte e pague online</h3><p>Você escolhe o kit, os opcionais e o plano. Implementação via PIX e assinatura no cartão — tudo nesta página, sem ligação de vendedor.</p></article>
-      <article class="ciclo"><span class="ciclo-num">02</span><h3>Instalamos em até 30 dias</h3><p>Equipe técnica SAFEBOAT, instalação em cerca de 4 horas, sem furar o casco e sem interferir na estética. O equipamento é nosso, em comodato.</p></article>
+      <article class="ciclo"><span class="ciclo-num">01</span><h3>Monte e pague online</h3><p>Você escolhe o kit, os opcionais e o plano. Ativação via PIX e assinatura no cartão — tudo nesta página, sem ligação de vendedor.</p></article>
+      <article class="ciclo"><span class="ciclo-num">02</span><h3>Instalação em até 30 dias</h3><p>Pela rede de instaladores SAFEBOAT ou pelo seu instalador, com o kit completo e o guia. Cerca de 4 horas, sem furar o casco e sem interferir na estética. O equipamento é nosso, em comodato.</p></article>
       <article class="ciclo"><span class="ciclo-num">03</span><h3>Você navega vigiado</h3><p>Bateria, porão, motores e casa de máquinas no seu celular, 24h — com alertas em tempo real e a SAFEBOAT AI no WhatsApp.</p></article>
     </div>
   </div>
@@ -388,7 +402,7 @@
     </div>
     <div class="lp-faq">
       <details><summary>A instalação exige obra ou furo no casco?</summary><p>Não. A instalação é feita pela equipe SAFEBOAT em cerca de 4 horas, sem furar o casco e sem interferir na estética da embarcação.</p></details>
-      <details><summary>O equipamento é meu?</summary><p>O hardware é da SAFEBOAT, em comodato — você paga a implementação (kit + instalação) uma única vez e a assinatura mensal ou anual. Se o equipamento falhar, a reposição é por nossa conta.</p></details>
+      <details><summary>O equipamento é meu?</summary><p>O hardware é da SAFEBOAT, em comodato — você paga a taxa de ativação uma única vez e a assinatura mensal ou anual; a instalação pode ser feita pela rede de instaladores SAFEBOAT ou pelo seu instalador. Se o equipamento falhar, a reposição é por nossa conta.</p></details>
       <details><summary>E se eu não souber qual rede meu barco tem?</summary><p>Escolha "Não sei dizer" no passo 1. Contratamos pelo kit base e a equipe técnica confirma na instalação; se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança extra.</p></details>
       <details><summary>As câmeras funcionam em qualquer barco?</summary><p>As câmeras precisam de internet a bordo (por exemplo, Starlink). O consumo de dados e energia é da embarcação. Sem internet a bordo, o restante do sistema funciona normalmente pela conexão celular da central.</p></details>
       <details><summary>Posso cancelar a assinatura?</summary><p>Sim. O plano mensal pode ser cancelado a qualquer momento; o anual vale por 12 meses com 2 meses de cortesia. Os detalhes estão nos termos do serviço.</p></details>
@@ -463,7 +477,7 @@ const SEL_LABEL = {
   can: 'Motor eletrônico sem dados na tela (rede CAN + conversor)',
   naosei: 'Kit base — rede a confirmar na instalação',
 };
-const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, terms: 0, plano: 'mensal' };
+const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, terms: 0, plano: 'mensal', inst: 'SB' };
 /* aplicar pré-seleções vindas do link (definidas mais abaixo, junto do parse da URL) */
 const $ = (s) => document.querySelector(s);
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -493,7 +507,14 @@ const eventoOrigem = () => {
 /* ── cálculo ── */
 /* implBase vai para a proposta como `valor` — a proposta soma câmeras/VIB/térmica pelos marcadores */
 const implBase = () => REDES[st.rede].valor + (st.bateria ? BATERIA : 0);
-const implTotal = () => Math.round((implBase() + st.cams * CAMERA.impl + st.vibs * VIB.impl + st.terms * TERM.impl) * 100) / 100;
+const implTotal = () => Math.round((implBase() + st.cams * CAMERA.impl + st.vibs * VIB.impl + st.terms * TERM.impl) * 100) / 100;   // taxa de ativação (hardware em comodato)
+/* Taxa de instalação — rede de instaladores SAFEBOAT (mesma regra do CRM e da proposta):
+   R$1.000 + R$100 com rede NMEA/CAN + R$100 por câmera de vigilância + R$100 por câmera térmica.
+   "Tenho meu instalador" = kit completo enviado, sem taxa. */
+const INST = { base: 1000, rede: 100, camera: 100, termica: 100 };
+const instCalc = () => INST.base + ((st.rede === 'nmea' || st.rede === 'can') ? INST.rede : 0) + st.cams * INST.camera + st.terms * INST.termica;
+const instTotal = () => st.inst === 'SB' ? instCalc() : 0;
+const unicoTotal = () => Math.round((implTotal() + instTotal()) * 100) / 100;   // pago no fechamento: ativação + instalação
 const assinatura = (p) => (p === 'anual')
   ? Math.round((PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual + termAssin('anual')) * 100) / 100
   : Math.round((PLANOS.mensal.base + st.cams * CAMERA.mensal + st.vibs * VIB.mensal + termAssin('mensal')) * 100) / 100;
@@ -555,6 +576,15 @@ document.querySelectorAll('[data-mais],[data-menos]').forEach((b) => b.addEventL
   render();
 }));
 
+/* ── passo 3: instalação ── */
+$('#lpInst').addEventListener('click', (e) => {
+  const b = e.target.closest('.lp-opcao'); if (!b) return;
+  document.querySelectorAll('#lpInst .lp-opcao').forEach((x) => x.classList.remove('sel'));
+  b.classList.add('sel');
+  st.inst = b.dataset.inst;
+  render();
+});
+
 /* ── passo 3: plano ── */
 $('#lpPlano').addEventListener('click', (e) => {
   const b = e.target.closest('.lp-opcao'); if (!b) return;
@@ -572,8 +602,9 @@ function render() {
   $('#lpVibRecom').style.display = st.sel === 'mecanico' ? 'block' : 'none';
   $('#lpPvMensal').textContent = fmt(assinatura('mensal')) + '/mês';
   $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
+  $('#lpPvInst').textContent = fmt(instCalc());
   $('#lpTotais').innerHTML =
-    '<span>Implementação (única): <b>' + fmt(implTotal()) + '</b>' + (st.naosei ? ' <small>· a confirmar na instalação</small>' : '') + '</span>' +
+    '<span>' + (instTotal() ? 'Ativação + instalação (única):' : 'Ativação (única):') + ' <b>' + fmt(unicoTotal()) + '</b>' + (st.naosei ? ' <small>· a confirmar na instalação</small>' : '') + '</span>' +
     '<span>Assinatura: <b>' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + '</b></span>';
 }
 
@@ -696,7 +727,8 @@ function resumoTexto() {
     '\nMotor: ' + SEL_LABEL[st.sel] + (st.sel === 'can' && st.motor ? ' — ' + st.motor : '') +
     (st.naosei ? ' (não soube informar — confirmar na instalação)' : '') +
     '\nKit: ' + kitAtual().join(', ') +
-    '\nImplementação: ' + fmt(implTotal()) +
+    '\nAtivação (hardware em comodato): ' + fmt(implTotal()) +
+    '\nInstalação: ' + (st.inst === 'SB' ? 'instaladores SAFEBOAT — ' + fmt(instTotal()) : 'instalador próprio do cliente (kit enviado)') +
     '\nAssinatura: ' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + ' (' + st.plano + ')' +
     (Object.keys(utm).length ? '\nCampanha: ' + Object.entries(utm).map(([k, v]) => k + '=' + v).join(' ') : '');
 }
@@ -786,6 +818,7 @@ function kitProposta() {
   if (st.cams) k.push('#CAM=' + st.cams);
   if (st.vibs) k.push('#VIB=' + st.vibs);
   if (st.terms) k.push('#TERM=' + st.terms);
+  k.push('#INST=' + st.inst);
   return k.join(' + ');
 }
 
@@ -840,7 +873,7 @@ $('#lpConcluir').addEventListener('click', async () => {
 });
 
 function montarFechamento(nome) {
-  const impl = implTotal();
+  const impl = unicoTotal();   // ativação + instalação (quando pelos instaladores SAFEBOAT)
   const mensal = assinatura('mensal');
   const anual = assinatura('anual');
   const txid = 'SBSITE' + Date.now().toString(36).toUpperCase();
@@ -863,10 +896,10 @@ function montarFechamento(nome) {
           '<a class="botao botao-navy lp-btn-mini" href="' + mpRec + '" target="_blank" rel="noopener">💳 Ativar assinatura no cartão</a>'
         : '<p style="background:#FFF6E6;border:1px solid #F3D699;border-radius:10px;padding:10px 14px">💳 Para esta configuração, nossa equipe envia em seguida o link de ativação da assinatura no cartão (' + fmt(mensal) + '/mês) — é só concluir pelo WhatsApp abaixo.</p>') +
       '</div>' +
-      '<div class="lp-fech-bloco"><h4>2 · Implementação — PIX ou cartão</h4><div class="v">' + fmt(impl) + '</div>' +
-      '<p>Kit + instalação, pagamento único — como preferir:</p>' +
+      '<div class="lp-fech-bloco"><h4>' + (instTotal() ? '2 · Ativação + instalação — PIX ou cartão' : '2 · Ativação — PIX ou cartão') + '</h4><div class="v">' + fmt(impl) + '</div>' +
+      '<p>' + (instTotal() ? 'Ativação ' + fmt(implTotal()) + ' + instalação ' + fmt(instTotal()) + ', pagamento único — como preferir:' : 'Ativação do kit completo, pagamento único — como preferir:') + '</p>' +
       (mpImp
-        ? '<a class="botao botao-navy lp-btn-mini" href="' + mpImp + '" target="_blank" rel="noopener">💳 Pagar implementação no cartão</a>' +
+        ? '<a class="botao botao-navy lp-btn-mini" href="' + mpImp + '" target="_blank" rel="noopener">💳 Pagar no cartão</a>' +
           '<p style="margin:8px 0 10px">Pagamento único no cartão (Mercado Pago) · ou, se preferir, use o PIX abaixo:</p>'
         : '') +
       blocoPix() +
@@ -877,8 +910,8 @@ function montarFechamento(nome) {
     const total = impl + anual;
     const mpAno = mpAnualUrl(total);
     html =
-      '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>Pagamento único — implementação + anuidade</h4><div class="v">' + fmt(total) + '</div>' +
-      '<p>Implementação (' + fmt(impl) + ') + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia).</p>' +
+      '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>' + (instTotal() ? 'Pagamento único — ativação + instalação + anuidade' : 'Pagamento único — ativação + anuidade') + '</h4><div class="v">' + fmt(total) + '</div>' +
+      '<p>Ativação (' + fmt(implTotal()) + ')' + (instTotal() ? ' + instalação (' + fmt(instTotal()) + ')' : '') + ' + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia).</p>' +
       (mpAno
         ? '<a class="botao botao-navy lp-btn-mini" href="' + mpAno + '" target="_blank" rel="noopener">💳 Pagar no cartão — ' + fmt(total) + '</a>' +
           '<p style="margin:8px 0 10px">1x sem juros · em até 12x com juros da operadora · ou, se preferir, use o PIX abaixo:</p>'
@@ -887,6 +920,9 @@ function montarFechamento(nome) {
       '</div>';
   }
   $('#lpFechGrade').innerHTML = html;
+  $('#lpFechAjuda').textContent = st.inst === 'SB'
+    ? 'Assim que o pagamento for identificado, agendamos a instalação — em até 30 dias, feita pela rede de instaladores SAFEBOAT.'
+    : 'Assim que o pagamento for identificado, enviamos o kit completo com o guia de instalação para o seu instalador. O monitoramento é ativado depois da instalação, com validação remota.';
 
   /* Contrato preenchido — mesmo sistema da proposta do CRM */
   $('#lpContrato').innerHTML = propostaRef
