@@ -502,4 +502,18 @@ window.SB_DICT = {
   "Ativação + instalação (única):": "激活 + 安装（一次性）：",
   "2 · Ativação + instalação — PIX ou cartão": "2 · 激活 + 安装 — PIX 或银行卡",
   "Pagamento único — ativação + instalação + anuidade": "一次性付款 — 激活 + 安装 + 年度订阅",
+
+  /* ── parceiros e depoimentos ── */
+  "Quem já confia na SAFEBOAT hoje:": "今天已经信任 SAFEBOAT 的伙伴：",
+  "Quem usa": "用户心声",
+  "Na palavra de quem": "听听船在水里的人",
+  "tem barco na água": "怎么说",
+  "Sem roteiro e sem edição: o que os proprietários escreveram, do jeito que escreveram.": "没有脚本，没有修改：船东怎么写，我们就怎么放。",
+  "As embarcações já deveriam sair de fábrica com o Safeboat. Não fosse o Safeboat, uma simples bomba de porão teria me feito visitar Netuno!": "船出厂时就应该装上 Safeboat。要不是 Safeboat，一个小小的舱底泵就差点让我去见海神了！",
+  "Melhor investimento que eu fiz foi instalar o Safeboat! Tranquilidade com o monitoramento 24h.": "我做过的最好的投资就是安装 Safeboat！24 小时监控，安心省心。",
+  "Ainda bem que instalei o Safeboat. Me evitou um naufrágio no barco.": "幸好我装了 Safeboat。它让我的船免于沉没。",
+  "Proprietário · comentário no Instagram": "船东 · Instagram 评论",
+  "Proprietário · Phantom 400": "船东 · Phantom 400",
+  "Ver os comentários no Instagram": "在 Instagram 查看评论",
+  "@Parceiros da SAFEBOAT": "SAFEBOAT 合作伙伴",
 };

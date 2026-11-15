@@ -502,4 +502,18 @@ window.SB_DICT = {
   "Ativação + instalação (única):": "Attivazione + installazione (una tantum):",
   "2 · Ativação + instalação — PIX ou cartão": "2 · Attivazione + installazione — PIX o carta",
   "Pagamento único — ativação + instalação + anuidade": "Pagamento unico — attivazione + installazione + abbonamento annuale",
+
+  /* ── parceiros e depoimentos ── */
+  "Quem já confia na SAFEBOAT hoje:": "Chi si fida già di SAFEBOAT oggi:",
+  "Quem usa": "Chi lo usa",
+  "Na palavra de quem": "Nelle parole di chi",
+  "tem barco na água": "ha la barca in acqua",
+  "Sem roteiro e sem edição: o que os proprietários escreveram, do jeito que escreveram.": "Senza copione e senza ritocchi: quello che i proprietari hanno scritto, così come l'hanno scritto.",
+  "As embarcações já deveriam sair de fábrica com o Safeboat. Não fosse o Safeboat, uma simples bomba de porão teria me feito visitar Netuno!": "Le barche dovrebbero già uscire dalla fabbrica con Safeboat. Se non fosse stato per Safeboat, una semplice pompa di sentina mi avrebbe mandato a trovare Nettuno!",
+  "Melhor investimento que eu fiz foi instalar o Safeboat! Tranquilidade com o monitoramento 24h.": "Il miglior investimento che ho fatto è stato installare Safeboat! Tranquillità con il monitoraggio 24 ore su 24.",
+  "Ainda bem que instalei o Safeboat. Me evitou um naufrágio no barco.": "Meno male che ho installato Safeboat. Mi ha evitato un naufragio.",
+  "Proprietário · comentário no Instagram": "Proprietario · commento su Instagram",
+  "Proprietário · Phantom 400": "Proprietario · Phantom 400",
+  "Ver os comentários no Instagram": "Vedi i commenti su Instagram",
+  "@Parceiros da SAFEBOAT": "Partner di SAFEBOAT",
 };
