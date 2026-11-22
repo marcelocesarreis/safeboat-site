@@ -131,7 +131,7 @@
     }
     .lp-motorbox input:focus { outline: none; border-color: var(--navy); }
     .lp-motorbox small { display: block; margin-top: 8px; font-size: 0.78rem; color: var(--cinza-texto); }
-    /* Black Friday 2026 (23 a 30/11) — some sozinho depois do prazo */
+    /* Black Friday 2026 (22 a 30/11) — some sozinho depois do prazo */
     .bf-faixa { background: #F5A11C; color: #0B1220; text-align: center; padding: 12px 18px; font-size: 0.92rem; line-height: 1.45; border-radius: 12px; margin: 0 auto 22px; max-width: 620px; }
     .bf-faixa b { font-weight: 700; }
     .bf-faixa a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
@@ -239,7 +239,7 @@
       </div>
       <div id="heroBf" hidden>
         <h1>Ativação e instalação por nossa conta no plano <em>anual</em>.</h1>
-        <p class="hero-sub">Plano anual R$ 2.490. Você economiza a partir de R$ 2.100. Sensor de fumaça, sensor de alagamento, sirene e a central que avisa no celular, 24h. Instalamos em até 30 dias, em cerca de 4 horas, sem furar o casco.</p>
+        <p class="hero-sub">Plano anual R$ 2.490. Você economiza a partir de R$ 2.100. A central monitora baterias, bomba de porão, alagamento e fumaça, tem alarme sonoro, lê a rede NMEA e avisa no celular, 24h. Instalamos em até 30 dias, em cerca de 4 horas, sem furar o casco.</p>
         <div class="bf-preco-hero">
           <div class="bf-preco-ano">R$ 2.490<small>/ano</small></div>
           <p>Ativação + instalação: <s>R$ 2.100</s> por <b>R$ 0</b></p>
@@ -479,7 +479,7 @@
       <h2>Antes de contratar</h2>
     </div>
     <div class="lp-faq">
-      <details id="bfFaq" hidden><summary>A Black Friday vale para o que eu montar aqui?</summary><p>De 23 a 30/11, no plano anual, a ativação do kit base e a instalação pela rede SAFEBOAT saem por nossa conta, para os 15 primeiros barcos. Opcionais (câmera, VIB, térmica e sensor de bateria) seguem com o valor normal. No mensal, ou depois do dia 30, vale a tabela usual.</p></details>
+      <details id="bfFaq" hidden><summary>A Black Friday vale para o que eu montar aqui?</summary><p>Até 30/11, no plano anual, a ativação do kit base e a instalação pela rede SAFEBOAT saem por nossa conta, para os 15 primeiros barcos. Opcionais (câmera, VIB, térmica e sensor de bateria) seguem com o valor normal. Se o motor usa rede CAN, o conversor sai por R$ 500. No mensal, ou depois do dia 30, vale a tabela usual.</p></details>
       <details><summary>A instalação exige obra ou furo no casco?</summary><p>Não. A instalação é feita pela equipe SAFEBOAT em cerca de 4 horas, sem furar o casco e sem interferir na estética da embarcação.</p></details>
       <details><summary>O equipamento é meu?</summary><p>O hardware é da SAFEBOAT, em comodato — você paga a taxa de ativação uma única vez e a assinatura mensal ou anual; a instalação pode ser feita pela rede de instaladores SAFEBOAT ou pelo seu instalador. Se o equipamento falhar, a reposição é por nossa conta.</p></details>
       <details><summary>E se eu não souber qual rede meu barco tem?</summary><p>Escolha "Não sei dizer" no passo 1. Contratamos pelo kit base e a equipe técnica confirma na instalação; se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança extra.</p></details>
@@ -585,17 +585,21 @@ const eventoOrigem = () => {
 
 /* ── cálculo ── */
 /* implBase vai para a proposta como `valor` — a proposta soma câmeras/VIB/térmica pelos marcadores */
-/* Black Friday 2026: de 23/11 a 30/11 (horário de Brasília), no plano ANUAL a
+/* Black Friday 2026: de 22/11 a 30/11 (horário de Brasília), no plano ANUAL a
    ativação do kit base (REDES[...].valor) e a instalação pela rede SAFEBOAT
    são isentas. Opcionais (câmera, VIB, térmica, sensor de bateria) seguem
    com o valor normal. A proposta recebe valor 0 e, sem o marcador #INST,
    não cobra instalação; a tela mostra "isenta (cortesia SAFEBOAT)". Fora
    do prazo nada muda; em localhost, ?bf=1 força a promoção para teste. */
-const BF = { ini: new Date('2026-11-23T00:00:00-03:00'), fim: new Date('2026-12-01T00:00:00-03:00') };
+const BF = { ini: new Date('2026-11-22T00:00:00-03:00'), fim: new Date('2026-12-01T00:00:00-03:00') };
 const bfTeste = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('bf') === '1';
 const bfAtiva = () => bfTeste || (Date.now() >= BF.ini.getTime() && Date.now() < BF.fim.getTime());
 const bfVale = () => bfAtiva() && st.plano === 'anual';
-const implBase = () => (bfVale() ? 0 : REDES[st.rede].valor) + (st.bateria ? BATERIA : 0);
+/* Regra do Marcelo (22/11): o desconto cobre o kit com a central (R$ 1.100, ou R$ 1.300 com NMEA).
+   No kit de rede CAN o conversor J1939-NMEA não entra: o cliente paga R$ 500. */
+const BF_CONVERSOR = 500;
+const bfAtivacao = () => (st.rede === 'can' ? BF_CONVERSOR : 0);
+const implBase = () => (bfVale() ? bfAtivacao() : REDES[st.rede].valor) + (st.bateria ? BATERIA : 0);
 const implTotal = () => Math.round((implBase() + st.cams * CAMERA.impl + st.vibs * VIB.impl + st.terms * TERM.impl) * 100) / 100;   // taxa de ativação (hardware em comodato)
 /* Taxa de instalação — rede de instaladores SAFEBOAT (mesma regra do CRM e da proposta):
    R$1.000 + R$100 com rede NMEA/CAN + R$100 por câmera de vigilância + R$100 por câmera térmica.
@@ -604,7 +608,7 @@ const INST = { base: 1000, rede: 100, camera: 100, termica: 100 };
 const instCalc = () => INST.base + ((st.rede === 'nmea' || st.rede === 'can') ? INST.rede : 0) + st.cams * INST.camera + st.terms * INST.termica;
 /* Black Friday: no plano anual a instalação pelos instaladores SAFEBOAT também é isenta */
 const instTotal = () => st.inst === 'SB' ? (bfVale() ? 0 : instCalc()) : 0;
-const bfEconomia = () => REDES[st.rede].valor + (st.inst === 'SB' ? instCalc() : 0);
+const bfEconomia = () => REDES[st.rede].valor - bfAtivacao() + (st.inst === 'SB' ? instCalc() : 0);
 const unicoTotal = () => Math.round((implTotal() + instTotal()) * 100) / 100;   // pago no fechamento: ativação + instalação
 const assinatura = (p) => (p === 'anual')
   ? Math.round((PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual + termAssin('anual')) * 100) / 100
@@ -713,7 +717,7 @@ function render() {
   }
   if (bfAtiva()) {
     $('#bfSelo').hidden = false;
-    $('#bfSelo').textContent = 'Black Friday até 30/11: ativação do kit e instalação por nossa conta. Você economiza ' + fmt(bfEconomia()) + '.';
+    $('#bfSelo').textContent = 'Black Friday até 30/11: ativação do kit e instalação por nossa conta. Você economiza ' + fmt(bfEconomia()) + '.' + (st.rede === 'can' ? ' O conversor da rede CAN sai por ' + fmt(BF_CONVERSOR) + '.' : '');
     const avisoM = $('#bfAvisoMensal');
     if (avisoM) avisoM.hidden = false;
   }
@@ -857,7 +861,7 @@ function resumoTexto() {
     (st.naosei ? ' (não soube informar — confirmar na instalação)' : '') +
     '\nKit: ' + kitAtual().join(', ') +
     '\nAtivação (hardware em comodato): ' + fmt(implTotal()) +
-    (bfVale() ? '\nBLACK FRIDAY: ativação do kit base e instalação isentas no plano anual (valor normal ' + fmt(bfEconomia()) + ')' : '') +
+    (bfVale() ? '\nBLACK FRIDAY: ativação do kit base e instalação isentas no plano anual (desconto de ' + fmt(bfEconomia()) + ')' + (st.rede === 'can' ? '; conversor da rede CAN ' + fmt(BF_CONVERSOR) : '') : '') +
     '\nInstalação: ' + (st.inst === 'SB' ? 'instaladores SAFEBOAT — ' + fmt(instTotal()) : 'instalador próprio do cliente (kit enviado)') +
     '\nAssinatura: ' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + ' (' + st.plano + ')' +
     (Object.keys(utm).length ? '\nCampanha: ' + Object.entries(utm).map(([k, v]) => k + '=' + v).join(' ') : '');

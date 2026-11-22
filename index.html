@@ -710,7 +710,7 @@
 /* Black Friday 2026: a faixa some sozinha depois de 30/11 (horário de Brasília).
    Em localhost, ?bf=1 força a promoção para conferir o layout. */
 (function () {
-  var ini = new Date('2026-11-23T00:00:00-03:00');
+  var ini = new Date('2026-11-22T00:00:00-03:00');
   var fim = new Date('2026-12-01T00:00:00-03:00');
   var qs = new URLSearchParams(location.search);
   var teste = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('bf') === '1';
