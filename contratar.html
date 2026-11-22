@@ -23,6 +23,8 @@
   <style>
     /* ─── Landing de autocontratação (lp-) ─── */
     .hero-lp { padding-bottom: 90px; }
+    #montar, .lp-wiz { scroll-margin-top: 110px; }
+    .hero-lp h1 { white-space: normal; }
     .hero-lp .hero-grade { grid-template-columns: 1fr; max-width: 880px; text-align: center; }
     .hero-lp .hero-sub, .hero-lp .hero-prova { margin-left: auto; margin-right: auto; }
     .hero-lp .hero-acoes { justify-content: center; }
@@ -32,7 +34,7 @@
       background: var(--branco); border: 1px solid var(--linha); border-radius: 22px;
       padding: 44px 48px 40px; box-shadow: 0 30px 70px rgba(35, 48, 74, 0.10);
     }
-    .lp-passos { display: flex; gap: 6px; margin-bottom: 36px; }
+    .lp-passos { display: flex; gap: 6px; margin-bottom: 16px; }
     .lp-passos span {
       flex: 1; height: 4px; border-radius: 99px; background: var(--linha);
       transition: background 0.3s;
@@ -44,15 +46,17 @@
 
     .lp-opcoes { display: grid; gap: 14px; }
     .lp-opcao {
-      display: block; text-align: left; width: 100%; cursor: pointer;
+      display: grid; grid-template-columns: 1fr auto; column-gap: 16px; row-gap: 3px;
+      text-align: left; width: 100%; cursor: pointer;
       border: 1px solid var(--linha); border-radius: 14px; padding: 18px 20px;
       background: var(--branco); font-family: var(--fonte-corpo); transition: border-color 0.25s, background 0.25s;
     }
     .lp-opcao:hover { border-color: var(--navy); }
     .lp-opcao.sel { border-color: var(--navy); background: var(--neblina); box-shadow: inset 0 0 0 1px var(--navy); }
-    .lp-opcao b { display: block; font-size: 0.98rem; font-weight: 500; color: var(--tinta); margin-bottom: 3px; }
-    .lp-opcao small { font-size: 0.82rem; color: var(--cinza-texto); line-height: 1.55; display: block; }
-    .lp-opcao .lp-preco { float: right; font-family: var(--fonte-titulo); color: var(--navy); font-size: 0.95rem; margin-left: 12px; }
+    .lp-opcao b { display: block; font-size: 0.98rem; font-weight: 500; color: var(--tinta); grid-column: 1; grid-row: 1; margin: 0; align-self: center; }
+    .lp-opcao small { font-size: 0.82rem; color: var(--cinza-texto); line-height: 1.55; display: block; grid-column: 1 / -1; }
+    .lp-opcao .lp-preco { float: none; font-family: var(--fonte-titulo); color: var(--navy); font-size: 0.95rem; margin: 0; grid-column: 2; grid-row: 1; white-space: nowrap; text-align: right; align-self: center; }
+    .lp-opcao .bf-selo, .lp-opcao .bf-aviso-mensal { grid-column: 1 / -1; }
 
     .lp-add { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid var(--linha); border-radius: 14px; padding: 16px 20px; margin-bottom: 14px; }
     .lp-add-info b { display: block; font-size: 0.95rem; font-weight: 500; color: var(--tinta); }
@@ -82,7 +86,7 @@
     .lp-especialista { margin-top: 14px; font-size: 0.78rem; color: var(--cinza-texto); text-align: center; }
     .lp-especialista a { color: var(--navy); text-decoration: underline; text-underline-offset: 3px; }
     .lp-total {
-      margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--linha);
+      margin: 0 0 22px; padding: 0 0 16px; border-bottom: 1px solid var(--linha);
       display: flex; flex-wrap: wrap; gap: 8px 34px; font-size: 0.86rem; color: var(--cinza-texto);
     }
     .lp-total b { color: var(--navy); font-weight: 600; }
@@ -141,6 +145,50 @@
       .lp-fech-grade { grid-template-columns: 1fr; }
       .lp-add { flex-wrap: wrap; }
       .bf-faixa { font-size: 0.86rem; padding: 10px 14px; }
+      .lp-opcao { grid-template-columns: 1fr; }
+      .lp-opcao .lp-preco { grid-column: 1; grid-row: 2; text-align: left; white-space: normal; margin: 2px 0 4px; }
+      .lp-opcao b { grid-row: 1; }
+      .lp-opcao small { grid-row: 3; }
+      .lp-comp { overflow: visible; }
+      .lp-comp table { width: 100%; }
+      .lp-comp tr { display: block; background: rgba(255,255,255,0.05); border-radius: 12px; margin: 0 0 12px; padding: 14px 16px; }
+      .lp-comp tr:first-child { display: none; }
+      .lp-comp th, .lp-comp td { display: block; border: 0; padding: 3px 0; }
+      .lp-comp td:first-child { font-weight: 600; color: #fff; margin-bottom: 4px; padding-top: 0; }
+      .lp-comp td:nth-child(2)::before { content: "Rastreador comum · "; }
+      .lp-comp td:nth-child(3)::before { content: "SAFEBOAT · "; font-weight: 600; color: #fff; }
+      .lp-comp td:nth-child(3) { color: #fff; }
+      .hero-lp .hero-acoes { flex-direction: column; align-items: stretch; gap: 12px; }
+      .hero-lp .botao-hero { text-align: center; width: 100%; box-sizing: border-box; margin-top: 0; }
+    }
+    /* Hero da Black Friday: preço, oferta e os dois botões acima da dobra no celular */
+    .bf-preco-hero { margin: 0 0 26px; }
+    .bf-preco-hero .bf-preco-ano { font-family: var(--fonte-titulo); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 300; color: var(--branco); line-height: 1; }
+    .bf-preco-hero .bf-preco-ano small { font-size: 0.45em; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 6px; opacity: 0.85; }
+    .bf-preco-hero p { margin-top: 8px; font-size: 1.02rem; color: rgba(255,255,255,0.88); }
+    .bf-preco-hero s { opacity: 0.65; margin: 0 4px; }
+    .bf-preco-hero b { color: var(--acento); font-weight: 600; }
+    .bf-aviso-mensal { display: block; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: #F4F1EA; border: 1px solid var(--linha); color: var(--tinta); font-size: 0.8rem; font-weight: 500; line-height: 1.45; }
+    .lp-depo { margin: 22px 0 0; padding: 18px 20px 16px; border: 1px solid var(--linha); border-radius: 14px; background: var(--neblina); }
+    .lp-depo blockquote { font-family: var(--fonte-titulo); font-size: 1.05rem; line-height: 1.45; color: var(--navy); margin: 0 0 10px; }
+    .lp-depo figcaption { font-size: 0.8rem; color: var(--cinza-texto); }
+    .lp-depo figcaption strong { color: var(--navy); }
+    .lp-form-grupo { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px; border: 1px dashed var(--linha); border-radius: 14px; background: var(--neblina); }
+    .lp-form-grupo-tit { grid-column: 1 / -1; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); font-weight: 600; margin: 0; }
+    .lp-garantia { grid-column: 1 / -1; font-size: 0.82rem; color: var(--cinza-texto); line-height: 1.55; margin: 4px 0 0; }
+    @media (max-width: 760px) {
+      .lp-form-grupo { grid-template-columns: 1fr; }
+    }
+    body.bf-on .hero-lp .hero-texto { display: flex; flex-direction: column; }
+    @media (max-width: 760px) {
+      body.bf-on .hero-lp { padding: 112px 0 36px; }
+      body.bf-on .hero-lp h1 { font-size: 1.7rem; margin-bottom: 14px; }
+      body.bf-on .hero-lp .hero-sub { font-size: 0.95rem; margin-bottom: 16px; }
+      body.bf-on .bf-faixa { margin-bottom: 16px; }
+      body.bf-on .hero-lp .hero-acoes { order: 4; margin-bottom: 18px; }
+      body.bf-on .bf-preco-hero { order: 3; margin-bottom: 18px; }
+      body.bf-on .hero-lp .hero-prova { order: 5; margin-bottom: 16px; }
+      body.bf-on .hero-lp .hero-selo { order: 6; }
     }
 
     /* comparativo */
@@ -168,7 +216,7 @@
       <img src="img/logo-branco.png" alt="SAFEBOAT">
     </a>
     <div class="barra-acoes">
-      <a class="botao botao-contorno" href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Estou%20montando%20meu%20plano%20no%20site%20e%20quero%20falar%20com%20um%20especialista." target="_blank" rel="noopener">Falar com especialista</a>
+      <a class="botao botao-contorno" href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Estou%20montando%20meu%20plano%20no%20site%20e%20quero%20falar%20com%20um%20especialista." target="_blank" rel="noopener"><span class="ct-longo">Falar com especialista</span><span class="ct-curto">WhatsApp</span></a>
     </div>
   </div>
 </header>
@@ -183,17 +231,30 @@
   </div>
   <div class="contentor hero-grade">
     <div class="hero-texto">
-      <div class="bf-faixa" id="bfFaixa" hidden><b>Black Friday SAFEBOAT · até 30/11.</b> No plano anual, a ativação do kit e a instalação são por nossa conta: você economiza a partir de R$ 2.100. Vale para os 15 primeiros barcos.</div>
-      <p class="olho">Contratação 100% online</p>
-      <h1>Monte seu SAFEBOAT.<br>Contrate em <em>5 minutos</em>.</h1>
-      <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. A rede de instaladores SAFEBOAT instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas — ou enviamos o kit para o seu instalador.</p>
+      <div class="bf-faixa" id="bfFaixa" hidden><b>Black Friday até 30/11 · 15 primeiros barcos</b></div>
+      <div id="heroPadrao">
+        <p class="olho">Contratação 100% online</p>
+        <h1>Monte seu SAFEBOAT.<br>Contrate em <em>5 minutos</em>.</h1>
+        <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. A rede de instaladores SAFEBOAT instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas — ou enviamos o kit para o seu instalador.</p>
+      </div>
+      <div id="heroBf" hidden>
+        <h1>Ativação e instalação por nossa conta no plano <em>anual</em>.</h1>
+        <p class="hero-sub">Plano anual R$ 2.490. Você economiza a partir de R$ 2.100. Sensor de fumaça, sensor de alagamento, sirene e a central que avisa no celular, 24h. Instalamos em até 30 dias, em cerca de 4 horas, sem furar o casco.</p>
+        <div class="bf-preco-hero">
+          <div class="bf-preco-ano">R$ 2.490<small>/ano</small></div>
+          <p>Ativação + instalação: <s>R$ 2.100</s> por <b>R$ 0</b></p>
+        </div>
+      </div>
       <div class="hero-prova">
-        <strong>3</strong> naufrágios evitados
-        <span>·</span> <strong>+R$ 10 milhões</strong> em prejuízos evitados
-        <span>·</span> <strong>+100</strong> embarcações monitoradas
+        <span class="hp"><strong>3</strong> naufrágios evitados</span>
+        <span class="hp-sep">·</span>
+        <span class="hp"><strong>+R$ 10 milhões</strong> em prejuízos evitados</span>
+        <span class="hp-sep">·</span>
+        <span class="hp"><strong>+100</strong> embarcações monitoradas</span>
       </div>
       <div class="hero-acoes">
         <a class="botao botao-claro botao-hero" href="#montar">Montar meu plano</a>
+        <a class="botao botao-contorno botao-hero" href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Vi%20a%20oferta%20da%20Black%20Friday%20e%20quero%20falar%20com%20um%20especialista." target="_blank" rel="noopener">Falar no WhatsApp</a>
       </div>
       <p class="hero-selo">Equipamento em comodato &nbsp;·&nbsp; Instalação em ~4 horas &nbsp;·&nbsp; Suporte em português</p>
     </div>
@@ -205,24 +266,25 @@
   <div class="contentor">
     <div class="lp-wiz" id="lpWiz">
       <div class="lp-passos" id="lpPassos"><span class="on"></span><span></span><span></span><span></span></div>
+      <div class="lp-total" id="lpTotais"></div>
 
       <!-- Passo 1 · motor -->
       <div class="lp-p" data-p="1">
         <p class="lp-etapa-titulo">Passo 1 de 4 · Sua embarcação</p>
         <h3>Como é o motor do seu barco?</h3>
-        <p class="lp-ajuda">É isso que define o kit ideal. Se não souber, escolha a última opção — nossa equipe confirma na instalação.</p>
+        <p class="lp-ajuda" id="lpP1Ajuda">Se não souber, escolha “Não sei dizer”. Nossa equipe confirma na instalação.</p>
         <div class="lp-opcoes" id="lpRede">
-          <button class="lp-opcao sel" data-sel="mecanico" type="button">
+          <button class="lp-opcao" data-sel="mecanico" type="button">
             <b>Meu motor é mecânico</b>
             <small>O SAFEBOAT monitora segurança, baterias, bomba de porão e o ambiente da casa de máquinas. Para a saúde do motor, o sensor VIB (opcional, no próximo passo) faz a análise preditiva por vibração.</small>
           </button>
           <button class="lp-opcao" data-sel="nmea" type="button">
             <b>Meu motor é eletrônico e já vejo os dados dele na tela do barco</b>
-            <small>Sua embarcação tem rede NMEA com os dados do motor convertidos. O SAFEBOAT se conecta à rede e lê tudo — telemetria completa dos motores no aplicativo.</small>
+            <small>O SAFEBOAT se conecta aos dados que já aparecem na tela e mostra a telemetria completa dos motores no aplicativo.</small>
           </button>
           <button class="lp-opcao" data-sel="can" type="button">
             <b>Meu motor é eletrônico, mas só vejo os dados nos relógios do painel</b>
-            <small>Seu motor gera os dados (rede CAN), mas eles ainda não chegam a uma tela. Instalamos o conversor e você passa a ver toda a telemetria no aplicativo.</small>
+            <small>Seu motor gera os dados, mas eles ainda não chegam a uma tela. Instalamos o conversor e você passa a ver toda a telemetria no aplicativo.</small>
           </button>
           <button class="lp-opcao" data-sel="naosei" type="button">
             <b>Não sei dizer</b>
@@ -243,12 +305,12 @@
       <div class="lp-p" data-p="2" hidden>
         <p class="lp-etapa-titulo">Passo 2 de 4 · Opcionais</p>
         <h3>Quer ampliar a proteção?</h3>
-        <p class="lp-ajuda">Todos são opcionais — o kit base já monitora segurança, baterias e casa de máquinas.</p>
+        <p class="lp-ajuda" id="lpOpcAjuda">Todos são opcionais — o kit base já monitora segurança, baterias e casa de máquinas.</p>
 
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Sensor de consumo de bateria</b>
-            <small>Mede tensão e corrente direto no banco. + R$ 400 na ativação.</small>
+            <small>O kit base já mostra a tensão das baterias. Este sensor acrescenta a medição de corrente (consumo). + R$ 400 na ativação.</small>
           </div>
           <span class="lp-tgl"><input type="checkbox" id="lpBateria"><i></i></span>
         </div>
@@ -256,7 +318,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Câmeras Wi-Fi Full HD</b>
-            <small>Veja o barco ao vivo pelo app. + R$ 472,93 por câmera na ativação e + R$ 29,90/mês cada. Requer internet a bordo (ex.: Starlink).</small>
+            <small>Veja o barco ao vivo pelo app. + R$ 472,93 por câmera na ativação e + R$ 299/ano (ou R$ 29,90/mês) cada. Requer internet a bordo (ex.: Starlink).</small>
           </div>
           <span class="lp-step"><button type="button" data-menos="cams">−</button><output id="lpCams">0</output><button type="button" data-mais="cams">+</button></span>
         </div>
@@ -264,7 +326,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>VIB · manutenção preditiva do motor</b>
-            <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na ativação e + R$ 49,90/motor/mês.</small>
+            <small>Sensor de vibração com IA que percebe desalinhamento e desgaste antes da falha. + R$ 600 por motor na ativação e + R$ 499/ano (ou R$ 49,90/mês) por motor.</small>
             <span class="lp-recom" id="lpVibRecom">★ Recomendado para motor mecânico — é a telemetria preditiva do seu motor</span>
           </div>
           <span class="lp-step"><button type="button" data-menos="vibs">−</button><output id="lpVibs">0</output><button type="button" data-mais="vibs">+</button></span>
@@ -273,7 +335,7 @@
         <div class="lp-add">
           <div class="lp-add-info">
             <b>Câmera térmica com IA · vê o calor antes do fogo</b>
-            <small>Olha a praça de máquinas 24 h; a IA aprende a temperatura normal de cada equipamento e avisa no app quando algo esquenta fora do padrão. + R$ 990 por câmera na ativação (lançamento) · + R$ 49,90/mês pela 1ª e + R$ 25/mês por câmera a mais. Requer 12 V e Wi-Fi a bordo. Dois motores: quatro câmeras.</small>
+            <small>Olha a praça de máquinas 24 h; a IA aprende a temperatura normal de cada equipamento e avisa no app quando algo esquenta fora do padrão. + R$ 990 por câmera na ativação (lançamento) · + R$ 499/ano (ou R$ 49,90/mês) pela 1ª e + R$ 250/ano (ou R$ 25/mês) por câmera a mais. Requer 12 V e Wi-Fi a bordo. Dois motores: quatro câmeras.</small>
             <span class="lp-recom" id="lpTermRecom">★ Recomendado para motor de centro e casa de máquinas fechada</span>
           </div>
           <span class="lp-step"><button type="button" data-menos="terms">−</button><output id="lpTerms">0</output><button type="button" data-mais="terms">+</button></span>
@@ -289,7 +351,7 @@
       <div class="lp-p" data-p="3" hidden>
         <p class="lp-etapa-titulo">Passo 3 de 4 · Instalação e assinatura</p>
         <h3>Quem vai instalar o SAFEBOAT no seu barco?</h3>
-        <p class="lp-ajuda">Os equipamentos são da SAFEBOAT, em comodato — a taxa de ativação cobre o hardware. A instalação é escolha sua.</p>
+        <p class="lp-ajuda" id="lpInstAjuda">Os equipamentos são da SAFEBOAT, em comodato — a taxa de ativação cobre o hardware. A instalação é escolha sua.</p>
         <div class="lp-opcoes" id="lpInst">
           <button class="lp-opcao sel" data-inst="SB" type="button">
             <span class="lp-preco" id="lpPvInst">R$ 1.000</span>
@@ -309,6 +371,7 @@
             <span class="lp-preco" id="lpPvMensal">R$ 249/mês</span>
             <b>Mensal, no cartão</b>
             <small>Recorrência no cartão de crédito, sem comprometer o limite. Cancele quando quiser.</small>
+            <span class="bf-aviso-mensal" id="bfAvisoMensal" hidden>A Black Friday vale só no plano anual. Se escolher o mensal, a ativação e a instalação voltam a ser cobradas.</span>
           </button>
           <button class="lp-opcao" data-plano="anual" type="button">
             <span class="lp-preco" id="lpPvAnual">R$ 2.490/ano</span>
@@ -329,19 +392,27 @@
         <h3>Confira e conclua</h3>
         <div id="lpResumo"></div>
         <div class="lp-monit" id="lpMonit"></div>
+        <figure class="lp-depo">
+          <blockquote>Não fosse o Safeboat, uma simples bomba de porão teria me feito visitar Netuno!</blockquote>
+          <figcaption><strong>@__sb868</strong> · Proprietário, comentário no Instagram</figcaption>
+        </figure>
         <div class="lp-form">
           <label class="lp-w">Nome completo<input id="lpNome" autocomplete="name" placeholder="Seu nome"></label>
           <label>WhatsApp<input id="lpTel" autocomplete="tel" inputmode="tel" placeholder="(48) 9…"></label>
           <label>E-mail<input id="lpEmail" autocomplete="email" inputmode="email" placeholder="voce@email.com"></label>
-          <label>Nome do barco <small style="opacity:.6">(opcional)</small><input id="lpBarco" placeholder="Ex.: ST Tropez"></label>
-          <label>Cidade / marina<input id="lpCidade" placeholder="Ex.: Itajaí · Marina Itajaí"></label>
-          <label class="lp-w">CPF ou CNPJ <small style="opacity:.6">(opcional — para constar no seu contrato)</small><input id="lpDoc" inputmode="numeric" placeholder="000.000.000-00"></label>
+          <div class="lp-form-grupo">
+            <p class="lp-form-grupo-tit">Dados do barco (opcional)</p>
+            <label>Nome do barco<input id="lpBarco" placeholder="Ex.: ST Tropez"></label>
+            <label>Cidade / marina<input id="lpCidade" placeholder="Ex.: Itajaí · Marina Itajaí"></label>
+            <label class="lp-w">CPF ou CNPJ <small style="opacity:.6">(para constar no seu contrato)</small><input id="lpDoc" inputmode="numeric" placeholder="000.000.000-00"></label>
+          </div>
+          <p class="lp-garantia" id="lpGarantia">O anual vale 12 meses (pague 10, use 12). A assinatura só começa a contar depois da instalação. Se o equipamento falhar, a reposição é por nossa conta.</p>
           <label class="lp-aceite"><input type="checkbox" id="lpAceite"> <span>Li e aceito o <a href="proposta/termos-b2c.html" target="_blank" rel="noopener">contrato de serviço SAFEBOAT</a> e a <a href="privacidade.html" target="_blank">política de privacidade</a>. Ao concluir, o contrato é gerado preenchido com os seus dados e fica disponível para você.</span></label>
         </div>
         <p class="lp-erro" id="lpErro"></p>
         <div class="lp-nav">
           <button class="lp-volta" data-vai="3" type="button">← Voltar</button>
-          <button class="botao botao-navy lp-avanca" id="lpConcluir" type="button">Concluir contratação</button>
+          <button class="botao botao-navy lp-avanca" id="lpConcluir" type="button">Ir para o pagamento</button>
         </div>
       </div>
 
@@ -358,8 +429,6 @@
         </div>
       </div>
 
-      <!-- Barra de total (passos 1–4) -->
-      <div class="lp-total" id="lpTotais"></div>
       <p class="lp-especialista" id="lpEspecialista">Preferir montar com a gente? <a href="https://wa.me/5548991400063?text=Ol%C3%A1!%20Estou%20montando%20meu%20plano%20no%20site%20e%20tenho%20uma%20d%C3%BAvida." target="_blank" rel="noopener">Falar com um especialista no WhatsApp</a> — sem compromisso.</p>
     </div>
   </div>
@@ -373,7 +442,7 @@
       <h2>Do clique ao barco monitorado</h2>
     </div>
     <div class="ciclo-grade">
-      <article class="ciclo"><span class="ciclo-num">01</span><h3>Monte e pague online</h3><p>Você escolhe o kit, os opcionais e o plano. Ativação via PIX e assinatura no cartão — tudo nesta página, sem ligação de vendedor.</p></article>
+      <article class="ciclo"><span class="ciclo-num">01</span><h3>Monte e pague online</h3><p id="cicloPagamento">Você escolhe o kit, os opcionais e o plano. Ativação via PIX e assinatura no cartão — tudo nesta página, sem ligação de vendedor.</p></article>
       <article class="ciclo"><span class="ciclo-num">02</span><h3>Instalação em até 30 dias</h3><p>Pela rede de instaladores SAFEBOAT ou pelo seu instalador, com o kit completo e o guia. Cerca de 4 horas, sem furar o casco e sem interferir na estética. O equipamento é nosso, em comodato.</p></article>
       <article class="ciclo"><span class="ciclo-num">03</span><h3>Você navega vigiado</h3><p>Bateria, porão, motores e casa de máquinas no seu celular, 24h — com alertas em tempo real e a SAFEBOAT AI no WhatsApp.</p></article>
     </div>
@@ -487,7 +556,7 @@ const SEL_LABEL = {
   can: 'Motor eletrônico sem dados na tela (rede CAN + conversor)',
   naosei: 'Kit base — rede a confirmar na instalação',
 };
-const st = { sel: 'mecanico', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, terms: 0, plano: 'mensal', inst: 'SB' };
+const st = { sel: '', rede: 'nenhuma', naosei: false, motor: '', bateria: false, cams: 0, vibs: 0, terms: 0, plano: 'mensal', inst: 'SB' };
 /* aplicar pré-seleções vindas do link (definidas mais abaixo, junto do parse da URL) */
 const $ = (s) => document.querySelector(s);
 const fmt = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -555,8 +624,8 @@ function irPara(n) {
   passo = n;
   document.querySelectorAll('.lp-p').forEach((el) => (el.hidden = Number(el.dataset.p) !== n));
   document.querySelectorAll('#lpPassos span').forEach((el, i) => el.classList.toggle('on', i < Math.min(n, 4)));
-  /* Totais só a partir do passo 2: no passo 1 a escolha é técnica, não de preço */
-  $('#lpTotais').style.display = (n >= 2 && n <= 4) ? 'flex' : 'none';
+  /* Totais visíveis desde o passo 1, para a oferta aparecer junto com o kit */
+  $('#lpTotais').style.display = (n >= 1 && n <= 4) ? 'flex' : 'none';
   $('#lpEspecialista').style.display = n === 5 ? 'none' : 'block';
   if (n === 4) { montarResumo(); setTimeout(() => $('#lpNome').focus(), 150); }
   render();
@@ -580,6 +649,12 @@ $('#lpRede').addEventListener('click', (e) => {
 });
 $('#lpMotor').addEventListener('input', (e) => { st.motor = e.target.value.trim(); });
 $('#lpP1Avanca').addEventListener('click', () => {
+  if (!st.sel) {
+    const erro = $('#lpErro1');
+    erro.textContent = 'Escolha como é o motor do seu barco — se não souber, escolha “Não sei dizer”.';
+    erro.style.display = 'block';
+    return;
+  }
   if (st.sel === 'can' && st.motor.length < 3) {
     const erro = $('#lpErro1');
     erro.textContent = 'Informe a marca e o modelo do motor — precisamos deles para confirmar o protocolo antes da instalação.';
@@ -626,11 +701,32 @@ function render() {
   $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
   $('#lpPvInst').textContent = bfVale() ? 'Grátis na Black Friday' : fmt(instCalc());
   $('#lpInstDet').textContent = bfVale()
-    ? 'Black Friday: instalação por nossa conta neste plano anual. Em até 30 dias, pela rede de instaladores SAFEBOAT. Fora desta semana a taxa é R$ 1.000 + adicionais.'
-    : 'Instalação básica R$ 1.000 + R$ 100 por câmera térmica + R$ 100 por câmera de vigilância + R$ 100 para leitura do motor (CAN/NMEA). Em até 30 dias, pela rede de instaladores SAFEBOAT.';
+    ? 'Recomendado · Grátis na Black Friday. A gente instala em até 30 dias, em cerca de 4 horas, sem furar o casco. Fora desta semana a taxa é R$ 1.000 + adicionais.'
+    : 'Instalação básica R$ 1.000 + R$ 100 por câmera térmica + R$ 100 por câmera de vigilância + R$ 100 para leitura do motor. Em até 30 dias, pela rede de instaladores SAFEBOAT.';
+  const instAjuda = $('#lpInstAjuda');
+  if (instAjuda) {
+    instAjuda.textContent = bfVale()
+      ? 'Na Black Friday, no plano anual, a ativação do kit base e a instalação pela rede SAFEBOAT saem por nossa conta. O equipamento é da SAFEBOAT, em comodato: se falhar, a reposição é por nossa conta.'
+      : (bfAtiva()
+        ? 'Os equipamentos são da SAFEBOAT, em comodato — a taxa de ativação cobre o hardware. No plano anual da Black Friday, a ativação do kit base e a instalação pela rede SAFEBOAT saem por nossa conta. A instalação é escolha sua.'
+        : 'Os equipamentos são da SAFEBOAT, em comodato — a taxa de ativação cobre o hardware. A instalação é escolha sua.');
+  }
   if (bfAtiva()) {
     $('#bfSelo').hidden = false;
     $('#bfSelo').textContent = 'Black Friday até 30/11: ativação do kit e instalação por nossa conta. Você economiza ' + fmt(bfEconomia()) + '.';
+    const avisoM = $('#bfAvisoMensal');
+    if (avisoM) avisoM.hidden = false;
+  }
+  const btnPag = $('#lpConcluir');
+  if (btnPag && passo !== 5) {
+    const aPagar = st.plano === 'anual' ? (unicoTotal() + assinatura('anual')) : unicoTotal();
+    btnPag.textContent = 'Ir para o pagamento — ' + fmt(aPagar);
+  }
+  const gar = $('#lpGarantia');
+  if (gar) {
+    gar.textContent = st.plano === 'anual'
+      ? 'O anual vale 12 meses (pague 10, use 12). A assinatura só começa a contar depois da instalação. Se o equipamento falhar, a reposição é por nossa conta.'
+      : 'O mensal pode ser cancelado a qualquer momento. A assinatura só começa a contar depois da instalação. Se o equipamento falhar, a reposição é por nossa conta.';
   }
   const totRotulo = (instTotal() || (bfVale() && st.inst === 'SB'))
     ? 'Ativação + instalação (única):'
@@ -898,7 +994,7 @@ $('#lpConcluir').addEventListener('click', async () => {
   erro.style.display = 'none';
   const btn = $('#lpConcluir');
   btn.disabled = true;
-  btn.textContent = 'Gerando seu contrato…';
+  btn.textContent = 'Abrindo o pagamento…';
 
   const d = dadosContato();
   const leadId = await gravarLead(d);
@@ -987,14 +1083,26 @@ function montarFechamento(nome) {
 
 /* Black Friday: mostra a faixa, a FAQ da campanha e deixa o plano anual pré-selecionado */
 if (bfAtiva()) {
+  document.body.classList.add('bf-on');
   $('#bfFaixa').hidden = false;
   const bfFaq = $('#bfFaq');
   if (bfFaq) bfFaq.hidden = false;
   st.plano = 'anual';
   document.querySelectorAll('#lpPlano .lp-opcao').forEach((x) => x.classList.toggle('sel', x.dataset.plano === 'anual'));
+  const heroPad = $('#heroPadrao');
+  const heroBf = $('#heroBf');
+  if (heroPad) heroPad.hidden = true;
+  if (heroBf) heroBf.hidden = false;
+  const ciclo = $('#cicloPagamento');
+  if (ciclo) ciclo.textContent = 'No plano anual da Black Friday você paga só a anuidade de R$ 2.490, no PIX ou no cartão. A ativação do kit base e a instalação ficam por nossa conta.';
+  const p1 = $('#lpP1Ajuda');
+  if (p1) p1.textContent = 'Se não souber, escolha “Não sei dizer”. Isso não muda a oferta da Black Friday — nossa equipe confirma na instalação.';
+  const opc = $('#lpOpcAjuda');
+  if (opc) opc.textContent = 'A Black Friday zera a ativação do kit base e a instalação no plano anual. Câmeras, VIB, câmera térmica e o sensor de consumo de bateria são opcionais e têm valor à parte.';
+  const bat = document.querySelector('#lpBateria') && document.querySelector('#lpBateria').closest('.lp-add') && document.querySelector('#lpBateria').closest('.lp-add').querySelector('small');
+  if (bat) bat.textContent = 'O kit base já mostra a tensão das baterias. Este sensor acrescenta a medição de corrente (consumo). + R$ 400 na ativação — não está incluso na isenção.';
 }
 render();
-$('#lpTotais').style.display = 'none'; // passo 1 não mostra preço
 </script>
 </body>
 </html>

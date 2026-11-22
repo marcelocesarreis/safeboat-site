@@ -191,18 +191,28 @@ nav a.ativo { color: var(--acento); border-color: var(--acento); font-weight: 40
 
 /* Linha de prova: o dado real logo abaixo da promessa */
 .hero-prova {
-  display: inline-block;
-  font-size: 0.79rem;
-  letter-spacing: 0.04em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
   color: rgba(255, 255, 255, 0.72);
-  padding: 12px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 99px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
   margin-bottom: 34px;
 }
+.hero-prova .hp {
+  white-space: nowrap;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 99px;
+}
+.hero-prova .hp-sep { display: none; }
 .hero-prova strong { color: var(--acento); font-weight: 600; }
-.hero-prova .hp { white-space: nowrap; }
-.hero-prova .hp-sep { color: rgba(255, 255, 255, 0.3); margin: 0 4px; }
 
 .hero-acoes {
   display: flex;
@@ -972,19 +982,24 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
   .camera-app img { max-height: 400px; }
 }
 
-/* Cabeçalho: com o logo em 46px, os 8 itens pedem 1290px; com o botão, 1500px.
-   O botão sai primeiro, depois o menu aperta, e só então vira hamburguer. */
+/* Cabeçalho: o seletor de idioma e o botão Contratar agora entram além
+   dos 8 itens. Apertamos o menu antes de esconder o WhatsApp (que no
+   contratar.html é o .botao-contorno e precisa continuar visível). */
 @media (max-width: 1520px) {
-  .barra .botao-contorno { display: none; }
+  nav { gap: 14px; }
+  nav a { font-size: 0.74rem; letter-spacing: 0.08em; }
+  .barra-acoes { gap: 10px; }
+  header .contentor { padding-left: 20px; padding-right: 20px; }
+  .botao-contratar { padding: 11px 18px 9px; letter-spacing: 0.1em; }
 }
 
-@media (max-width: 1300px) {
-  nav { gap: 18px; }
-  nav a { font-size: 0.76rem; letter-spacing: 0.1em; }
+@media (max-width: 1400px) {
+  nav { gap: 10px; }
+  nav a { font-size: 0.7rem; letter-spacing: 0.06em; }
 }
 
-/* Abaixo disso os 8 itens não cabem: vira menu hamburguer */
-@media (max-width: 1150px) {
+/* Abaixo disso os 8 itens + idioma + Contratar não cabem: vira hamburguer */
+@media (max-width: 1280px) {
   nav {
     position: fixed;
     top: 90px;
@@ -1025,7 +1040,6 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
   nav.aberto { max-height: 500px; }
   nav a { padding: 18px 32px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
   #hamburguer { display: flex; }
-  .barra .botao-contorno { display: none; }
   .grade-app { grid-template-columns: 1fr; }
   .app-item img { max-height: 440px; }
   .grade-hw { grid-template-columns: 1fr; }
@@ -1043,15 +1057,17 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
   .ct-longo { display: none; }
   .ct-curto { display: inline; }
 
-  /* Estatísticas do hero: uma por linha, sem os separadores */
+  /* Estatísticas do hero: uma por linha, num único card, sem os separadores */
   .hero-prova {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 16px;
     padding: 14px 18px;
   }
+  .hero-prova .hp { border: 0; padding: 0; border-radius: 0; }
   .hero-prova .hp-sep { display: none; }
 
   .kpi-seguro { grid-template-columns: 1fr; }
