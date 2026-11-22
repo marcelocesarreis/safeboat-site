@@ -65,6 +65,7 @@
   </div>
   <div class="contentor hero-grade">
     <div class="hero-texto revela">
+      <div class="bf-faixa-home" id="bfFaixaHome" hidden><b>Black Friday SAFEBOAT · até 30/11.</b> No plano anual, a ativação do kit e a instalação são por nossa conta: você economiza a partir de R$ 2.100. Vale para os 15 primeiros barcos. <a href="contratar.html#montar">Montar meu plano</a></div>
       <p class="olho">Monitoramento preditivo 24h</p>
       <h1>Você navega.<br>O SAFEBOAT <em>AI</em> cuida do resto.</h1>
       <p class="hero-sub">Bateria, porão, motores e casa de máquinas monitorados 24&nbsp;horas. O SAFEBOAT avisa antes — antes de estragar seu fim de semana, antes de virar prejuízo.</p>
@@ -705,5 +706,19 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+/* Black Friday 2026: a faixa some sozinha depois de 30/11 (horário de Brasília).
+   Em localhost, ?bf=1 força a promoção para conferir o layout. */
+(function () {
+  var ini = new Date('2026-11-23T00:00:00-03:00');
+  var fim = new Date('2026-12-01T00:00:00-03:00');
+  var qs = new URLSearchParams(location.search);
+  var teste = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('bf') === '1';
+  if (teste || (Date.now() >= ini.getTime() && Date.now() < fim.getTime())) {
+    var el = document.getElementById('bfFaixaHome');
+    if (el) el.hidden = false;
+  }
+})();
+</script>
 </body>
 </html>

@@ -127,6 +127,12 @@
     }
     .lp-motorbox input:focus { outline: none; border-color: var(--navy); }
     .lp-motorbox small { display: block; margin-top: 8px; font-size: 0.78rem; color: var(--cinza-texto); }
+    /* Black Friday 2026 (23 a 30/11) — some sozinho depois do prazo */
+    .bf-faixa { background: #F5A11C; color: #0B1220; text-align: center; padding: 12px 18px; font-size: 0.92rem; line-height: 1.45; border-radius: 12px; margin: 0 auto 22px; max-width: 620px; }
+    .bf-faixa b { font-weight: 700; }
+    .bf-faixa a { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    .bf-selo { display: block; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: #FFF3DC; border: 1px solid #F5A11C; color: #0B1220; font-size: 0.82rem; font-weight: 600; }
+    .lp-total s { opacity: .55; font-weight: 400; margin-right: 4px; }
     .lp-recom { display: none; margin-top: 6px; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); font-weight: 600; }
 
     @media (max-width: 760px) {
@@ -134,6 +140,7 @@
       .lp-form { grid-template-columns: 1fr; }
       .lp-fech-grade { grid-template-columns: 1fr; }
       .lp-add { flex-wrap: wrap; }
+      .bf-faixa { font-size: 0.86rem; padding: 10px 14px; }
     }
 
     /* comparativo */
@@ -176,6 +183,7 @@
   </div>
   <div class="contentor hero-grade">
     <div class="hero-texto">
+      <div class="bf-faixa" id="bfFaixa" hidden><b>Black Friday SAFEBOAT · até 30/11.</b> No plano anual, a ativação do kit e a instalação são por nossa conta: você economiza a partir de R$ 2.100. Vale para os 15 primeiros barcos.</div>
       <p class="olho">Contratação 100% online</p>
       <h1>Monte seu SAFEBOAT.<br>Contrate em <em>5 minutos</em>.</h1>
       <p class="hero-sub">Três perguntas sobre o seu barco, o preço na tela e o pagamento online. A rede de instaladores SAFEBOAT instala em até 30 dias — sem furar o casco, sem obra, em cerca de 4 horas — ou enviamos o kit para o seu instalador.</p>
@@ -306,6 +314,7 @@
             <span class="lp-preco" id="lpPvAnual">R$ 2.490/ano</span>
             <b>Anual · 2 meses grátis</b>
             <small>Pague 10 meses e use 12 — economia de R$ 498/ano no plano base.</small>
+            <span class="bf-selo" id="bfSelo" hidden></span>
           </button>
         </div>
         <div class="lp-nav">
@@ -401,6 +410,7 @@
       <h2>Antes de contratar</h2>
     </div>
     <div class="lp-faq">
+      <details id="bfFaq" hidden><summary>A Black Friday vale para o que eu montar aqui?</summary><p>De 23 a 30/11, no plano anual, a ativação do kit base e a instalação pela rede SAFEBOAT saem por nossa conta, para os 15 primeiros barcos. Opcionais (câmera, VIB, térmica e sensor de bateria) seguem com o valor normal. No mensal, ou depois do dia 30, vale a tabela usual.</p></details>
       <details><summary>A instalação exige obra ou furo no casco?</summary><p>Não. A instalação é feita pela equipe SAFEBOAT em cerca de 4 horas, sem furar o casco e sem interferir na estética da embarcação.</p></details>
       <details><summary>O equipamento é meu?</summary><p>O hardware é da SAFEBOAT, em comodato — você paga a taxa de ativação uma única vez e a assinatura mensal ou anual; a instalação pode ser feita pela rede de instaladores SAFEBOAT ou pelo seu instalador. Se o equipamento falhar, a reposição é por nossa conta.</p></details>
       <details><summary>E se eu não souber qual rede meu barco tem?</summary><p>Escolha "Não sei dizer" no passo 1. Contratamos pelo kit base e a equipe técnica confirma na instalação; se houver rede de motor, o ajuste é combinado com você antes de qualquer cobrança extra.</p></details>
@@ -506,14 +516,26 @@ const eventoOrigem = () => {
 
 /* ── cálculo ── */
 /* implBase vai para a proposta como `valor` — a proposta soma câmeras/VIB/térmica pelos marcadores */
-const implBase = () => REDES[st.rede].valor + (st.bateria ? BATERIA : 0);
+/* Black Friday 2026: de 23/11 a 30/11 (horário de Brasília), no plano ANUAL a
+   ativação do kit base (REDES[...].valor) e a instalação pela rede SAFEBOAT
+   são isentas. Opcionais (câmera, VIB, térmica, sensor de bateria) seguem
+   com o valor normal. A proposta recebe valor 0 e, sem o marcador #INST,
+   não cobra instalação; a tela mostra "isenta (cortesia SAFEBOAT)". Fora
+   do prazo nada muda; em localhost, ?bf=1 força a promoção para teste. */
+const BF = { ini: new Date('2026-11-23T00:00:00-03:00'), fim: new Date('2026-12-01T00:00:00-03:00') };
+const bfTeste = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && qs.get('bf') === '1';
+const bfAtiva = () => bfTeste || (Date.now() >= BF.ini.getTime() && Date.now() < BF.fim.getTime());
+const bfVale = () => bfAtiva() && st.plano === 'anual';
+const implBase = () => (bfVale() ? 0 : REDES[st.rede].valor) + (st.bateria ? BATERIA : 0);
 const implTotal = () => Math.round((implBase() + st.cams * CAMERA.impl + st.vibs * VIB.impl + st.terms * TERM.impl) * 100) / 100;   // taxa de ativação (hardware em comodato)
 /* Taxa de instalação — rede de instaladores SAFEBOAT (mesma regra do CRM e da proposta):
    R$1.000 + R$100 com rede NMEA/CAN + R$100 por câmera de vigilância + R$100 por câmera térmica.
    "Tenho meu instalador" = kit completo enviado, sem taxa. */
 const INST = { base: 1000, rede: 100, camera: 100, termica: 100 };
 const instCalc = () => INST.base + ((st.rede === 'nmea' || st.rede === 'can') ? INST.rede : 0) + st.cams * INST.camera + st.terms * INST.termica;
-const instTotal = () => st.inst === 'SB' ? instCalc() : 0;
+/* Black Friday: no plano anual a instalação pelos instaladores SAFEBOAT também é isenta */
+const instTotal = () => st.inst === 'SB' ? (bfVale() ? 0 : instCalc()) : 0;
+const bfEconomia = () => REDES[st.rede].valor + (st.inst === 'SB' ? instCalc() : 0);
 const unicoTotal = () => Math.round((implTotal() + instTotal()) * 100) / 100;   // pago no fechamento: ativação + instalação
 const assinatura = (p) => (p === 'anual')
   ? Math.round((PLANOS.anual.base + st.cams * CAMERA.anual + st.vibs * VIB.anual + termAssin('anual')) * 100) / 100
@@ -602,9 +624,20 @@ function render() {
   $('#lpVibRecom').style.display = st.sel === 'mecanico' ? 'block' : 'none';
   $('#lpPvMensal').textContent = fmt(assinatura('mensal')) + '/mês';
   $('#lpPvAnual').textContent = fmt(assinatura('anual')) + '/ano';
-  $('#lpPvInst').textContent = fmt(instCalc());
+  $('#lpPvInst').textContent = bfVale() ? 'Grátis na Black Friday' : fmt(instCalc());
+  $('#lpInstDet').textContent = bfVale()
+    ? 'Black Friday: instalação por nossa conta neste plano anual. Em até 30 dias, pela rede de instaladores SAFEBOAT. Fora desta semana a taxa é R$ 1.000 + adicionais.'
+    : 'Instalação básica R$ 1.000 + R$ 100 por câmera térmica + R$ 100 por câmera de vigilância + R$ 100 para leitura do motor (CAN/NMEA). Em até 30 dias, pela rede de instaladores SAFEBOAT.';
+  if (bfAtiva()) {
+    $('#bfSelo').hidden = false;
+    $('#bfSelo').textContent = 'Black Friday até 30/11: ativação do kit e instalação por nossa conta. Você economiza ' + fmt(bfEconomia()) + '.';
+  }
+  const totRotulo = (instTotal() || (bfVale() && st.inst === 'SB'))
+    ? 'Ativação + instalação (única):'
+    : 'Ativação (única):';
   $('#lpTotais').innerHTML =
-    '<span>' + (instTotal() ? 'Ativação + instalação (única):' : 'Ativação (única):') + ' <b>' + fmt(unicoTotal()) + '</b>' + (st.naosei ? ' <small>· a confirmar na instalação</small>' : '') + '</span>' +
+    '<span>' + totRotulo + ' ' +
+    (bfVale() ? '<s>' + fmt(unicoTotal() + bfEconomia()) + '</s>' : '') + '<b>' + fmt(unicoTotal()) + '</b>' + (st.naosei ? ' <small>· a confirmar na instalação</small>' : '') + '</span>' +
     '<span>Assinatura: <b>' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + '</b></span>';
 }
 
@@ -728,6 +761,7 @@ function resumoTexto() {
     (st.naosei ? ' (não soube informar — confirmar na instalação)' : '') +
     '\nKit: ' + kitAtual().join(', ') +
     '\nAtivação (hardware em comodato): ' + fmt(implTotal()) +
+    (bfVale() ? '\nBLACK FRIDAY: ativação do kit base e instalação isentas no plano anual (valor normal ' + fmt(bfEconomia()) + ')' : '') +
     '\nInstalação: ' + (st.inst === 'SB' ? 'instaladores SAFEBOAT — ' + fmt(instTotal()) : 'instalador próprio do cliente (kit enviado)') +
     '\nAssinatura: ' + fmt(assinatura(st.plano)) + PLANOS[st.plano].sufixo + ' (' + st.plano + ')' +
     (Object.keys(utm).length ? '\nCampanha: ' + Object.entries(utm).map(([k, v]) => k + '=' + v).join(' ') : '');
@@ -818,7 +852,9 @@ function kitProposta() {
   if (st.cams) k.push('#CAM=' + st.cams);
   if (st.vibs) k.push('#VIB=' + st.vibs);
   if (st.terms) k.push('#TERM=' + st.terms);
-  k.push('#INST=' + st.inst);
+  /* Black Friday com instaladores SAFEBOAT: sem o marcador #INST a proposta não cobra
+     instalação (regra das propostas anteriores: a ativação já inclui a instalação). */
+  if (!(bfVale() && st.inst === 'SB')) k.push('#INST=' + st.inst);
   return k.join(' + ');
 }
 
@@ -911,7 +947,7 @@ function montarFechamento(nome) {
     const mpAno = mpAnualUrl(total);
     html =
       '<div class="lp-fech-bloco" style="grid-column:1/-1"><h4>' + (instTotal() ? 'Pagamento único — ativação + instalação + anuidade' : 'Pagamento único — ativação + anuidade') + '</h4><div class="v">' + fmt(total) + '</div>' +
-      '<p>Ativação (' + fmt(implTotal()) + ')' + (instTotal() ? ' + instalação (' + fmt(instTotal()) + ')' : '') + ' + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia).</p>' +
+      '<p>' + (bfVale() ? 'Black Friday: ativação do kit base e instalação por nossa conta. ' : '') + 'Ativação (' + fmt(implTotal()) + ')' + (instTotal() ? ' + instalação (' + fmt(instTotal()) + ')' : '') + ' + assinatura anual (' + fmt(anual) + ', com 2 meses de cortesia).</p>' +
       (mpAno
         ? '<a class="botao botao-navy lp-btn-mini" href="' + mpAno + '" target="_blank" rel="noopener">💳 Pagar no cartão — ' + fmt(total) + '</a>' +
           '<p style="margin:8px 0 10px">1x sem juros · em até 12x com juros da operadora · ou, se preferir, use o PIX abaixo:</p>'
@@ -949,6 +985,14 @@ function montarFechamento(nome) {
   $('#lpZap').href = 'https://wa.me/' + ZAP + '?text=' + encodeURIComponent(msg);
 }
 
+/* Black Friday: mostra a faixa, a FAQ da campanha e deixa o plano anual pré-selecionado */
+if (bfAtiva()) {
+  $('#bfFaixa').hidden = false;
+  const bfFaq = $('#bfFaq');
+  if (bfFaq) bfFaq.hidden = false;
+  st.plano = 'anual';
+  document.querySelectorAll('#lpPlano .lp-opcao').forEach((x) => x.classList.toggle('sel', x.dataset.plano === 'anual'));
+}
 render();
 $('#lpTotais').style.display = 'none'; // passo 1 não mostra preço
 </script>
