@@ -1109,6 +1109,8 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
 }
 .parceiros-grade img.pl-alto { max-height: 52px; }
 .parceiros-grade li:hover img { opacity: 1; }
+/* Logo que sobra sozinho na última linha fica centralizado */
+.parceiros-grade li:last-child:nth-child(4n+1) { grid-column: 1 / -1; }
 
 /* ═══════════ DEPOIMENTOS ═══════════ */
 .depo-grade { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 24px; align-items: stretch; }
@@ -1146,5 +1148,6 @@ a.canal:hover { border-color: var(--navy); transform: translateY(-4px); }
   .parceiros { padding: 40px 0 44px; }
   .parceiros-grade { grid-template-columns: repeat(2, 1fr); gap: 26px 20px; }
   .parceiros-grade img { max-width: 132px; }
+  .parceiros-grade li:last-child:nth-child(2n+1) { grid-column: 1 / -1; }
   .depo-grade { grid-template-columns: 1fr; }
 }
